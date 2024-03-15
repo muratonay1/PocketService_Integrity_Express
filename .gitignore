@@ -1,0 +1,6 @@
+node_modules
+.VSCodeCounter
+test.js
+testCases.js
+tester.js
+.env

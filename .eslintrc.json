@@ -1,0 +1,12 @@
+{
+     "env": {
+          "es6": true, // ES6 özelliklerini etkinleştir
+          "node": true // Node.js ortamını etkinleştir
+     },
+     "parserOptions": {
+          "sourceType": "module"
+     },
+     "rules": {
+          "require-await": "off"
+     }
+}

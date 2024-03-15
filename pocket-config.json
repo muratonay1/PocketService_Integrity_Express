@@ -1,0 +1,62 @@
+{
+	"name":"murat",
+	"application":{
+        	"applicationName":"Pocket Service Integrity Express Api for ServerSide Management",
+		"applicationVersion":"1.0.0",
+		"applicationAuthor":"İsmet Murat ONAY",
+		"applicationUsingDatabase":"mongo"
+	},
+	"settings":{
+		"servicePath":"services/",
+		"apiPort":3000,
+		"serviceTimeout":30000,
+		"pocketConfigPath":"../pocket-config.json",
+		"mailExpiredSecond":500,
+		"tokenExpiredSecond":120,
+		"encryptKey":"7851c44fab306c1e8ed1d85086f4ecade611878626a933638dc1ac64790a7d34",
+		"apiRateOptions":{
+			"windowMs":500,
+			"max":5
+		},
+		"serviceType":"mjs"
+	},
+
+	"connection":{
+        "mongo":{
+			"uri":"mongodb://localhost:27017"
+        }
+	},
+
+	"gatewayConfig":{
+		"Admin":{
+			"GetUserService":{
+				"endPoint":"api-get-user-service"
+			},
+			"LoginService":{
+				"endPoint":"api-login-service"
+			},
+			"LogoutService":{
+				"endPoint":"api-logout-service"
+			}
+		},
+		"Notification":{
+			"EmailActivation":{
+				"endPoint":"api-email-activation"
+			},
+			"SendNotificationCode":{
+				"endPoint":"api-send-notification"
+			},
+			"CheckOTP":{
+				"endPoint":"api-check-notification"
+			},
+			"CheckTOKEN":{
+				"endPoint":"api-check-token"
+			}
+		},
+		"Application":{
+			"Getdata":{
+				"endPoint":"get-data"
+			}
+		}
+	}
+}
