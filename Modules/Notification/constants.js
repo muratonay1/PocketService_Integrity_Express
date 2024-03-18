@@ -118,3 +118,16 @@ export const Operator = {
      "IN": "IN"
 }
 
+
+/**
+ * Error code list
+ * @typedef {Object} Errors
+ * @property {string} TOKEN_EXPIRED - OTP'nin süresinin geçtiğini belirtir.
+ */
+
+/** @type {Errors} */
+export const Errors = {
+     "TOKEN_EXPIRED": "OTP Code expired date."
+}
+
+

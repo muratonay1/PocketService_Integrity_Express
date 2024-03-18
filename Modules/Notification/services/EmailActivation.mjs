@@ -3,7 +3,7 @@ import PocketLog from "../../../pocket-core/PocketLog.js";
 import PocketUtility from "../../../pocket-core/PocketUtility.js";
 import Pocket from "../../../pocket-core/Pocket.js";
 import PocketService, { execute } from "../../../pocket-core/PocketService.js";
-import { MongoQueryFrom ,Modules} from "../constants.js";
+import { MongoQueryFrom ,Modules, Errors} from "../constants.js";
 
 /**
  * Pocket servisi
@@ -27,6 +27,15 @@ const EmailActivation = execute(async (criteria) => {
 
           if(userResponse.data.email == "" || userResponse.data.email == undefined){
                throw new Error("Kullanıcı e posta bilgisi eksik.");
+          }
+
+          // serviceResponse objesi içerisinde `data` objesi içinde response bulunur.
+          let otpCriteria = Pocket.create();
+          otpCriteria.put("userId",userResponse.data["user_id"]);
+          const otpResponse = await PocketService.executeService(`GetOTP`,Modules.NOTIFICATION,otpCriteria);
+
+          if(PocketUtility.isEmptyObject(otpResponse.data) || PocketUtility.isExpiredDate(otpResponse.data.created,otpResponse.data.expiredSecond)){
+               throw new Error(Errors.TOKEN_EXPIRED);
           }
 
           const idServiceResponse = await PocketService.executeService("GenerateUniqueID","Utility");

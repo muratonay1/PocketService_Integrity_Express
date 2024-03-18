@@ -4,7 +4,7 @@ import PocketQueryFilter from "../../../pocket-core/PocketQueryFilter.js";
 import PocketService, { execute } from "../../../pocket-core/PocketService.js";
 import { MongoQueryFrom } from "../constants.js";
 import nodemailer from 'nodemailer';
-
+import dotenv from 'dotenv';
 /**
  * Pocket servisi
  * @param {Pocket} criteria
@@ -12,6 +12,8 @@ import nodemailer from 'nodemailer';
  */
 const SendOTP = execute(async (criteria) => {
      try {
+          dotenv.config();
+
           PocketService.parameterMustBeFill(criteria, "otpData");
 
           let subject = 'Pocket OTP Oturum Kontrol';

@@ -201,3 +201,37 @@ const GetData = execute(async (criteria) => { // GetData fonksiyonu async bir fo
 export default GetData; // GetData fonksiyonu dışa aktarılır
 
 ```
+# Service İnceleme
+
+## Servis Root Yapı
+- Servis içeriği root olarak **execute** metodu içerisine yazılır.
+     ```javascript
+     const GetData = execute(async (criteria) => {
+          // Service içeriği
+          ...
+          return output;
+     });
+
+     export default GetData; /
+     ```
+- Servis inputlarının zorunluluk yönetimi
+     ```javascript
+     PocketService.parameterMustBeFill(criteria, "MANDATORY_KEY");
+     ```
+     -    **MANDATORY_KEY** parametre olarak **string** tür almaktadır. Örneğin servise input olarak 2'si zorunlu olmak şartıyla 3 parametre alıyoruz.
+     -    Örneğin tcKimlikNo, telephoneNo, type alanlarını parametre olarak alan bir servis yazdık. tcKimlikNo alanı ve type alanı için zorunlu input girilmesi şartı koştuk, bu durumda yapı şu şekilde kurulur.
+     ```javascript
+     PocketService.parameterMustBeFill(criteria, "tcKimlikNo,type");
+     ```
+     - Bir başka örnekte ise alacağımız parametre bir obje içinde olabilir. Örneğin dizin yapısının şu şekilde olduğunu varsayalım.
+
+          - address
+            - addressNo:"001"
+            - addressDetail:"Istanbul/Etiler"
+          - generalInfo
+            - birthDate:"19960101"
+
+     - **customer** bizim **data** ile tabir ettiğimiz root dal. Müşteri bilgileri içerisinde **birthDate** alanı üzerinden sorgu yapmak istiyoruz ve bu parametrenin zorunlu olarak girilmesini istiyoruz.
+```javascript
+     PocketService.parameterMustBeFill(criteria, "address.addressNo");
+```

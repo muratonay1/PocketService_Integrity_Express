@@ -1,6 +1,5 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import Pocket from './Pocket.js';
-import { DbError } from '../util/constant.js';
 import PocketUtility from './PocketUtility.js';
 import PocketLog from './PocketLog.js';
 import PocketConfigManager from './PocketConfigManager.js';
@@ -14,8 +13,12 @@ export default class PocketMongo {
 
 
 	async connect() {
-		if (!this.client && !this.client.topology && !this.client.topology.isConnected()) {
-			await this.client.connect();
+		if (!this.client || !this.client.topology || !this.client.topology.isConnected()) {
+			try {
+				await this.client.connect();
+			} catch (error) {
+				throw new Error("Bağlantı başarısız oldu");
+			}
 		}
 	}
 
@@ -33,7 +36,7 @@ export default class PocketMongo {
 		const from = args.from?.split('.') || [];
 
 		if (from.length !== 2) {
-			throw new Error(DbError.PATH_NOT_FOUND);
+			throw new Error("Path not found");
 		}
 
 		const [dbName, collectionName] = from;
@@ -89,7 +92,7 @@ export default class PocketMongo {
 		let done = args.done;
 		let fail = args.fail;
 		const from = args.from?.split('.') || [];
-		if (from.length !== 2) throw new Error(DbError.PATH_NOT_FOUND);
+		if (from.length !== 2) throw new Error("Path not found");
 
 		const [dbName, collectionName] = from;
 		const whereOptions = args.where || {};
@@ -133,7 +136,7 @@ export default class PocketMongo {
 		let done = args.done;
 		let fail = args.fail;
 		const from = args.from?.split('.') || [];
-		if (from.length !== 2) throw new Error(DbError.PATH_NOT_FOUND);
+		if (from.length !== 2) throw new Error("From not found");
 
 		const [dbName, collectionName] = from;
 
@@ -160,7 +163,7 @@ export default class PocketMongo {
 		let done = args.done;
 		let fail = args.fail;
 		const from = args.from?.split('.') || [];
-		if (from.length !== 2) throw new Error(DbError.PATH_NOT_FOUND);
+		if (from.length !== 2) throw new Error("from not found");
 
 		const [dbName, collectionName] = from;
 		const whereOptions = args.where || {};

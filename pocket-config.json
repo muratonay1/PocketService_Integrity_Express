@@ -54,7 +54,7 @@
 			}
 		},
 		"Application":{
-			"Getdata":{
+				"Getdata":{
 				"endPoint":"get-data"
 			}
 		}

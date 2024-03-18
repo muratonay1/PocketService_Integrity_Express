@@ -1,6 +1,5 @@
 import PocketUtility from './PocketUtility.js';
 import Pocket from './Pocket.js';
-import { ConfigError } from '../util/constant.js';
 import PocketList from './PocketList.js';
 import config from '../pocket-config.json' assert { type: 'json' };
 import fs from 'fs';
@@ -26,7 +25,7 @@ export default class PocketConfigManager {
             return new Promise(function (resolve, reject) {
                 var application;
                 if (config.application != undefined) application = config.application;
-                else throw new Error(ConfigError.INVALID).stack
+                else throw new Error("Invalid application").stack
                 var globArr = [];
                 var applicationPocket = new Pocket();
                 for (let i = 0; i < Object.keys(application).length; i++) {

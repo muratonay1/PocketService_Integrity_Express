@@ -234,6 +234,20 @@ let PocketUtility = (
 			}
 		}
 
+		function isExpiredDate(date, expiredSecond){
+			// Şu anki zamanı al
+			var now = new Date();
+
+			// Gelen 'date' değişkenini Date objesine dönüştür
+			var inputDate = new Date(date);
+
+			// Geçerli zamanı artır
+			inputDate.setSeconds(inputDate.getSeconds() + expiredSecond);
+
+			// Eğer gelen tarih, şu anki zamandan büyükse true döndür
+			return inputDate < now;
+		}
+
 		return {
 			GetRealTime: GetRealTime,
 			GetRealDate: GetRealDate,
@@ -252,7 +266,8 @@ let PocketUtility = (
 			createExceptionLog: createExceptionLog,
 			LoggerTimeStamp: LoggerTimeStamp,
 			timeGap: timeGap,
-			isValidDate:isValidDate
+			isValidDate:isValidDate,
+			isExpiredDate:isExpiredDate
 		}
 	}
 )();
