@@ -21,9 +21,11 @@ const DecisionRepetiteAttackRequest = execute(async (criteria) => {
           if (PocketUtility.isEmptyObject(activeRepetiteAttack.data)) {
                PocketLog.info("Aktif tehdit kaydı bulunamadı. Mevcut atak kaydı, aktif kayıt olarak kaydedilecek.");
                criteria.put("retrieve", 1);
+               criteria.put("status",Status.ACTIVE);
                const saveRepetiteAttackResponse = await PocketService.executeService(`SaveRepetiteAttackRequest`, Modules.ADMIN, criteria);
                if (saveRepetiteAttackResponse) {
-                    return criteria;
+                    returnData["isRisked"] = false;
+                    return returnData;
                }
           }
           else {
@@ -37,7 +39,7 @@ const DecisionRepetiteAttackRequest = execute(async (criteria) => {
 
                const updateRepetite = await PocketService.executeService(`UpdateRepetiteAttackRequest`, Modules.ADMIN, updatedData);
 
-               if(updateRepetite){
+               if(updateRepetite.data){
                     let saveData = PocketUtility.ConvertToPocket(activeRepetiteAttack.data);
                     saveData.put("insertDate", PocketUtility.GetRealDate());
                     saveData.put("insertTime", PocketUtility.GetRealTime());
@@ -46,7 +48,7 @@ const DecisionRepetiteAttackRequest = execute(async (criteria) => {
                     saveData.put(GeneralKeys.STATUS,Status.ACTIVE);
                     const saveRepetite = await PocketService.executeService(`SaveRepetiteAttackRequest`, Modules.ADMIN, saveData);
 
-                    if(saveRepetite){
+                    if(saveRepetite.data){
                          returnData["isRisked"] = false;
                          return returnData;
                     }
