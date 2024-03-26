@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 
 /**
  * Pocket ITReportSender servisi
@@ -14,10 +14,6 @@ import { dirname } from 'path';
 const ITReportSender = execute(async (criteria) => {
      try {
           dotenv.config();
-
-          const __filename = fileURLToPath(import.meta.url);
-          const __dirname = dirname(__filename);
-
           const transporter = nodemailer.createTransport({
                service: 'gmail',
                auth: {
@@ -26,9 +22,13 @@ const ITReportSender = execute(async (criteria) => {
                }
           });
 
-          let modifiedDir = __dirname.replace(/\\services$/, '').replace("Modules\\Notification", "Util\\MailTemplates\\");
+          const __filename = new URL(import.meta.url).pathname;
+          const __dirname = dirname(__filename);
 
-          const htmlTemplatePath = modifiedDir + 'SuspiciousTransaction.html';
+          let modifiedDir = __dirname.replace(/\/services$/, '').replace("Modules/Notification", "Util/MailTemplates");
+          modifiedDir = modifiedDir.replace(/^\//, '');
+          const htmlTemplatePath = join(modifiedDir, 'SuspiciousTransaction.html');
+
           const htmlTemplate = fs.readFileSync(htmlTemplatePath, 'utf8');
 
           const emailData = {
