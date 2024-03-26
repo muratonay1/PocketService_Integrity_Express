@@ -26,11 +26,7 @@ const GetOTP = execute(async (criteria) => {
                });
           });
 
-          if(userOtpData.length == 0){
-               throw new Error("Kullaniciya ait OTP bulunamadi");
-          }
-
-          return userOtpData[0].otpData;
+          return userOtpData;
      } catch (error) {
           PocketLog.error("GetOTP servisinde hata meydana geldi." + error);
           throw new Error(error);

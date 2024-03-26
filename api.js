@@ -1,31 +1,52 @@
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import PocketUtility from './pocket-core/PocketUtility.js';
-import Pocket from './pocket-core/Pocket.js';
-import PocketService from './pocket-core/PocketService.js';
-import PocketConfigManager from './pocket-core/PocketConfigManager.js';
-import PocketLog from './pocket-core/PocketLog.js';
+import { Modules, ERROR_MESSAGE, PocketLib, GeneralKeys } from "./Util/MainConstants.js";
+const {
+
+     Pocket,
+     PocketConfigManager,
+     PocketService,
+     PocketUtility,
+     PocketLog
+
+} = PocketLib;
+
+// API Rate Limit Options
+const apiRateLimit = rateLimit(
+     {
+          windowMs: 60 * 1000, // milliseconds - how long to keep records of requests in memory
+          max: 5, // max number of recent connections during `window` milliseconds before sending a 429 response
+          message: "Too many requests, please try again later.",
+          statusCode: 429, // 429 status = Too Many Requests (RFC 6585)
+          headers: true, //Send custom rate limit header with limit and remaining
+          // allows to create custom keys (by default user IP is used)
+          keyGenerator: function (req /*, res*/) {
+               return req.ip;
+          },
+          handler: await handleRateLimitError,
+     }
+);
 
 // API Request Logger
 async function logApiRequest(req, apiInformation) {
      let logPocket = Pocket.create();
-     logPocket.put("endPoint", apiInformation.endPoint);
-     logPocket.put("host", req.headers.host);
-     logPocket.put("createdRequestTime", PocketUtility.LoggerTimeStamp());
-     logPocket.put("params", Object.fromEntries(new URL(req.url, `http://${req.headers.host}`).searchParams));
-     return await PocketService.executeService("SaveApiLog", "Admin", logPocket);
+     logPocket.put(GeneralKeys.END_POINT, apiInformation.endPoint);
+     logPocket.put(GeneralKeys.HOST, req.headers.host);
+     logPocket.put(GeneralKeys.CREATED_REQUEST_TIME, PocketUtility.LoggerTimeStamp());
+     logPocket.put(GeneralKeys.PARAMS, Object.fromEntries(new URL(req.url, `http://${req.headers.host}`).searchParams));
+     return await PocketService.executeService("SaveApiLog", Modules.ADMIN, logPocket);
 }
 
 // Error Logger
 async function logApiError(req, apiInformation, error) {
      let logPocket = Pocket.create();
-     logPocket.put("endPoint", apiInformation.endPoint);
-     logPocket.put("host", req.headers.host);
-     logPocket.put("createdRequestTime", PocketUtility.LoggerTimeStamp());
-     logPocket.put("params", Object.fromEntries(new URL(req.url, `http://${req.headers.host}`).searchParams));
-     logPocket.put("error", { message: error.message, stack: error.stack });
-     return await PocketService.executeService("SaveApiLog", "Admin", logPocket);
+     logPocket.put(GeneralKeys.END_POINT, apiInformation.endPoint);
+     logPocket.put(GeneralKeys.HOST, req.headers.host);
+     logPocket.put(GeneralKeys.CREATED_REQUEST_TIME, PocketUtility.LoggerTimeStamp());
+     logPocket.put(GeneralKeys.PARAMS, Object.fromEntries(new URL(req.url, `http://${req.headers.host}`).searchParams));
+     logPocket.put(GeneralKeys.ERROR, { message: error.message, stack: error.stack });
+     return await PocketService.executeService("SaveApiLog", Modules.ADMIN, logPocket);
 }
 
 // API Handler
@@ -46,21 +67,86 @@ async function handleApiRequest(req, res, apiInformation) {
 // API Handler
 async function checkApiUserLimitToken(req, res) {
      try {
-          if (req.headers['x-user-token'] != undefined) {
+          if (req.headers[GeneralKeys.X_USER_TOKEN] != undefined) {
                let permissionPocket = Pocket.create();
-               permissionPocket.put("permissionToken", req.headers['x-user-token']);
-               const result = await PocketService.executeService("ControlUserPermissionToken", "Admin", permissionPocket);
+               permissionPocket.put("permissionToken", req.headers[GeneralKeys.X_USER_TOKEN]);
+               const result = await PocketService.executeService("ControlUserPermissionToken", Modules.ADMIN, permissionPocket);
                if (!result.data) {
                     throw new Error("Token hatası");
                }
                return true;
           }
-          throw new Error("Api token is not undefined.");
+          throw new Error(ERROR_MESSAGE.API_TOKEN_NOT_FOUND);
 
      } catch (error) {
           res.status(500).json({ error: error.message });
      }
 }
+
+// API Log Save Handler
+async function saveApiLog(req) {
+
+     try {
+          let logPocket = Pocket.create();
+          logPocket.put(GeneralKeys.END_POINT, req.url);
+          logPocket.put(GeneralKeys.HOST, req.headers.host);
+          logPocket.put(GeneralKeys.CREATED_REQUEST_TIME, PocketUtility.LoggerTimeStamp());
+          logPocket.put(GeneralKeys.PARAMS, req.headers);
+          logPocket.put(GeneralKeys.ERROR, { error: "Unauthorized Request" });
+          await PocketService.executeService("SaveApiLog", Modules.ADMIN, logPocket);
+     } catch (error) {
+          PocketLog.error("Save api log function failed.", error);
+          throw new Error(error);
+     }
+}
+
+// Middleware Buffer
+async function middleWare(req, res, next) {
+     const userToken = req.headers[GeneralKeys.X_USER_TOKEN]; // Kullanıcı tokeni başlıkta mı kontrolü?
+     PocketLog.info("Request user token -> " + userToken);
+     if (!userToken) {
+          await saveApiLog(req);
+          return res.status(401).send({ error: ERROR_MESSAGE.EMPTY_TOKEN });
+     }
+     await saveApiLog(req);
+     res.status(404).send({ error: ERROR_MESSAGE.UNAUTHERIZED_END_POINT });
+}
+
+// API sınır aşımı hatası middleware'i
+async function handleRateLimitError(err, req, res, next, legacyInfo) {
+     const clientIP = req.connection.remoteAddress;
+     PocketLog.warn(`Too many requests from IP: ${clientIP}.`);
+
+     let requestInfo = Pocket.create();
+     requestInfo.put("from",       err.headers);
+     requestInfo.put("ip",         clientIP);
+     requestInfo.put("path",       err.path);
+     requestInfo.put("insertDate", PocketUtility.GetRealDate());
+     requestInfo.put("insertTime", PocketUtility.GetRealTime());
+     requestInfo.put("fullDate",   PocketUtility.LoggerTimeStamp());
+     requestInfo.put("path",       err.path);
+     requestInfo.put("rateInfo",   err.rateLimit);
+
+     let entriesObject = [];
+     for (let entry of next.store.current.entries()) {
+          let key = entry[0];
+          let value = entry[1];
+          entriesObject.push({
+               [key]: value
+          })
+     }
+
+     requestInfo.put("store", entriesObject);
+
+     const suspectData = await PocketService.executeService("DecisionRepetiteAttackRequest", Modules.ADMIN, requestInfo);
+     if (suspectData.data.isRisked) {
+          //Şüpheli işlem mail bildirimi
+          await PocketService.executeService(`ITReportSender`, Modules.NOTIFICATION, requestInfo);
+     }
+
+     req.status(429).json({ error: ERROR_MESSAGE.API_RATE_LIMIT_ERROR });
+}
+
 
 PocketConfigManager.checkModules()
      .then(result => {
@@ -79,29 +165,16 @@ PocketConfigManager.checkModules()
                });
           });
           // Define api request limitter
-          app.use(rateLimit(PocketConfigManager.getApiRateOptions()));
-          // Define api without permission request detection
-          app.use(async function (req, res, next) {
-               const userToken = req.headers['x-user-token']; // Kullanıcı tokeni başlıkta
-               console.log(userToken);
-               if (!userToken) {
-                    return res.status(401).json({ error: 'User token is required' });
-               }
-               let logPocket = Pocket.create();
-               logPocket.put("endPoint", req.url);
-               logPocket.put("host", req.headers.host);
-               logPocket.put("createdRequestTime", PocketUtility.LoggerTimeStamp());
-               logPocket.put("parameter", req.headers);
-               logPocket.put("error", { error: "Unauthorized" });
-               await PocketService.executeService("SaveApiLog", "Admin", logPocket);
-               res.status(404).send({ error: "Unauthorized" });
-          });
+          app.use(apiRateLimit);
+          app.use(handleRateLimitError);
+          app.use(middleWare);
+
           app.listen(port, async () => {
-               const serviceResponse = await PocketService.executeService("SaveServerInfo", "Admin", Pocket.create());
+               const serviceResponse = await PocketService.executeService("SaveServerInfo", Modules.ADMIN, Pocket.create());
                if (serviceResponse) {
                     PocketLog.info(`Server is started on port ${port}`);
                } else {
-                    throw new Error("Sunucu başlatılamadı: Beklenmeyen bir hata oluştu ve sunucu başlatılamadı. Lütfen daha sonra tekrar deneyin veya sistem yöneticinizle iletişime geçin.");
+                    throw new Error(ERROR_MESSAGE.SERVER_RUN_ERROR);
                }
           });
      })

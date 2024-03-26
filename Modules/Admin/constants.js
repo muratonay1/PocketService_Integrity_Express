@@ -37,7 +37,8 @@ export const Modules = {
      "ANALYTICS": "Analytics",
      "NETFLIX": "Netflix",
      "ADMIN": "Admin",
-     "NOTIFICATION": "Notification"
+     "NOTIFICATION": "Notification",
+
 }
 
 /**
@@ -59,6 +60,7 @@ export const Db = {
  * @property {string} USERS - Kullanıcılar koleksiyonu
  * @property {string} API_LOG - API günlükleri koleksiyonu
  * @property {string} SERVER_INFO - Sunucu bilgisi koleksiyonu
+ * @property {string} COMPLIANCE_REQUEST - Uyum bilgisi koleksiyonu
  */
 
 /** @type {Collection} */
@@ -68,7 +70,8 @@ export const Collection = {
      "USERS": "Users",
      "API_LOG": "ApiLogs",
      "SERVER_INFO": "ServerInfo",
-     "PERMISSION_TOKEN":"PermissionToken"
+     "PERMISSION_TOKEN":"PermissionToken",
+     "COMPLIANCE_REQUEST":"ComplianceRequest"
 }
 
 /**
@@ -80,6 +83,7 @@ export const Collection = {
  * @property {string} API_LOG - API günlükleri koleksiyonu sorgusu
  * @property {string} SERVER_INFO - Sunucu bilgisi koleksiyonu sorgusu
  * @property {string} PERMISSION_TOKEN - Api Permission Token bilgisi koleksiyonu sorgusu
+ * @property {string} COMPLIANCE_REQUEST - Uyum koleksiyonu
  */
 
 /** @type {MongoQueryFrom} */
@@ -89,7 +93,8 @@ export const MongoQueryFrom = {
      "USERS": Db.ADMIN + "." + Collection.USERS,
      "API_LOG": Db.ADMIN + "." + Collection.API_LOG,
      "SERVER_INFO": Db.ADMIN + "." + Collection.SERVER_INFO,
-     "PERMISSION_TOKEN": Db.ADMIN + "." + Collection.PERMISSION_TOKEN
+     "PERMISSION_TOKEN": Db.ADMIN + "." + Collection.PERMISSION_TOKEN,
+     "COMPLIANCE_REQUEST":Db.ADMIN + "." + Collection.COMPLIANCE_REQUEST,
 }
 
 /**

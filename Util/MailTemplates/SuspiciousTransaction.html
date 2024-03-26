@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Şüpheli İşlem Bildirimi</title>
+     <style>
+          /* Temel CSS stilleri */
+          body {
+               font-family: Arial, sans-serif;
+               background-color: #f9f9f9;
+               margin: 0;
+               padding: 0;
+          }
+
+          .container {
+               max-width: 600px;
+               margin: 20px auto;
+               padding: 20px;
+               border: 1px solid #ccc;
+               background-color: #fff;
+          }
+
+          h1 {
+               font-size: 24px;
+               font-weight: bold;
+               color: #333;
+               margin-top: 0;
+          }
+
+          ul {
+               list-style: none;
+               padding: 0;
+          }
+
+          li {
+               margin-bottom: 10px;
+          }
+
+          p {
+               font-size: 16px;
+               color: #666;
+          }
+
+          .bold {
+               font-weight: bold;
+          }
+
+          .container {
+               box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+               border-radius: 5px;
+          }
+
+          h1 {
+               margin-bottom: 20px;
+          }
+
+          li {
+               padding: 10px;
+               border-bottom: 1px solid #ccc;
+          }
+
+          .bold {
+               font-weight: bold;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="container">
+          <h1>Şüpheli İşlem Bildirimi</h1>
+          <p>Merhaba,</p>
+          <p>Şüpheli bir işlem tespit edildi. Aşağıda işlem detayları bulunmaktadır:</p>
+          <ul>
+               <li><span class="bold">İşlem kaynağı:</span> {{xUserToken}}</li>
+               <li><span class="bold">Ip:</span> {{ip}}</li>
+               <li><span class="bold">User Agent:</span> {{userAgent}}</li>
+               <li><span class="bold">Accept:</span> {{accept}}</li>
+               <li><span class="bold">Postman Token:</span> {{postmanToken}}</li>
+               <li><span class="bold">Host:</span> {{host}}</li>
+               <li><span class="bold">Accept Encoding:</span> {{acceptEncoding}}</li>
+               <li><span class="bold">Connection:</span> {{connection}}</li>
+               <li><span class="bold">İşlem Yolu:</span> {{path}}</li>
+               <li><span class="bold">Kullanılan İstek Limiti:</span> {{limit}}</li>
+               <li><span class="bold">Kullanılan İstek Sayısı:</span> {{used}}</li>
+               <li><span class="bold">Kalan İstek Sayısı:</span> {{remaining}}</li>
+               <li><span class="bold">Sıfırlama Zamanı:</span> {{resetTime}}</li>
+          </ul>
+          <p>Ayrıntılı bilgi için lütfen sistem loglarını kontrol ediniz.</p>
+          <p class="bold">İMO CORP.</p>
+     </div>
+</body>
+
+</html>

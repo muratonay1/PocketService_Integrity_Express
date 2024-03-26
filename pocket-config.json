@@ -15,7 +15,7 @@
 		"tokenExpiredSecond":120,
 		"encryptKey":"7851c44fab306c1e8ed1d85086f4ecade611878626a933638dc1ac64790a7d34",
 		"apiRateOptions":{
-			"windowMs":500,
+			"windowMs":300000,
 			"max":5
 		},
 		"serviceType":"mjs"
@@ -40,8 +40,8 @@
 			}
 		},
 		"Notification":{
-			"EmailActivation":{
-				"endPoint":"api-email-activation"
+			"SendEmailActivation":{
+				"endPoint":"api-send-email-activation"
 			},
 			"SendNotificationCode":{
 				"endPoint":"api-send-notification"
