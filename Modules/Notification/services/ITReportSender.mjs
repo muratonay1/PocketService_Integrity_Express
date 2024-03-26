@@ -26,25 +26,25 @@ const ITReportSender = execute(async (criteria) => {
                }
           });
 
-          let modifiedDir = __dirname.replace(/\\services$/, '');
+          let modifiedDir = __dirname.replace(/\\services$/, '').replace("Modules\\Notification", "Util\\MailTemplates\\");
 
-          const htmlTemplatePath = modifiedDir + '\\MailTemplate\\SuspiciousTransaction.html';
+          const htmlTemplatePath = modifiedDir + 'SuspiciousTransaction.html';
           const htmlTemplate = fs.readFileSync(htmlTemplatePath, 'utf8');
 
           const emailData = {
-               xUserToken       : criteria.from['x-user-token'],
-               ip               : criteria.ip,
-               userAgent        : criteria.from['user-agent'],
-               accept           : criteria.from.accept,
-               postmanToken     : criteria.from['postman-token'],
-               host             : criteria.from.host,
-               acceptEncoding   : criteria.from['accept-encoding'],
-               connection       : criteria.from.connection,
-               path             : criteria.path,
-               limit            : criteria.rateInfo.limit,
-               used             : criteria.rateInfo.used,
-               remaining        : criteria.rateInfo.remaining,
-               resetTime        : criteria.rateInfo.resetTime
+               xUserToken: criteria.from['x-user-token'],
+               ip: criteria.ip,
+               userAgent: criteria.from['user-agent'],
+               accept: criteria.from.accept,
+               postmanToken: criteria.from['postman-token'],
+               host: criteria.from.host,
+               acceptEncoding: criteria.from['accept-encoding'],
+               connection: criteria.from.connection,
+               path: criteria.path,
+               limit: criteria.rateInfo.limit,
+               used: criteria.rateInfo.used,
+               remaining: criteria.rateInfo.remaining,
+               resetTime: criteria.rateInfo.resetTime
           };
 
           const htmlContent = htmlTemplate.replace(/{{(\w+)}}/g, (match, key) => {
