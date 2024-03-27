@@ -15,9 +15,9 @@
   },
   "name": "pocket-api",
   "version": "1.0.0",
-  "main": "api.js",
+  "main": "batch-server.js",
   "scripts": {
-    "start": "node api.js",
+    "start": "node batch-server.js",
     "test": "jest"
   },
   "author": "",

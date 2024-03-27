@@ -41,66 +41,45 @@ export const Modules = {
      "NETFLIX": "Netflix",
      "ADMIN": "Admin",
      "NOTIFICATION": "Notification",
+     "POCKET":"Pocket"
 
 }
 
 /**
  * Veritabanı adları nesnesi, belirli veritabanı adlarını içerir.
  * @typedef {Object} Db
- * @property {string} ADMIN - Admin veritabanı adı
+ * @property {string} POCKET - Admin veritabanı adı
  */
 
 /** @type {Db} */
 export const Db = {
-     "ADMIN": "admin",
+     "POCKET": "pocket",
 }
 
 /**
  * Koleksiyon adları nesnesi, belirli koleksiyon adlarını içerir.
  * @typedef {Object} Collection
- * @property {string} ERROR_LOGS - Hata günlükleri koleksiyonu
- * @property {string} SESSION - Oturum koleksiyonu
- * @property {string} USERS - Kullanıcılar koleksiyonu
- * @property {string} API_LOG - API günlükleri koleksiyonu
- * @property {string} SERVER_INFO - Sunucu bilgisi koleksiyonu
- * @property {string} COMPLIANCE_REQUEST - Uyum bilgisi koleksiyonu
+ * @property {string} BATCH_DEFINATION - Hata günlükleri koleksiyonu
+ * @property {string} SERVICE - Hata günlükleri koleksiyonu
  */
 
 /** @type {Collection} */
 export const Collection = {
-     "ERROR_LOGS": "ErrorLogs",
-     "SESSION": "Session",
-     "USERS": "Users",
-     "API_LOG": "ApiLogs",
-     "SERVER_INFO": "ServerInfo",
-     "PERMISSION_TOKEN":"PermissionToken",
-     "COMPLIANCE_REQUEST":"ComplianceRequest",
+     "BATCH_DEFINATION": "batchDefination",
      "SERVICE":"service"
 }
 
 /**
  * MongoDB sorgu nesnesi, belirli koleksiyonlar için MongoDB sorgularını içerir.
  * @typedef {Object} MongoQueryFrom
- * @property {string} ERROR_LOGS - Hata günlükleri koleksiyonu sorgusu
- * @property {string} SESSION - Oturum koleksiyonu sorgusu
- * @property {string} USERS - Kullanıcılar koleksiyonu sorgusu
- * @property {string} API_LOG - API günlükleri koleksiyonu sorgusu
- * @property {string} SERVER_INFO - Sunucu bilgisi koleksiyonu sorgusu
- * @property {string} PERMISSION_TOKEN - Api Permission Token bilgisi koleksiyonu sorgusu
- * @property {string} COMPLIANCE_REQUEST - Uyum koleksiyonu
- * @property {string} SERVICE - service koleksiyonu
+ * @property {string} BATCH_DEFINATION - Hata günlükleri koleksiyonu sorgusu
+ * @property {string} SERVICE - Hata günlükleri koleksiyonu sorgusu
  */
 
 /** @type {MongoQueryFrom} */
 export const MongoQueryFrom = {
-     "ERROR_LOGS": Db.ADMIN + "." + Collection.ERROR_LOGS,
-     "SESSION": Db.ADMIN + "." + Collection.SESSION,
-     "USERS": Db.ADMIN + "." + Collection.USERS,
-     "API_LOG": Db.ADMIN + "." + Collection.API_LOG,
-     "SERVER_INFO": Db.ADMIN + "." + Collection.SERVER_INFO,
-     "PERMISSION_TOKEN": Db.ADMIN + "." + Collection.PERMISSION_TOKEN,
-     "COMPLIANCE_REQUEST":Db.ADMIN + "." + Collection.COMPLIANCE_REQUEST,
-     "SERVICE":Db.POCKET + "." + Collection.SERVICE,
+     "BATCH_DEFINATION": Db.POCKET + "." + Collection.BATCH_DEFINATION,
+     "SERVICE": Db.POCKET + "." + Collection.SERVICE,
 }
 
 /**

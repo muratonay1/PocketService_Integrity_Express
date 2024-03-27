@@ -19,6 +19,7 @@ export const PocketLib = {
  * @property {string} NETFLIX - Netflix modülü
  * @property {string} ADMIN - Admin modülü
  * @property {string} NOTIFICATION - Bildirim modülü
+ * @property {string} POCKET - POCKET modülü
  */
 
 /** @type {Modules} */
@@ -26,7 +27,8 @@ export const Modules = {
      "ANALYTICS": "Analytics",
      "NETFLIX": "Netflix",
      "ADMIN": "Admin",
-     "NOTIFICATION": "Notification"
+     "NOTIFICATION": "Notification",
+     "POCKET":"Pocket"
 }
 
 
@@ -62,6 +64,7 @@ export const GeneralKeys = {
  * @property {string} SERVER_RUN_ERROR
  * @property {string} API_TOKEN_NOT_FOUND
  * @property {string} API_RATE_LIMIT_ERROR
+ * @property {string} BATCH_RECORD_NOT_FOUND
  */
 
 /** @type {ERROR_MESSAGE} */
@@ -70,6 +73,7 @@ export const ERROR_MESSAGE = {
      "EMPTY_TOKEN":'Authentication failed: User token is not required',
      "SERVER_RUN_ERROR":"Server could not be started: An unexpected error occurred and the server could not be started. Please try again later or contact your system administrator.",
      "API_TOKEN_NOT_FOUND":"API token not found.",
-     "API_RATE_LIMIT_ERROR":"Too many requests from this IP, please try again later"
+     "API_RATE_LIMIT_ERROR":"Too many requests from this IP, please try again later",
+     "BATCH_RECORD_NOT_FOUND" : "Batch record not found.",
 
 }

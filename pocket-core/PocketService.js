@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import path from 'path';
 import PocketConfigManager from './PocketConfigManager.js';
+import { dbClient } from "./PocketMongo.js";
 
 class PocketService {
      /**
@@ -14,7 +15,7 @@ class PocketService {
       * @param {Pocket} parameter Giriş parametreleri
       */
      static async executeService(serviceName, moduleName, parameter) {
-          const serviceFilePath = `../Modules/${moduleName}/${PocketConfigManager.getServicePath()}${serviceName}.`+PocketConfigManager.getServiceType();
+          const serviceFilePath = `../Modules/${moduleName}/${PocketConfigManager.getServicePath()}${serviceName}.` + PocketConfigManager.getServiceType();
           checkModuleAndService(moduleName, serviceName);
           PocketLog.info(`Triggered Service: ${serviceName}`);
           try {
@@ -35,6 +36,15 @@ class PocketService {
                     } else {
                          serviceResponse = await serviceModule.default();
                     }
+                    let saveLog = {
+                         "response":serviceResponse,
+                         "service":serviceName,
+                         "module":moduleName,
+                         "source":"service",
+                         "insertDate":PocketUtility.LoggerTimeStamp()
+                    }
+                    if(parameter!=undefined) saveLog["params"] = parameter;
+                    saveServiceLog(saveLog);
                     let servicePocket = new Pocket();
                     servicePocket.put("data", serviceResponse);
                     servicePocket.put("timestamp", PocketUtility.TimeStamp());
@@ -124,7 +134,7 @@ function checkModuleAndService(moduleName, serviceName) {
      const __dirname = path.dirname(__filename);
 
      const modulePath = path.resolve(__dirname, `../Modules/${moduleName}`);
-     const serviceFilePath = path.resolve(modulePath, `${PocketConfigManager.getServicePath()}/${serviceName}.`+PocketConfigManager.getServiceType());
+     const serviceFilePath = path.resolve(modulePath, `${PocketConfigManager.getServicePath()}/${serviceName}.` + PocketConfigManager.getServiceType());
 
      if (!fs.existsSync(modulePath) || !fs.lstatSync(modulePath).isDirectory()) {
           throw new Error(`Module "${moduleName}" does not exist.`);
@@ -133,6 +143,26 @@ function checkModuleAndService(moduleName, serviceName) {
      if (!fs.existsSync(serviceFilePath) || !fs.lstatSync(serviceFilePath).isFile()) {
           throw new Error(`Service "${serviceName}" does not exist in module "${moduleName}".`);
      }
+}
+
+async function saveServiceLog(log) {
+     let saveServiceLog = Pocket.create();
+     if (log.params != undefined) saveServiceLog.put("params", log.params);
+     saveServiceLog.put("response", log.response);
+     saveServiceLog.put("service", log.service);
+     saveServiceLog.put("module", log.module);
+     saveServiceLog.put("source", log.source)
+     saveServiceLog.put("insertDate", log.insertDate);
+
+     const insertResult = await new Promise((resolve, reject) => {
+          dbClient.executeInsert({
+               from: "pocket.service",
+               params: saveServiceLog,
+               done: resolve,
+               fail: reject
+          });
+     });
+     return insertResult;
 }
 
 /**
