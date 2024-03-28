@@ -1,61 +1,64 @@
 {
-	"name":"murat",
-	"application":{
-        	"applicationName":"Pocket Service Integrity Express Api for ServerSide Management",
-		"applicationVersion":"1.0.0",
-		"applicationAuthor":"İsmet Murat ONAY",
-		"applicationUsingDatabase":"mongo"
+	"name": "murat",
+	"application": {
+		"applicationName": "Pocket Service Integrity Express Api for ServerSide Management",
+		"applicationVersion": "1.0.0",
+		"applicationAuthor": "İsmet Murat ONAY",
+		"applicationUsingDatabase": "mongo"
 	},
-	"settings":{
-		"servicePath":"services/",
-		"apiPort":3000,
-		"serviceTimeout":30000,
-		"pocketConfigPath":"../pocket-config.json",
-		"mailExpiredSecond":500,
-		"tokenExpiredSecond":120,
-		"encryptKey":"7851c44fab306c1e8ed1d85086f4ecade611878626a933638dc1ac64790a7d34",
-		"apiRateOptions":{
-			"windowMs":300000,
-			"max":5
+	"settings": {
+		"servicePath": "services/",
+		"apiPort": 3000,
+		"serviceTimeout": 30000,
+		"pocketConfigPath": "../pocket-config.json",
+		"mailExpiredSecond": 500,
+		"tokenExpiredSecond": 120,
+		"encryptKey": "7851c44fab306c1e8ed1d85086f4ecade611878626a933638dc1ac64790a7d34",
+		"apiRateOptions": {
+			"windowMs": 300000,
+			"max": 5
 		},
-		"serviceType":"mjs"
+		"serviceType": "mjs"
 	},
-
-	"connection":{
-        "mongo":{
-			"uri":"mongodb://localhost:27017"
-        }
+	"connection": {
+		"mongo": {
+			"uri": "mongodb://localhost:27017"
+		}
 	},
-
-	"gatewayConfig":{
-		"Admin":{
-			"GetUserService":{
-				"endPoint":"api-get-user-service"
+	"gatewayConfig": {
+		"Admin": {
+			"GetUserService": {
+				"endPoint": "api-get-user-service"
 			},
-			"LoginService":{
-				"endPoint":"api-login-service"
+			"LoginService": {
+				"endPoint": "api-login-service"
 			},
-			"LogoutService":{
-				"endPoint":"api-logout-service"
+			"LogoutService": {
+				"endPoint": "api-logout-service"
 			}
 		},
-		"Notification":{
-			"SendEmailActivation":{
-				"endPoint":"api-send-email-activation"
+		"Notification": {
+			"SendEmailActivation": {
+				"endPoint": "api-send-email-activation"
 			},
-			"SendNotificationCode":{
-				"endPoint":"api-send-notification"
+			"SendNotificationCode": {
+				"endPoint": "api-send-notification"
 			},
-			"CheckOTP":{
-				"endPoint":"api-check-notification"
+			"CheckOTP": {
+				"endPoint": "api-check-notification"
 			},
-			"CheckTOKEN":{
-				"endPoint":"api-check-token"
+			"CheckTOKEN": {
+				"endPoint": "api-check-token"
 			}
 		},
-		"Application":{
-				"Getdata":{
-				"endPoint":"get-data"
+		"Application": {
+			"Getdata": {
+				"endPoint": "get-data"
+			}
+		},
+		"Pocket": {
+			"SaveBatchJobs":{
+				"endPoint":"api-save-batch-job"
 			}
 		}
 	}

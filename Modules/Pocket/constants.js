@@ -89,13 +89,15 @@ export const MongoQueryFrom = {
  * @property {string} STATUS - Durum anahtarı
  * @property {string} MODULE - modül  anahtarı
  * @property {string} HANDLER - handler anahtarı
+ * @property {string} CRON - handler anahtarı
  */
 
 /** @type {GeneralKeys} */
 export const GeneralKeys = {
      "STATUS": "status",
      "MODULE":"module",
-     "HANDLER":"handler"
+     "HANDLER":"handler",
+     "CRON":"cron"
 }
 
 /**
