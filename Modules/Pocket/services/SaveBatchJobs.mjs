@@ -27,7 +27,7 @@ const SaveBatchJobs = execute(async (criteria) => {
                });
           });
           if(insertResult){
-               return searchResult;
+               return insertResult;
           }
           throw new Error("SaveBatchJobs Service: Batch kaydı esnasında hata alındı. insertResult: " + insertResult);
      } catch (error) {
