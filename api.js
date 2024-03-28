@@ -150,7 +150,7 @@ async function handleRateLimitError(err, req, res, next, legacyInfo) {
 
 PocketConfigManager.checkModules()
      .then(result => {
-          PocketLog.info("\nModule and service static check has been completed successfully.S\n");
+          PocketLog.info("\nModule and service static check has been completed successfully.\n");
           // Define express
           const app = express();
           // Define cors conf.
