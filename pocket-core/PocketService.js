@@ -37,13 +37,13 @@ class PocketService {
                          serviceResponse = await serviceModule.default();
                     }
                     let saveLog = {
-                         "response":serviceResponse,
-                         "service":serviceName,
-                         "module":moduleName,
-                         "source":"service",
-                         "insertDate":PocketUtility.LoggerTimeStamp()
+                         "response": serviceResponse,
+                         "service": serviceName,
+                         "module": moduleName,
+                         "source": "service",
+                         "insertDate": PocketUtility.LoggerTimeStamp()
                     }
-                    if(parameter!=undefined) saveLog["params"] = parameter;
+                    if (parameter != undefined) saveLog["params"] = parameter;
                     saveServiceLog(saveLog);
                     let servicePocket = new Pocket();
                     servicePocket.put("data", serviceResponse);
@@ -146,23 +146,31 @@ function checkModuleAndService(moduleName, serviceName) {
 }
 
 async function saveServiceLog(log) {
-     let saveServiceLog = Pocket.create();
-     if (log.params != undefined) saveServiceLog.put("params", log.params);
-     saveServiceLog.put("response", log.response);
-     saveServiceLog.put("service", log.service);
-     saveServiceLog.put("module", log.module);
-     saveServiceLog.put("source", log.source)
-     saveServiceLog.put("insertDate", log.insertDate);
+     try
+     {
+          let saveServiceLog = Pocket.create();
+          if (log.params != undefined) saveServiceLog.put("params", log.params);
+          saveServiceLog.put("response", log.response);
+          saveServiceLog.put("service", log.service);
+          saveServiceLog.put("module", log.module);
+          saveServiceLog.put("source", log.source)
+          saveServiceLog.put("insertDate", log.insertDate);
 
-     const insertResult = await new Promise((resolve, reject) => {
-          dbClient.executeInsert({
-               from: "pocket.service",
-               params: saveServiceLog,
-               done: resolve,
-               fail: reject
+          const insertResult = await new Promise((resolve, reject) => {
+               dbClient.executeInsert({
+                    from: "pocket.service",
+                    params: saveServiceLog,
+                    done: resolve,
+                    fail: reject
+               });
           });
-     });
-     return insertResult;
+          return insertResult;
+     }
+     catch (error)
+     {
+          PocketLog.error("PocketService Class: saveServiceLog metodu hata aldı.");
+          throw new Error(error);
+     }
 }
 
 /**

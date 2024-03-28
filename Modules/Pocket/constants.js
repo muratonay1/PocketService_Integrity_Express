@@ -33,6 +33,7 @@ export const PocketLib = {
  * @property {string} NETFLIX - Netflix modülü
  * @property {string} ADMIN - Admin modülü
  * @property {string} NOTIFICATION - Bildirim modülü
+ * @property {string} POCKET - POCKET modülü
  */
 
 /** @type {Modules} */
@@ -86,15 +87,15 @@ export const MongoQueryFrom = {
  * Genel anahtarlar nesnesi, belirli genel anahtarların adlarını içerir.
  * @typedef {Object} GeneralKeys
  * @property {string} STATUS - Durum anahtarı
- * @property {string} USER_ID - Kullanıcı kimliği anahtarı
- * @property {string} X_USER_TOKEN - User Permission Token kimliği anahtarı
+ * @property {string} MODULE - modül  anahtarı
+ * @property {string} HANDLER - handler anahtarı
  */
 
 /** @type {GeneralKeys} */
 export const GeneralKeys = {
      "STATUS": "status",
-     "USER_ID": "user_id",
-     "X_USER_TOKEN":"x-user-token"
+     "MODULE":"module",
+     "HANDLER":"handler"
 }
 
 /**

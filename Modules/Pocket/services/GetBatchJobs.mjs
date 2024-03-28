@@ -1,6 +1,5 @@
-import { GeneralKeys, Operator, PocketLib, Status } from "../../Admin/constants.js";
-import { MongoQueryFrom } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+import { MongoQueryFrom ,GeneralKeys, Operator, PocketLib, Status} from "../constants.js";
+const { PocketLog,  PocketQueryFilter,  execute, dbClient, Pocket } = PocketLib;
 
 /**
  * Pocket GetBatchJobs servisi

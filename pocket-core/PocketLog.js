@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 /**
  *
  * @author İsmet Murat Onay
@@ -12,28 +13,28 @@ let PocketLog = (
          * @param {String} message
          */
 		function log(message) {
-            console.log(`[POCKET LOG] [${PocketUtility.LoggerTimeStamp()}]: ${message}`);
+            console.log(chalk.white(`[POCKET LOG] [${PocketUtility.LoggerTimeStamp()}]: ${message}`));
         }
         /**
          *
          * @param {String} message
          */
         function error(message,error) {
-            console.error(`[POCKET ERROR] [${PocketUtility.LoggerTimeStamp()}]:${message}\n ${error}`);
+            console.error(chalk.red(`[POCKET ERROR] [${PocketUtility.LoggerTimeStamp()}]:${message}\n ${error}`));
         }
         /**
          *
          * @param {String} message
          */
         function warn(message) {
-            console.warn(`[POCKET WARNING] [${PocketUtility.LoggerTimeStamp()}]: ${message}`);
+            console.warn(chalk.yellow(`[POCKET WARNING] [${PocketUtility.LoggerTimeStamp()}]: ${message}`));
         }
         /**
          *
          * @param {String} message
          */
         function info(message) {
-            console.info(`[POCKET INFO] [${PocketUtility.LoggerTimeStamp()}]: ${message}`);
+            console.info(chalk.blueBright(`[POCKET INFO] [${PocketUtility.LoggerTimeStamp()}]: ${message}`));
         }
 
 		return {

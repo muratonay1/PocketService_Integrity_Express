@@ -14,7 +14,7 @@ class PocketBatchManager {
       * @param {Object} inBatch Servis adı
       */
      static async executeBatch(inBatch) {
-          let infoStart = "[" + inBatch.module+"/"+inBatch.handler + "]" + " is running";
+          let infoStart = "[" + inBatch.module + "/" + inBatch.handler + "]" + " is running";
           PocketLog.info(infoStart);
           try {
                let serviceName = inBatch.handler
@@ -36,14 +36,14 @@ class PocketBatchManager {
                     await serviceModule.default();
 
                     let saveLog = {
-                         "service":serviceName,
-                         "module":moduleName,
-                         "source":"batch",
-                         "insertDate":PocketUtility.LoggerTimeStamp()
+                         "service": serviceName,
+                         "module": moduleName,
+                         "source": "batch",
+                         "insertDate": PocketUtility.LoggerTimeStamp()
                     }
                     saveServiceLog(saveLog);
 
-                    let infoEnd = "[" + inBatch.module+"/"+inBatch.handler + "]" + " is terminate successfully";
+                    let infoEnd = "[" + inBatch.module + "/" + inBatch.handler + "]" + " is terminate successfully";
                     PocketLog.info(infoEnd);
                });
 
@@ -101,21 +101,28 @@ function checkModuleAndService(moduleName, serviceName) {
 }
 
 async function saveServiceLog(log) {
-     let saveServiceLog = Pocket.create();
-     saveServiceLog.put("service", log.service);
-     saveServiceLog.put("module", log.module);
-     saveServiceLog.put("source", log.source)
-     saveServiceLog.put("insertDate", log.insertDate);
+     try {
+          let saveServiceLog = Pocket.create();
+          saveServiceLog.put("service", log.service);
+          saveServiceLog.put("module", log.module);
+          saveServiceLog.put("source", log.source)
+          saveServiceLog.put("insertDate", log.insertDate);
 
-     const insertResult = await new Promise((resolve, reject) => {
-          dbClient.executeInsert({
-               from: "pocket.service",
-               params: saveServiceLog,
-               done: resolve,
-               fail: reject
+          const insertResult = await new Promise((resolve, reject) => {
+               dbClient.executeInsert({
+                    from: "pocket.service",
+                    params: saveServiceLog,
+                    done: resolve,
+                    fail: reject
+               });
           });
-     });
-     return insertResult;
+          return insertResult;
+     }
+     catch (error) {
+          PocketLog.error("PocketBatchManager Class: saveServiceLog metodu hata aldı.");
+          throw new Error(error);
+     }
+
 }
 /**
  * Fonksiyonu yürüten bir yürütücü döndürür.

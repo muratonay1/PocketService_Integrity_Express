@@ -3,4 +3,5 @@ node_modules
 test.js
 testCases.js
 tester.js
+ProjectScripts/admin.js
 .env
