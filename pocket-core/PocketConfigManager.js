@@ -165,10 +165,12 @@ export default class PocketConfigManager {
             Object.keys(gatewayConfig).forEach(moduleName => {
                 Object.keys(gatewayConfig[moduleName]).forEach(serviceName => {
                     const endPoint = gatewayConfig[moduleName][serviceName].endPoint;
+                    const method = gatewayConfig[moduleName][serviceName].method
                     const apiObject = {
                         module: moduleName,
                         service: serviceName,
-                        endPoint: endPoint
+                        endPoint: endPoint,
+                        method:method
                     };
                     apiObjectList.push(apiObject);
                 });

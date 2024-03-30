@@ -28,37 +28,64 @@
 	"gatewayConfig": {
 		"Admin": {
 			"GetUserService": {
-				"endPoint": "api-get-user-service"
+				"endPoint": "api-get-user-service",
+				"method":"GET"
 			},
 			"LoginService": {
-				"endPoint": "api-login-service"
+				"endPoint": "api-login-service",
+				"method":"GET"
 			},
 			"LogoutService": {
-				"endPoint": "api-logout-service"
+				"endPoint": "api-logout-service",
+				"method":"GET"
 			}
 		},
 		"Notification": {
 			"SendEmailActivation": {
-				"endPoint": "api-send-email-activation"
+				"endPoint": "api-send-email-activation",
+				"method":"GET"
 			},
 			"SendNotificationCode": {
-				"endPoint": "api-send-notification"
+				"endPoint": "api-send-notification",
+				"method":"GET"
 			},
 			"CheckOTP": {
-				"endPoint": "api-check-notification"
+				"endPoint": "api-check-notification",
+				"method":"GET"
 			},
 			"CheckTOKEN": {
-				"endPoint": "api-check-token"
+				"endPoint": "api-check-token",
+				"method":"GET"
 			}
 		},
 		"Application": {
 			"Getdata": {
-				"endPoint": "get-data"
+				"endPoint": "get-data",
+				"method":"GET"
 			}
 		},
 		"Pocket": {
 			"SaveBatchJobs":{
-				"endPoint":"api-save-batch-job"
+				"endPoint":"api-save-batch-job",
+				"method":"GET"
+			}
+		},
+		"Resume":{
+			"APIQueryResume":{
+				"endPoint":"api-get-cv",
+				"method":"GET"
+			},
+			"SaveMail":{
+				"endPoint":"api-send-mail",
+				"method":"GET"
+			},
+			"UpdateCounter":{
+				"endPoint":"api-get-counter",
+				"method":"GET"
+			},
+			"VerifyCaptcha": {
+				"endPoint":"api-verify-captcha",
+				"method":"POST"
 			}
 		}
 	}

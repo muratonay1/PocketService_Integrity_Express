@@ -12,7 +12,7 @@ class PocketRemoteRequest {
                const options = {
                     method,
                     headers: {
-                         'Content-Type': 'application/json'
+                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                };
 

@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import { Modules, ERROR_MESSAGE, PocketLib, GeneralKeys } from "./Util/MainConstants.js";
@@ -49,11 +50,34 @@ async function logApiError(req, apiInformation, error) {
      return await PocketService.executeService("SaveApiLog", Modules.ADMIN, logPocket);
 }
 
-// API Handler
 async function handleApiRequest(req, res, apiInformation) {
      try {
+          let paramsObject = {};
+
+          // Query parametreleri
           const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
-          const paramsObject = Object.fromEntries(parsedUrl.searchParams);
+          const queryParams = Object.fromEntries(parsedUrl.searchParams);
+          Object.assign(paramsObject, queryParams);
+
+          // Header bilgileri
+          const headers = req.headers;
+          // Örneğin, x-user-token header'ını paramsObject içine ekleyin
+          if (headers['x-user-token']) {
+               paramsObject['x-user-token'] = headers['x-user-token'];
+          }
+
+          // POST isteği ile gönderilen body
+          if (req.method === 'POST') {
+               // req.body içindeki verileri paramsObject'e ekleyin
+               Object.assign(paramsObject, req.body);
+          }
+
+          // Eğer servis "UpdateCounter" ise ve POST isteği yapıldıysa, ip adresini paramsObject içine ekleyin
+          if (apiInformation.service === "UpdateCounter" || apiInformation.service === "VerifyCaptcha") {
+               paramsObject["ip"] = req.ip;
+          }
+
+          // Servisi çalıştırın ve sonucu döndürün
           const result = await PocketService.executeService(apiInformation.service, apiInformation.module, PocketUtility.ConvertToPocket(paramsObject));
           await logApiRequest(req, apiInformation);
           res.json(result);
@@ -63,6 +87,23 @@ async function handleApiRequest(req, res, apiInformation) {
      }
 }
 
+
+/*
+// API Handler
+async function handleApiRequest(req, res, apiInformation) {
+     try {
+          const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
+          const paramsObject = Object.fromEntries(parsedUrl.searchParams);
+          if (apiInformation.service == "UpdateCounter") paramsObject["ip"] = req.ip;
+          const result = await PocketService.executeService(apiInformation.service, apiInformation.module, PocketUtility.ConvertToPocket(paramsObject));
+          await logApiRequest(req, apiInformation);
+          res.json(result);
+     } catch (error) {
+          await logApiError(req, apiInformation, error);
+          res.status(500).json({ error: error.message });
+     }
+}
+*/
 
 // API Handler
 async function checkApiUserLimitToken(req, res) {
@@ -109,7 +150,7 @@ async function middleWare(req, res, next) {
           return res.status(401).send({ error: ERROR_MESSAGE.EMPTY_TOKEN });
      }
      await saveApiLog(req);
-     res.status(404).send({ error: ERROR_MESSAGE.UNAUTHERIZED_END_POINT });
+     //res.status(404).send({ error: ERROR_MESSAGE.UNAUTHERIZED_END_POINT });
 }
 
 // API sınır aşımı hatası middleware'i
@@ -118,14 +159,14 @@ async function handleRateLimitError(err, req, res, next, legacyInfo) {
      PocketLog.warn(`Too many requests from IP: ${clientIP}.`);
 
      let requestInfo = Pocket.create();
-     requestInfo.put("from",       err.headers);
-     requestInfo.put("ip",         clientIP);
-     requestInfo.put("path",       err.path);
+     requestInfo.put("from", err.headers);
+     requestInfo.put("ip", clientIP);
+     requestInfo.put("path", err.path);
      requestInfo.put("insertDate", PocketUtility.GetRealDate());
      requestInfo.put("insertTime", PocketUtility.GetRealTime());
-     requestInfo.put("fullDate",   PocketUtility.LoggerTimeStamp());
-     requestInfo.put("path",       err.path);
-     requestInfo.put("rateInfo",   err.rateLimit);
+     requestInfo.put("fullDate", PocketUtility.LoggerTimeStamp());
+     requestInfo.put("path", err.path);
+     requestInfo.put("rateInfo", err.rateLimit);
 
      let entriesObject = [];
      for (let entry of next.store.current.entries()) {
@@ -155,14 +196,24 @@ PocketConfigManager.checkModules()
           const app = express();
           // Define cors conf.
           app.use(cors());
+          app.use(bodyParser.json());
           const port = PocketConfigManager.getApiPort();
           PocketConfigManager.getApiList().forEach(apiInformation => {
-               app.get('/' + apiInformation.endPoint, async (req, res) => {
-                    const checker = await checkApiUserLimitToken(req, res);
-                    if (checker) {
-                         await handleApiRequest(req, res, apiInformation);
-                    }
-               });
+               if (apiInformation.method === 'GET') {
+                    app.get('/' + apiInformation.endPoint, async (req, res) => {
+                         const checker = await checkApiUserLimitToken(req, res);
+                         if (checker) {
+                              await handleApiRequest(req, res, apiInformation);
+                         }
+                    });
+               } else if (apiInformation.method === 'POST') {
+                    app.post('/' + apiInformation.endPoint, async (req, res) => {
+                         const checker = await checkApiUserLimitToken(req, res);
+                         if (checker) {
+                              await handleApiRequest(req, res, apiInformation);
+                         }
+                    });
+               }
           });
           // Define api request limitter
           app.use(apiRateLimit);
