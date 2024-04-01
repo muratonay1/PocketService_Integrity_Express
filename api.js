@@ -200,14 +200,14 @@ PocketConfigManager.checkModules()
           const port = PocketConfigManager.getApiPort();
           PocketConfigManager.getApiList().forEach(apiInformation => {
                if (apiInformation.method === 'GET') {
-                    app.get('/' + apiInformation.endPoint, async (req, res) => {
+                    app.get('/api' + apiInformation.endPoint, async (req, res) => {
                          const checker = await checkApiUserLimitToken(req, res);
                          if (checker) {
                               await handleApiRequest(req, res, apiInformation);
                          }
                     });
                } else if (apiInformation.method === 'POST') {
-                    app.post('/' + apiInformation.endPoint, async (req, res) => {
+                    app.post('/api' + apiInformation.endPoint, async (req, res) => {
                          const checker = await checkApiUserLimitToken(req, res);
                          if (checker) {
                               await handleApiRequest(req, res, apiInformation);
