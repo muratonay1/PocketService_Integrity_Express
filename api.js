@@ -150,6 +150,7 @@ async function middleWare(req, res, next) {
           return res.status(401).send({ error: ERROR_MESSAGE.EMPTY_TOKEN });
      }
      await saveApiLog(req);
+     return true;
      //res.status(404).send({ error: ERROR_MESSAGE.UNAUTHERIZED_END_POINT });
 }
 
@@ -200,14 +201,14 @@ PocketConfigManager.checkModules()
           const port = PocketConfigManager.getApiPort();
           PocketConfigManager.getApiList().forEach(apiInformation => {
                if (apiInformation.method === 'GET') {
-                    app.get('/api' + apiInformation.endPoint, async (req, res) => {
+                    app.get('/api/' + apiInformation.endPoint, async (req, res) => {
                          const checker = await checkApiUserLimitToken(req, res);
                          if (checker) {
                               await handleApiRequest(req, res, apiInformation);
                          }
                     });
                } else if (apiInformation.method === 'POST') {
-                    app.post('/api' + apiInformation.endPoint, async (req, res) => {
+                    app.post('/api/' + apiInformation.endPoint, async (req, res) => {
                          const checker = await checkApiUserLimitToken(req, res);
                          if (checker) {
                               await handleApiRequest(req, res, apiInformation);
