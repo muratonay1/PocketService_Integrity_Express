@@ -10,11 +10,8 @@ const FindIpContext = execute(async (criteria) => {
      try {
           PocketService.parameterMustBeFill(criteria, "ip");
 
-          const oneHourAgoTimestamp = Date.now() - (1 * 60 * 60 * 1000);
-
           let filter = new PocketQueryFilter();
           filter.add("ip", criteria.get("ip", String)).operator(Operator.EQ);
-          filter.add("timestamp",oneHourAgoTimestamp).operator(Operator.GTE)
 
           const searchResult = await new Promise((resolve, reject) => {
                dbClient.executeGet({
