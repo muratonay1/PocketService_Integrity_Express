@@ -3,11 +3,12 @@ import Pocket from './Pocket.js';
 import PocketUtility from './PocketUtility.js';
 import PocketLog from './PocketLog.js';
 import PocketConfigManager from './PocketConfigManager.js';
-
+import dotenv from 'dotenv';
 
 export default class PocketMongo {
 	constructor () {
-		this.uri = PocketConfigManager.getMongoConfig();
+		dotenv.config();
+		this.uri = process.env.MONGO;
 		this.client = new MongoClient(this.uri);
 	}
 
