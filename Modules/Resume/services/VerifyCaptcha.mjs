@@ -44,8 +44,9 @@ const VerifyCaptcha = execute(async (criteria) => {
                updateDecisionData.merge(PocketUtility.ConvertToPocket(ipContext.data));
                updateDecisionData.put("ip",criteria.ip);
                updateDecisionData.put("params.timestamp",PocketUtility.TimeStamp());
-               updateDecisionData.put("params.lastLogin",PocketUtility.LoggerTimeStamp());;
-               updateDecisionData.put("params.decisionCount",ipContext.data.decisionCount + 1);
+               updateDecisionData.put("params.lastLogin",PocketUtility.LoggerTimeStamp());
+               if(ipContext.data.decisionCount == undefined) updateDecisionData.put("params.decisionCount",1);
+               else updateDecisionData.put("params.decisionCount",ipContext.data.decisionCount + 1);
                updateDecisionData.put("params.entryCount",ipContext.data.entryCount + 1);
                updateDecisionData.remove("_id");
 
