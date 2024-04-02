@@ -44,8 +44,9 @@ const VerifyCaptcha = execute(async (criteria) => {
                updateDecisionData.merge(PocketUtility.ConvertToPocket(ipContext.data));
                updateDecisionData.put("ip",criteria.ip);
                updateDecisionData.put("params.timestamp",PocketUtility.TimeStamp());
-               updateDecisionData.put("lastLogin",PocketUtility.LoggerTimeStamp());;
-               updateDecisionData.put("decisionCount",ipContext.data.decisionCount + 1);
+               updateDecisionData.put("params.lastLogin",PocketUtility.LoggerTimeStamp());;
+               updateDecisionData.put("params.decisionCount",ipContext.data.decisionCount + 1);
+               updateDecisionData.put("params.entryCount",ipContext.data.entryCount + 1);
                updateDecisionData.remove("_id");
 
                const updateDecisionCount = await PocketService.executeService("UpdateDecisionResume", Modules.RESUME, updateDecisionData);
