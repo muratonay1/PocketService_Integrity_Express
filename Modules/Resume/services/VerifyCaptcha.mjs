@@ -34,11 +34,19 @@ const VerifyCaptcha = execute(async (criteria) => {
           // Doğrulama başarılı mı kontrol et
           if (responseData.success) {
 
+               let ipContextCriteria = Pocket.create();
+               ipContextCriteria.put("ip",criteria.ip)
+
+               const ipContext = await PocketService.executeService("FindIpContext",Modules.RESUME,ipContextCriteria);
+
                let updateDecisionData = Pocket.create();
 
+               updateDecisionData.merge(PocketUtility.ConvertToPocket(ipContext.data));
                updateDecisionData.put("ip",criteria.ip);
                updateDecisionData.put("params.timestamp",PocketUtility.TimeStamp());
-               updateDecisionData.put("params.entryCount",1);
+               updateDecisionData.put("lastLogin",PocketUtility.LoggerTimeStamp());;
+               updateDecisionData.put("decisionCount",ipContext.data.decisionCount + 1);
+               updateDecisionData.remove("_id");
 
                const updateDecisionCount = await PocketService.executeService("UpdateDecisionResume", Modules.RESUME, updateDecisionData);
 
