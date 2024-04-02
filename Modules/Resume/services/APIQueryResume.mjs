@@ -8,6 +8,14 @@ const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketSe
  */
 const APIQueryResume = execute(async (criteria) => {
      try {
+          let criteriaContext = Pocket.create();
+          criteriaContext.put("ip",criteria.ip);
+          const contextControl = await PocketService.executeService("FindIpContext", Modules.RESUME, criteriaContext);
+
+          if(contextControl.data.entryCount % 10 == 0){
+               return [];
+          }
+
           let keyList = [
                "about",
                "experience",

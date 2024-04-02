@@ -73,10 +73,8 @@ async function handleApiRequest(req, res, apiInformation) {
           }
 
           // Eğer servis "UpdateCounter" ise ve POST isteği yapıldıysa, ip adresini paramsObject içine ekleyin
-          if (apiInformation.service === "UpdateCounter" || apiInformation.service === "VerifyCaptcha") {
+          if (apiInformation.service === "UpdateCounter" || apiInformation.service === "VerifyCaptcha" || apiInformation.service == "APIQueryResume") {
                paramsObject["ip"] = req.realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-               let content = ""
-               PocketLog.info("")
           }
 
           // Servisi çalıştırın ve sonucu döndürün
