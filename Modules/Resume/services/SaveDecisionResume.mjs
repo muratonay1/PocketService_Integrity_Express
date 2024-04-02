@@ -14,7 +14,7 @@ const SaveDecisionResume = execute(async (criteria) => {
           let isFirst = criteria.isFirst;
           let responseIp
           if(!isFirst){
-               responseIp = await PocketService.executeService("FindIpContext", Modules.RESUME, criteria);s
+               responseIp = await PocketService.executeService("FindIpContext", Modules.RESUME, criteria);
                if(responseIp.data.entryCount % 10 == 0){
                     return responseIp.data;
                }
