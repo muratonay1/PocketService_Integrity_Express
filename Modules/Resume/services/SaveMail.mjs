@@ -8,6 +8,13 @@ const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketSe
  */
 const SaveMail = execute(async (criteria) => {
      try {
+          let criteriaContext = Pocket.create();
+          criteriaContext.put("ip",criteria.ip);
+          const contextControl = await PocketService.executeService("FindIpContext", Modules.RESUME, criteriaContext);
+
+          if(contextControl.data.entryCount % 10 == 0){
+               return false;
+          }
           PocketService.parameterMustBeFill(criteria, "name,subject,email,message,createDate,senderInfo");
 
           let insertMail = Pocket.create();
