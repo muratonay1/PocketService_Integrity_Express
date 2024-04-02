@@ -28,6 +28,8 @@ const FindIpContext = execute(async (criteria) => {
           if (searchResult.length === 0) {
                PocketLog.error("No search result");
           }
+          console.log("FindIPContext Result")
+          console.log(searchResult[0]);
           return searchResult[0];
      } catch (error) {
           PocketLog.error(`FindIpContext servisinde hata meydana geldi."` + error);

@@ -9,6 +9,7 @@ const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketSe
 const UpdateCounter = execute(async (criteria) => {
      try {
 
+          console.log("decision girmeden önce")
           const decision = await PocketService.executeService("DecisionResumeEntry",Modules.RESUME,criteria);
 
           if(!decision.data){

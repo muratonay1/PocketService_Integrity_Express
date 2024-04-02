@@ -10,12 +10,15 @@ const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketSe
 const SaveDecisionResume = execute(async (criteria) => {
      try {
           PocketService.parameterMustBeFill(criteria, "ip,isFirst");
+          console.log("SaveDecisionResume gelen parametre(criteria): ");
+          console.log(criteria);
           let result = {};
           let isFirst = criteria.isFirst;
           let responseIp
           if(!isFirst){
                responseIp = await PocketService.executeService("FindIpContext", Modules.RESUME, criteria);
-
+               console.log("isFirst değil. FindIpContext responsu: ");
+               console.log(responseIp);
                if(responseIp.data.entryCount == 10){
                     return responseIp.data;
                }
@@ -30,6 +33,8 @@ const SaveDecisionResume = execute(async (criteria) => {
                updatePocket.put("timestamp",PocketUtility.TimeStamp());
                updatePocket.remove("_id");
 
+               console.log("güncelleme yapılıyor. updatePocket: ")
+               console.log(updatePocket);
                const updateResult = await new Promise((resolve, reject) => {
                     dbClient.executeUpdate({
                          from: MongoQueryFrom.DECISION,
@@ -44,6 +49,7 @@ const SaveDecisionResume = execute(async (criteria) => {
 
           }
           else{
+               console.log("ilk kayıt olduğuna karar verildi.");
                let uniqueId = await PocketService.executeService("GenerateUniqueID", Modules.UTILITY);
 
                let insertPocket = Pocket.create();
@@ -54,6 +60,8 @@ const SaveDecisionResume = execute(async (criteria) => {
                insertPocket.put("entryCount",1);
                insertPocket.put("id",uniqueId.data["_id"]);
 
+               console.log("insert edilmeden önce insertPocket : ");
+               console.log(insertPocket);
                const insertResult = await new Promise((resolve, reject) => {
                     dbClient.executeInsert({
                          from: MongoQueryFrom.DECISION,
@@ -62,9 +70,13 @@ const SaveDecisionResume = execute(async (criteria) => {
                          fail: reject
                     });
                });
+               console.log("update edildi insertPocket: ")
+               console.log(insertPocket);
                result = insertPocket;
           }
 
+          console.log("result sonucu : ");
+          console.log(result)
           if (!PocketUtility.isEmptyObject(result)) {
                return result;
           }
