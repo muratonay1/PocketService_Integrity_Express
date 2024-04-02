@@ -72,10 +72,8 @@ async function handleApiRequest(req, res, apiInformation) {
                Object.assign(paramsObject, req.body);
           }
 
-          // Eğer servis "UpdateCounter" ise ve POST isteği yapıldıysa, ip adresini paramsObject içine ekleyin
-          if (apiInformation.service === "UpdateCounter" || apiInformation.service === "VerifyCaptcha" || apiInformation.service == "APIQueryResume") {
-               paramsObject["ip"] = req.realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-          }
+          // nginx için
+          paramsObject["ip"] = req.realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
           // Servisi çalıştırın ve sonucu döndürün
           const result = await PocketService.executeService(apiInformation.service, apiInformation.module, PocketUtility.ConvertToPocket(paramsObject));
