@@ -16,7 +16,7 @@ const SaveDecisionResume = execute(async (criteria) => {
           if(!isFirst){
                responseIp = await PocketService.executeService("FindIpContext", Modules.RESUME, criteria);
 
-               if(responseIp.data.entryCount == 5){
+               if(responseIp.data.entryCount == 10){
                     return responseIp.data;
                }
                let filter = new PocketQueryFilter();

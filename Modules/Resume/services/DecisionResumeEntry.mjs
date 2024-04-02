@@ -36,7 +36,7 @@ const DecisionResumeEntry = execute(async (criteria) => {
           if(isFirstEntry) return true;
 
 
-          if(saveDecision.data.entryCount == 50 )
+          if(saveDecision.data.entryCount == 10 )
           {
                PocketLog.warn("Aşırı istek tespit edildi. IP: "+ criteria.ip);
                return false;
