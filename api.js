@@ -74,7 +74,7 @@ async function handleApiRequest(req, res, apiInformation) {
 
           // Eğer servis "UpdateCounter" ise ve POST isteği yapıldıysa, ip adresini paramsObject içine ekleyin
           if (apiInformation.service === "UpdateCounter" || apiInformation.service === "VerifyCaptcha") {
-               paramsObject["ip"] = req.ip;
+               paramsObject["ip"] = req.realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
           }
 
           // Servisi çalıştırın ve sonucu döndürün
