@@ -47,7 +47,7 @@ const VerifyCaptcha = execute(async (criteria) => {
                updateDecisionData.put("params.lastLogin",PocketUtility.LoggerTimeStamp());
                if(ipContext.data.decisionCount == undefined) updateDecisionData.put("params.decisionCount",1);
                else updateDecisionData.put("params.decisionCount",ipContext.data.decisionCount + 1);
-               updateDecisionData.put("params.entryCount",ipContext.data.entryCount);
+               updateDecisionData.put("params.entryCount",ipContext.data.entryCount + 1);
                updateDecisionData.remove("_id");
 
                const updateDecisionCount = await PocketService.executeService("UpdateDecisionResume", Modules.RESUME, updateDecisionData);
