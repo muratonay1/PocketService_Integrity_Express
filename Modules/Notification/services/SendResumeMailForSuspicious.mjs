@@ -61,7 +61,7 @@ const SendResumeMailForSuspicious = execute(async (criteria) => {
                          <h2>Karar Mekanizmasına bir istek düştü. ${criteria.ip} adresi şüpheli olarak algılandı.</h2>
                     </div>
                     <div class="message">
-                         <p><strong>İp Adresi:</strong>${criteria.name}</p>
+                         <p><strong>İp Adresi:</strong>${criteria.ip}</p>
                          <p><strong>İlk Giriş Aktivite:</strong>${criteria.insertDate}</p>
                          <p><strong>Son Giriş Aktivite:</strong> ${criteria.lastLogin}</p>
                          <p><strong>Karar Mekanizmasına Düşüş Sayısı:</strong> ${criteria.decisionCount}</p>
