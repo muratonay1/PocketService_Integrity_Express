@@ -94,10 +94,12 @@ export const Operator = {
  *
  * @property {string} RESUME - RESUME modülü
  * @property {string} UTILITY - RESUME modülü
+ * @property {string} NOTIFICATION - RESUME modülü
  */
 
 /** @type {Modules} */
 export const Modules = {
      "RESUME": "Resume",
 	"UTILITY": "Utility",
+	"NOTIFICATION":"Notification"
 }

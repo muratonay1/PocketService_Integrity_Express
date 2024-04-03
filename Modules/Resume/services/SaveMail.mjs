@@ -37,7 +37,21 @@ const SaveMail = execute(async (criteria) => {
                });
           });
 
-          return insertResult;
+          if(insertResult) {
+
+               PocketLog.info("Resume mail kaydetme işlemi başarılı. Mail gönderim işlemi başladı.");
+
+               const sendMail = await PocketService.executeService("SendResumeMail", Modules.NOTIFICATION, insertMail);
+
+               if(sendMail.data.sendStatus){
+
+                    PocketLog.info("Resume mail gönderme işlemi başarılı.");
+
+                    return true;
+               }
+          }
+
+          return false;
      } catch (error) {
           PocketLog.error(`SaveMail servisinde hata meydana geldi."` + error);
           throw new Error(error);
