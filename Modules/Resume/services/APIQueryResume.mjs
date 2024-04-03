@@ -13,8 +13,6 @@ const APIQueryResume = execute(async (criteria) => {
           criteriaContext.put("ip",criteria.ip);
           const contextControl = await PocketService.executeService("FindIpContext", Modules.RESUME, criteriaContext);
           if(contextControl.data.entryCount % 10 == 0){
-               let sendTrafficPocket = PocketUtility.ConvertToPocket(contextControl.data);
-               await PocketService.executeService("SendResumeMailForSuspicious", Modules.NOTIFICATION, sendTrafficPocket);
                return [];
           }
 

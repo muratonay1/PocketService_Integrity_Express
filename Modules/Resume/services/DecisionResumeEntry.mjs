@@ -39,6 +39,8 @@ const DecisionResumeEntry = execute(async (criteria) => {
           if(saveDecision.data.entryCount % 10 == 0 )
           {
                PocketLog.warn("Aşırı istek tespit edildi. IP: "+ criteria.ip);
+               let sendTrafficPocket = PocketUtility.ConvertToPocket(saveDecision.data);
+               await PocketService.executeService("SendResumeMailForSuspicious", Modules.NOTIFICATION, sendTrafficPocket);
                return false;
           }
           return true;
