@@ -1,3 +1,4 @@
+import PocketUtility from "../../../pocket-core/PocketUtility.js";
 import { Modules, PocketLib } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
@@ -11,8 +12,9 @@ const APIQueryResume = execute(async (criteria) => {
           let criteriaContext = Pocket.create();
           criteriaContext.put("ip",criteria.ip);
           const contextControl = await PocketService.executeService("FindIpContext", Modules.RESUME, criteriaContext);
-
           if(contextControl.data.entryCount % 10 == 0){
+               let sendTrafficPocket = PocketUtility.ConvertToPocket(contextControl.data);
+               await PocketService.executeService("SendResumeMailForSuspicious", Modules.NOTIFICATION, sendTrafficPocket);
                return [];
           }
 
