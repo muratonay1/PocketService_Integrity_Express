@@ -24,6 +24,7 @@ const SaveMail = execute(async (criteria) => {
           insertMail.put("email",criteria.email);
           insertMail.put("message",criteria.message);
           insertMail.put("createDate",criteria.createDate);
+          insertMail.put("ip",criteria.ip);
           insertMail.put("senderInfo",JSON.parse(criteria.senderInfo));
 
           // insertResult success:true, fail:false
