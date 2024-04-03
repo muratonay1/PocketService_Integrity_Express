@@ -53,6 +53,10 @@ const VerifyCaptcha = execute(async (criteria) => {
                const updateDecisionCount = await PocketService.executeService("UpdateDecisionResume", Modules.RESUME, updateDecisionData);
 
                if(updateDecisionCount){
+                    let updateDecision = Pocket.create();
+                    updateDecision.put("ip", criteria.ip);
+                    updateDecision.put("params.sendMail", false);
+                    await PocketService.executeService("UpdateDecisionResume", Modules.RESUME, updateDecision)
                     return { success: true, message: 'Captcha verification successful.' };
                }
 

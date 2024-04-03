@@ -19,8 +19,7 @@ const DecisionResumeEntry = execute(async (criteria) => {
 
           let isFirstEntry = false;
           // Giriş ilk defa gerçekleşiyorsa
-          if (PocketUtility.isEmptyObject(responseIp.data))
-          {
+          if (PocketUtility.isEmptyObject(responseIp.data)) {
                PocketLog.info("First entry to the CV site detected. IP: " + criteria.ip);
                isFirstEntry = true;
           }
@@ -28,19 +27,25 @@ const DecisionResumeEntry = execute(async (criteria) => {
           let saveDecisionPocket = Pocket.create();
 
           saveDecisionPocket.put("ip", criteria.ip);
-          saveDecisionPocket.put("isFirst",isFirstEntry);
+          saveDecisionPocket.put("isFirst", isFirstEntry);
 
           const saveDecision = await PocketService.executeService("SaveDecisionResume", Modules.RESUME, saveDecisionPocket);
 
           PocketLog.info("Recorded in the decision mechanism. IP: " + criteria.ip);
 
-          if(isFirstEntry) return true;
+          if (isFirstEntry) return true;
 
-          if(saveDecision.data.entryCount % 10 == 0 )
-          {
-               PocketLog.warn("Aşırı istek tespit edildi. IP: "+ criteria.ip);
-               let sendTrafficPocket = PocketUtility.ConvertToPocket(saveDecision.data);
-               await PocketService.executeService("SendResumeMailForSuspicious", Modules.NOTIFICATION, sendTrafficPocket);
+          if (saveDecision.data.entryCount % 10 == 0) {
+               PocketLog.warn("Aşırı istek tespit edildi. IP: " + criteria.ip);
+               if (!saveDecision.data.sendMail) {
+                    let sendTrafficPocket = PocketUtility.ConvertToPocket(saveDecision.data);
+                    await PocketService.executeService("SendResumeMailForSuspicious", Modules.NOTIFICATION, sendTrafficPocket);
+                    let updateDecision = Pocket.create();
+                    updateDecision.put("ip", criteria.ip);
+                    updateDecision.put("params.sendMail", true);
+                    await PocketService.executeService("UpdateDecisionResume", Modules.RESUME, updateDecision)
+
+               }
                return false;
           }
           return true;
