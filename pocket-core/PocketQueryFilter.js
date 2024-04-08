@@ -5,14 +5,14 @@ class PocketQueryFilter {
 
      add(field, value) {
           this.filters.push({ field, value });
-          return this; // Zincirleme yöntemi sağlamak için bu nesneyi döndürün
+          return this;
      }
 
      operator(operator) {
           this.filters.forEach(filter => {
                filter.operator = operator;
           });
-          return this; // Zincirleme yöntemi sağlamak için bu nesneyi döndürün
+          return this;
      }
 
      getFilters() {

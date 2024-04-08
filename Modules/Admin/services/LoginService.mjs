@@ -1,9 +1,15 @@
-import PocketLog from "../../../pocket-core/PocketLog.js";
-import PocketMongo,{dbClient} from "../../../pocket-core/PocketMongo.js";
-import PocketQueryFilter from "../../../pocket-core/PocketQueryFilter.js";
-import PocketService, { execute } from "../../../pocket-core/PocketService.js";
-import PocketUtility from "../../../pocket-core/PocketUtility.js";
-import { MongoQueryFrom } from "../constants.js";
+import { MongoQueryFrom, PocketLib } from "../constants.js";
+const {
+     Pocket,
+     PocketResponse,
+     PocketQueryFilter,
+     PocketService,
+     PocketUtility,
+     execute,
+     PocketLog,
+     dbClient
+
+} = PocketLib;
 
 /**
  * Pocket servisi

@@ -1,13 +1,12 @@
 export default class Pocket {
-	constructor () { }
 
 	static create(){
 		return new Pocket();
 	}
 
 	put(key, value) {
-		var keyList = key.includes('.') ? key.split('.') : [key];
-		var target = this;
+		let keyList = key.includes('.') ? key.split('.') : [key];
+		let target = this;
 
 		for (let i = 0; i < keyList.length - 1; i++) {
 			if (!target[keyList[i]]) {
@@ -25,8 +24,8 @@ export default class Pocket {
 	}
 
 	get(key, defaultValueOrClass = undefined) {
-		var keyList = key.split('.');
-		var target = this;
+		let keyList = key.split('.');
+		let target = this;
 
 		for (let k of keyList) {
 			if (target[k] === undefined) {
@@ -50,7 +49,7 @@ export default class Pocket {
 				get: function (target, prop) {
 					if (typeof target[prop] === 'function') {
 						return function (...args) {
-							return target[prop].call(target, ...args);
+							return target[prop](...args);
 						};
 					} else {
 						return target[prop];
@@ -73,8 +72,8 @@ export default class Pocket {
 	}
 
 	remove(key) {
-		var keyList = key.split('.');
-		var target = this;
+		let keyList = key.split('.');
+		let target = this;
 
 		for (let i = 0; i < keyList.length - 1; i++) {
 			target = target[keyList[i]];
@@ -104,10 +103,7 @@ export default class Pocket {
 	}
 	itemEquals(key,value){
 		if(this instanceof Pocket){
-			if(this.get(key,"") == value){
-				return true;
-			}
-			return false;
+			return this.get(key,"") == value;
 		}
 		else{
 			throw new Error('this metod using only Pocket Class.');

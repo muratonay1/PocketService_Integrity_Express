@@ -32,6 +32,7 @@ const SaveDecisionResume = execute(async (criteria) => {
                updatePocket.remove("_id");
 
                const updateResult = await new Promise((resolve, reject) => {
+
                     dbClient.executeUpdate({
                          from: MongoQueryFrom.DECISION,
                          where: filter,
@@ -40,9 +41,7 @@ const SaveDecisionResume = execute(async (criteria) => {
                          fail: reject
                     });
                });
-
-               result = updatePocket;
-
+               if(updateResult) result = updatePocket;
           }
           else{
                let uniqueId = await PocketService.executeService("GenerateUniqueID", Modules.UTILITY);
@@ -66,7 +65,8 @@ const SaveDecisionResume = execute(async (criteria) => {
                          fail: reject
                     });
                });
-               result = insertPocket;
+               if(insertResult) result = insertPocket;
+
           }
 
           if (!PocketUtility.isEmptyObject(result)) {

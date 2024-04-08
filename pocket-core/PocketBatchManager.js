@@ -1,6 +1,5 @@
 import PocketUtility from './PocketUtility.js';
 import { schedule } from 'node-cron';
-import { fork } from 'child_process';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import path from 'path';
@@ -61,7 +60,7 @@ class PocketBatchManager {
                     throw result;
                }
           } catch (error) {
-               throw error;
+               throw new Error(error);
           }
      }
      /**
@@ -135,7 +134,7 @@ function executeBatch(fn) {
                const result = await fn(...args);
                return result;
           } catch (error) {
-               throw error;
+               throw new Error(error);
           }
      };
 }

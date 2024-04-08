@@ -85,24 +85,6 @@ async function handleApiRequest(req, res, apiInformation) {
      }
 }
 
-
-/*
-// API Handler
-async function handleApiRequest(req, res, apiInformation) {
-     try {
-          const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
-          const paramsObject = Object.fromEntries(parsedUrl.searchParams);
-          if (apiInformation.service == "UpdateCounter") paramsObject["ip"] = req.ip;
-          const result = await PocketService.executeService(apiInformation.service, apiInformation.module, PocketUtility.ConvertToPocket(paramsObject));
-          await logApiRequest(req, apiInformation);
-          res.json(result);
-     } catch (error) {
-          await logApiError(req, apiInformation, error);
-          res.status(500).json({ error: error.message });
-     }
-}
-*/
-
 // API Handler
 async function checkApiUserLimitToken(req, res) {
      try {
@@ -149,7 +131,6 @@ async function middleWare(req, res, next) {
      }
      await saveApiLog(req);
      return true;
-     //res.status(404).send({ error: ERROR_MESSAGE.UNAUTHERIZED_END_POINT });
 }
 
 // API sınır aşımı hatası middleware'i

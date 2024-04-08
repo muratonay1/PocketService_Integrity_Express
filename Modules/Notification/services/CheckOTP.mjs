@@ -1,11 +1,14 @@
-import PocketLog from "../../../pocket-core/PocketLog.js";
-import PocketMongo from "../../../pocket-core/PocketMongo.js";
-import Pocket from "../../../pocket-core/Pocket.js";
-import PocketQueryFilter from "../../../pocket-core/PocketQueryFilter.js";
-import PocketService, { execute } from "../../../pocket-core/PocketService.js";
-import { GeneralKeys, Modules, MongoQueryFrom, Status } from "../constants.js";
-import nodemailer from 'nodemailer';
-import PocketUtility from "../../../pocket-core/PocketUtility.js";
+import { GeneralKeys, Modules, Status, PocketLib } from "../constants.js";
+
+const {
+     Pocket,
+     PocketService,
+     PocketUtility,
+     execute,
+     PocketLog,
+     dbClient
+
+} = PocketLib;
 
 /**
  * Pocket servisi

@@ -58,12 +58,6 @@
 				"method":"GET"
 			}
 		},
-		"Application": {
-			"Getdata": {
-				"endPoint": "get-data",
-				"method":"GET"
-			}
-		},
 		"Pocket": {
 			"SaveBatchJobs":{
 				"endPoint":"api-save-batch-job",

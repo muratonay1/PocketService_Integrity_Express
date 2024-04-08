@@ -1,5 +1,5 @@
 import { MongoQueryFrom, PocketLib } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const { PocketLog, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
 /**
  * Pocket GetSecret servisi

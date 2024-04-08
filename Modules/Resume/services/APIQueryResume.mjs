@@ -1,4 +1,3 @@
-import PocketUtility from "../../../pocket-core/PocketUtility.js";
 import { Modules, PocketLib } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
@@ -25,15 +24,15 @@ const APIQueryResume = execute(async (criteria) => {
           ];
 
           let resultCv = [];
-          for(let iter = 0 ; iter < keyList.length ; iter++)
+          for(const element of keyList)
           {
                let criteria = Pocket.create();
-               criteria.put("key",keyList[iter]);
+               criteria.put("key",element);
 
                const responseService = await PocketService.executeService("GetResumeData", Modules.RESUME, criteria);
 
                let cvObject = {
-                    "key":keyList[iter],
+                    "key":element,
                     "data":responseService.data
                };
 

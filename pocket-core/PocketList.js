@@ -11,8 +11,8 @@ export default class PocketList {
 		 * })
 		 */
 		this.ForEach = function (callbackfn = Pocket) {
-			var index = 0;
-			var items = new PocketList();
+			let index = 0;
+			let items = new PocketList();
 			for (let i = 0; i < Object.keys(this).length; i++) {
 				items.add(this[i]);
 			}
@@ -32,7 +32,7 @@ export default class PocketList {
 			function reset() {
 				return (index = 0);
 			}
-			for (var item = first(); hasNext(); item = next()) {
+			for (let item = first(); hasNext(); item = next()) {
 				/**
 				 * @returns {Pocket}
 				 */
@@ -47,8 +47,8 @@ export default class PocketList {
 	 * @returns {this}
 	 */
 	add(pocket) {
-		var _this = this;
-		var thisLength = Object.keys(_this).length - 1;
+		let _this = this;
+		let thisLength = Object.keys(_this).length - 1;
 		if (thisLength != 0) {
 			_this[thisLength] = pocket;
 		} else {
@@ -71,7 +71,7 @@ export default class PocketList {
 	 * @returns {Boolean}
 	 */
 	isPocketList() {
-		return this instanceof PocketList == "PocketList" ? true : false;
+		return this instanceof PocketList == "PocketList";
 	}
 
 	/**

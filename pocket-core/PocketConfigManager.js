@@ -1,6 +1,5 @@
 import PocketUtility from './PocketUtility.js';
 import Pocket from './Pocket.js';
-import PocketList from './PocketList.js';
 import config from '../pocket-config.json' assert { type: 'json' };
 import fs from 'fs';
 import path, { resolve } from 'path';
@@ -21,25 +20,25 @@ export default class PocketConfigManager {
      *
      */
     static startApplicationInfo() {
-        try {
-            return new Promise(function (resolve, reject) {
-                var application;
-                if (config.application != undefined) application = config.application;
-                else throw new Error("Invalid application").stack
-                var globArr = [];
-                var applicationPocket = new Pocket();
-                for (let i = 0; i < Object.keys(application).length; i++) {
-                    applicationPocket.put(PocketConfigManager.capitalizeFirstLetter(Object.keys(application)[i]), application[Object.keys(application)[i]])
+        return new Promise(function (resolve, reject) {
+            let application;
+            try {
+                if (config.application != undefined) {
+                    application = config.application;
+                } else {
+                    throw new Error("Invalid application");
                 }
-                globArr.push(applicationPocket);
-                resolve(new Object(globArr[0]));
-                reject(new Error("(error) startAppInfo").stack)
-            })
-
-        } catch (error) {
-            throw " (error) " + PocketConfigManager.name + " " + error;
-        }
+                let applicationPocket = new Pocket();
+                for (const element of Object.keys(application)) {
+                    applicationPocket.put(PocketConfigManager.capitalizeFirstLetter(element), application[element])
+                }
+                resolve(applicationPocket.toObject());
+            } catch (error) {
+                reject(new Error(`(error) startAppInfo: ${error.stack}`));
+            }
+        });
     }
+
     static async checkModules() {
         const rootFolder = './Modules';
 
@@ -55,7 +54,6 @@ export default class PocketConfigManager {
                     const constantsPath = path.join(modulePath, 'constants.js');
 
                     if (fs.existsSync(servicesPath) && fs.existsSync(constantsPath)) {
-                        const constantsModule = await import(`../${constantsPath}`);
                         const serviceFiles = fs.readdirSync(servicesPath);
                         console.log(`Module: ${module.name}`);
                         console.log(`Constants: ${constantsPath}`);
@@ -63,7 +61,6 @@ export default class PocketConfigManager {
                         for (const serviceFile of serviceFiles) {
                             try {
                                 servicesCount++;
-                                const retest = await import(`../${servicesPath}/${serviceFile}`);
                                 PocketLog.info(`- ${serviceFile} loading successfully`)
                                 successCount++
                             } catch (error) {

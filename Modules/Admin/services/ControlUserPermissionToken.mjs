@@ -1,9 +1,6 @@
-import { Modules, MongoQueryFrom, ERROR_MESSAGE, PocketLib } from "../constants.js";
+import { Modules, ERROR_MESSAGE, PocketLib } from "../constants.js";
 const {
      Pocket,
-     PocketList,
-     PocketConfigManager,
-     PocketResponse,
      PocketMongo,
      PocketQueryFilter,
      PocketService,
@@ -47,11 +44,7 @@ const ControlUserPermissionToken = execute(async (criteria) => {
 
           const responseUpdatePermissionToken = await PocketService.executeService("UpdatePermissionToken", Modules.ADMIN, updatePocket);
 
-          if (responseUpdatePermissionToken.data.isUpdate) {
-               return true;
-          }
-
-          return false;
+          return !!(responseUpdatePermissionToken.data.isUpdate);
 
      } catch (error) {
           PocketLog.error(`ControlUserPermissionToken servisinde hata meydana geldi.\n` + `Token: ` + criteria.get("permissionToken", String), error);

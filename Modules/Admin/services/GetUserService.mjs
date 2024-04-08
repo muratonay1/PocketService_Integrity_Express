@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, MongoQueryFrom, GeneralKeys, Status, Operator, PocketLib } from "../constants.js";
+import { ERROR_MESSAGE, MongoQueryFrom, Operator, PocketLib } from "../constants.js";
 const {
      Pocket,
      PocketResponse,
@@ -21,7 +21,7 @@ const GetUserService = execute(async (criteria) => {
 
           filter = new PocketQueryFilter();
 
-          createFilter(filter);
+          createFilter();
 
           if(filter.filters.length == 0){
                throw new Error(ERROR_MESSAGE.USER_NOT_FOUND_ERROR_MESSAGE)

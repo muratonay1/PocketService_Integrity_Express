@@ -1,7 +1,6 @@
 import { ERROR_MESSAGE, GeneralKeys, MongoQueryFrom, Operator, Status, PocketLib } from "../constants.js";
 const {
      Pocket,
-     PocketResponse,
      PocketQueryFilter,
      PocketService,
      execute,

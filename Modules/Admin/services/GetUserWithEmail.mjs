@@ -1,8 +1,13 @@
-import PocketLog from "../../../pocket-core/PocketLog.js";
-import PocketMongo from "../../../pocket-core/PocketMongo.js";
-import PocketQueryFilter from "../../../pocket-core/PocketQueryFilter.js";
-import PocketService, { execute } from "../../../pocket-core/PocketService.js";
-import { MongoQueryFrom,Modules } from "../constants.js";
+import { MongoQueryFrom , PocketLib} from "../constants.js";
+const {
+     Pocket,
+     PocketQueryFilter,
+     PocketService,
+     execute,
+     PocketLog,
+     dbClient
+
+} = PocketLib;
 
 /**
  * Pocket servisi
@@ -13,7 +18,6 @@ const GetUserWithEmail = execute(async (criteria) => {
      try {
           PocketService.parameterMustBeFill(criteria, "email");
 
-          let dbClient = new PocketMongo();
           let filter = new PocketQueryFilter();
           filter.add("email", criteria.get("email", String)).operator("==");
 

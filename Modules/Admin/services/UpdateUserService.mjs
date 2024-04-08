@@ -1,8 +1,14 @@
-import PocketLog from "../../../pocket-core/PocketLog.js";
-import PocketMongo from "../../../pocket-core/PocketMongo.js";
-import PocketQueryFilter from "../../../pocket-core/PocketQueryFilter.js";
-import PocketService, { execute } from "../../../pocket-core/PocketService.js";
-import { MongoQueryFrom } from "../constants.js";
+import { MongoQueryFrom, PocketLib } from "../constants.js";
+
+const {
+     Pocket,
+     PocketQueryFilter,
+     PocketService,
+     execute,
+     PocketLog,
+     dbClient
+
+} = PocketLib;
 
 /**
  * Pocket servisi
@@ -13,7 +19,6 @@ const UpdateUserService = execute(async (criteria) => {
      try {
           PocketService.parameterMustBeFill(criteria, "user_id");
 
-          let dbClient = new PocketMongo();
           let filter = new PocketQueryFilter();
           filter.add("user_id", criteria.get("user_id", String)).operator("==");
 

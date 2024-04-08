@@ -1,8 +1,13 @@
-import PocketLog from "../../../pocket-core/PocketLog.js";
-import PocketMongo from "../../../pocket-core/PocketMongo.js";
-import PocketQueryFilter from "../../../pocket-core/PocketQueryFilter.js";
-import PocketService, { execute } from "../../../pocket-core/PocketService.js";
-import { MongoQueryFrom } from "../constants.js";
+import { MongoQueryFrom, PocketLib } from "../constants.js";
+const {
+     Pocket,
+     PocketQueryFilter,
+     PocketService,
+     execute,
+     PocketLog,
+     dbClient
+
+} = PocketLib;
 
 /**
  * Pocket servisi
@@ -11,11 +16,6 @@ import { MongoQueryFrom } from "../constants.js";
  */
 const SaveApiLog = execute(async (criteria) => {
      try {
-
-          let dbClient = new PocketMongo();
-          let filter = new PocketQueryFilter();
-
-          // insertResult success:true, fail:false
           const insertResult = await new Promise((resolve, reject) => {
                dbClient.executeInsert({
                     from: MongoQueryFrom.API_LOG,
