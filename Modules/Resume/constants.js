@@ -6,6 +6,7 @@ import PocketRemoteRequest from "../../pocket-core/PocketRemoteRequest.js";
 import PocketMongo, { dbClient } from "../../pocket-core/PocketMongo.js";
 import PocketQueryFilter from "../../pocket-core/PocketQueryFilter.js";
 import PocketService, { execute } from "../../pocket-core/PocketService.js";
+import PocketBatchManager, { executeBatch } from "../../pocket-core/PocketBatchManager.js";
 
 // PocketLib importer
 export const PocketLib = {
@@ -16,7 +17,9 @@ export const PocketLib = {
 	PocketService,
 	PocketUtility,
 	PocketRemoteRequest,
+	PocketBatchManager,
 	execute,
+	executeBatch,
 	dbClient,
 	Pocket
 };

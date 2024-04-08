@@ -36,7 +36,7 @@ let PocketUtility = (
 		 */
 		function GetRealDate(format, separate) {
 			function isSeparated() {
-				return separate != undefined ? true : false;
+				return separate != undefined;
 			}
 
 			let date = new Date();
@@ -227,19 +227,15 @@ let PocketUtility = (
 			const currentDate = new Date();
 			const targetDate = new Date(date);
 
-			if (currentDate < targetDate) {
-				return true; // Geçerlilik tarihi geçmemiş
-			} else {
-				return false; // Geçerlilik tarihi geçmiş
-			}
+			return currentDate < targetDate;
 		}
 
-		function isExpiredDate(date, expiredSecond){
+		function isExpiredDate(date, expiredSecond) {
 			// Şu anki zamanı al
-			var now = new Date();
+			let now = new Date();
 
 			// Gelen 'date' değişkenini Date objesine dönüştür
-			var inputDate = new Date(date);
+			let inputDate = new Date(date);
 
 			// Geçerli zamanı artır
 			inputDate.setSeconds(inputDate.getSeconds() + expiredSecond);
@@ -266,8 +262,9 @@ let PocketUtility = (
 			createExceptionLog: createExceptionLog,
 			LoggerTimeStamp: LoggerTimeStamp,
 			timeGap: timeGap,
-			isValidDate:isValidDate,
-			isExpiredDate:isExpiredDate
+			isValidDate: isValidDate,
+			isExpiredDate: isExpiredDate,
+			isValidEmail: isValidEmail
 		}
 	}
 )();

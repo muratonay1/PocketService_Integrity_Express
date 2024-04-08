@@ -62,12 +62,14 @@ export const Db = {
  * @typedef {Object} Collection
  * @property {string} BATCH_DEFINATION - Hata günlükleri koleksiyonu
  * @property {string} SERVICE - Hata günlükleri koleksiyonu
+ * @property {string} SECRETS - Secretların saklandığı collection
  */
 
 /** @type {Collection} */
 export const Collection = {
      "BATCH_DEFINATION": "batchDefination",
-     "SERVICE":"service"
+     "SERVICE":"service",
+     "SECRETS":"secrets"
 }
 
 /**
@@ -75,12 +77,14 @@ export const Collection = {
  * @typedef {Object} MongoQueryFrom
  * @property {string} BATCH_DEFINATION - Hata günlükleri koleksiyonu sorgusu
  * @property {string} SERVICE - Hata günlükleri koleksiyonu sorgusu
+ * @property {string} SECRETS - - Secretların saklandığı collection sorgusu
  */
 
 /** @type {MongoQueryFrom} */
 export const MongoQueryFrom = {
      "BATCH_DEFINATION": Db.POCKET + "." + Collection.BATCH_DEFINATION,
      "SERVICE": Db.POCKET + "." + Collection.SERVICE,
+     "SECRETS": Db.POCKET + "." + Collection.SECRETS
 }
 
 /**
