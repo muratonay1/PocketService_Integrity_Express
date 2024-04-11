@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Başlatma öncesi betik: Modül ve servislerin doğruluğunu kontrol et
+# Başlatma öncesi betik: Modül ve servislerin doğruluğu
 
 # Ana klasör
 MAIN_FOLDER="Modules"
@@ -62,5 +62,4 @@ if [ $ERROR_COUNT -ne 0 ]; then
   exit 1
 else
   echo "Tüm modüller ve servisler doğru şekilde yüklendi ve tanımlandı. Uygulama başlatılıyor..."
-  # Uygulamayı başlatma komutu buraya yazılabilir
 fi

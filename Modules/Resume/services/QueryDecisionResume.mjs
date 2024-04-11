@@ -1,4 +1,4 @@
-import { PocketLib, Operator } from "../constants.js";
+import { PocketLib, Operator,MongoQueryFrom } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
 /**

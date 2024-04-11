@@ -1,4 +1,3 @@
-import Pocket from "./Pocket.js";
 class PocketResponse {
     static Success(input) {
         return input;

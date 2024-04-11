@@ -5,7 +5,6 @@ import PocketLog from "./pocket-core/PocketLog.js";
 import PocketService from "./pocket-core/PocketService.js";
 
 
-// serviceResponse objesi içerisinde `data` objesi içinde response bulunur.
 const serviceResponse = await PocketService.executeService(`GetBatchJobs`, Modules.POCKET);
 
 if (serviceResponse.data.length == 0) {
@@ -22,7 +21,6 @@ async function processBatches(batches) {
      }
 }
 
-// Daha sonra bu fonksiyonu çağırabilirsiniz
 processBatches(batchs)
      .then(() => {
           PocketLog.info("ALL BATCHS PROCESSINGS SUCCESSFULL");

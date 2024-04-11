@@ -11,8 +11,7 @@ const SearchMail = execute(async (criteria) => {
           PocketService.parameterMustBeFill(criteria, "insertDate");
 
           let filter = new PocketQueryFilter();
-          if(criteria.ip != undefined && PocketUtility.)
-          filter.add("ip", criteria.get("ip", String)).operator(Operator.EQ);
+          if(criteria.ip != undefined && criteria.ip != "") filter.add("ip", criteria.get("ip", String)).operator(Operator.EQ);
           filter.add("insertDate", criteria.insertDate).operator(Operator.GTE);
 
           const searchResult = await new Promise((resolve, reject) => {

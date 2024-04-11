@@ -16,12 +16,11 @@ const {
 // API Rate Limit Options
 const apiRateLimit = rateLimit(
      {
-          windowMs: 60 * 1000, // milliseconds - how long to keep records of requests in memory
-          max: 5, // max number of recent connections during `window` milliseconds before sending a 429 response
+          windowMs: 60 * 1000,
+          max: 5,
           message: "Too many requests, please try again later.",
-          statusCode: 429, // 429 status = Too Many Requests (RFC 6585)
-          headers: true, //Send custom rate limit header with limit and remaining
-          // allows to create custom keys (by default user IP is used)
+          statusCode: 429,
+          headers: true,
           keyGenerator: function (req /*, res*/) {
                return req.ip;
           },
@@ -54,28 +53,24 @@ async function handleApiRequest(req, res, apiInformation) {
      try {
           let paramsObject = {};
 
-          // Query parametreleri
           const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
           const queryParams = Object.fromEntries(parsedUrl.searchParams);
           Object.assign(paramsObject, queryParams);
 
-          // Header bilgileri
           const headers = req.headers;
-          // Örneğin, x-user-token header'ını paramsObject içine ekleyin
+
           if (headers['x-user-token']) {
                paramsObject['x-user-token'] = headers['x-user-token'];
           }
 
-          // POST isteği ile gönderilen body
           if (req.method === 'POST') {
-               // req.body içindeki verileri paramsObject'e ekleyin
+
                Object.assign(paramsObject, req.body);
           }
 
-          // nginx için
+          // nginx
           paramsObject["ip"] = req.realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-          // Servisi çalıştırın ve sonucu döndürün
           const result = await PocketService.executeService(apiInformation.service, apiInformation.module, PocketUtility.ConvertToPocket(paramsObject));
           await logApiRequest(req, apiInformation);
           res.json(result);
@@ -123,7 +118,7 @@ async function saveApiLog(req) {
 
 // Middleware Buffer
 async function middleWare(req, res, next) {
-     const userToken = req.headers[GeneralKeys.X_USER_TOKEN]; // Kullanıcı tokeni başlıkta mı kontrolü?
+     const userToken = req.headers[GeneralKeys.X_USER_TOKEN];
      PocketLog.info("Request user token -> " + userToken);
      if (!userToken) {
           await saveApiLog(req);
@@ -172,9 +167,7 @@ async function handleRateLimitError(err, req, res, next, legacyInfo) {
 PocketConfigManager.checkModules()
      .then(result => {
           PocketLog.info("\nModule and service static check has been completed successfully.\n");
-          // Define express
           const app = express();
-          // Define cors conf.
           app.use(cors());
           app.use(bodyParser.json());
           const port = PocketConfigManager.getApiPort();

@@ -22,7 +22,7 @@ const UpdateExchangeRate = execute(async (criteria) => {
           });
           return insertResult;
      } catch (error) {
-          PocketLog.error(`UpdateExchangeRate servisinde hata meydana geldi."` + error);
+          PocketLog.error("UpdateExchangeRate servisinde hata meydana geldi." + error);
           throw new Error(error);
      }
 });

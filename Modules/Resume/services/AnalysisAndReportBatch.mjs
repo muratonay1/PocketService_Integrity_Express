@@ -14,7 +14,7 @@ const AnalysisAndReportBatch = executeBatch(async (criteria) => {
           let decisionCriteria = Pocket.create();
           decisionCriteria.put("insertDate", beforeDate(7)); // 1 hafta önceki tarih
 
-          const lastEntryDecision = await PocketService.executeService("GetDecisionResume", Modules.RESUME, decisionCriteria);
+          const lastEntryDecision = await PocketService.executeService("QueryDecisionResume", Modules.RESUME, decisionCriteria);
 
           const responseMails = await PocketService.executeService("SearchMail", Modules.RESUME, decisionCriteria);
 

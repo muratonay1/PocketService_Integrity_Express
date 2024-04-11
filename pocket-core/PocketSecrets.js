@@ -70,7 +70,7 @@ export default class PocketSecrets
           const key = Buffer.from(PocketConfigManager.getEncryptKey(), 'hex');
           const decipher = crypto.createDecipheriv('aes-256-gcm', key, Buffer.from(secretRegister.iv, 'hex'));
 
-          decipher.setAuthTag(Buffer.from(secretRegister.authTag, 'hex')); // Set authentication tag
+          decipher.setAuthTag(Buffer.from(secretRegister.authTag, 'hex'));
 
           let decrypted = decipher.update(encryptedObject.content, 'hex', 'utf8');
           decrypted += decipher.final('utf8');

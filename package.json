@@ -13,7 +13,8 @@
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.10",
     "uninstall": "^0.0.0",
-    "validator": "^13.11.0"
+    "validator": "^13.11.0",
+    "ws": "^7.2.1"
   },
   "name": "pocket-api",
   "version": "1.0.0",

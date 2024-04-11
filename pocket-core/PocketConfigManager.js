@@ -128,6 +128,12 @@ export default class PocketConfigManager {
         }
         throw new Error("Pocket Config file does not find settings config api port parameter.");
     }
+    static getSocketPort() {
+        if (config.settings.socketPort != undefined || config.settings.socketPort != "") {
+            return config.settings.socketPort;
+        }
+        throw new Error("Pocket Config file does not find settings config api port parameter.");
+    }
     static getMailExpiredSecond() {
         if (config.settings.mailExpiredSecond != undefined || config.settings.mailExpiredSecond != "") {
             return config.settings.mailExpiredSecond;
