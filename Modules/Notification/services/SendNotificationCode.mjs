@@ -15,20 +15,16 @@ import PocketUtility from "../../../pocket-core/PocketUtility.js";
 const SendNotificationCode = execute(async (criteria) => {
      try {
 
-          PocketService.parameterMustBeFill(criteria,"email,username");
-
-          let userCriteria = new Pocket();
-          userCriteria.put("name",criteria.get("username",""));
-
-          const userResponse = await PocketService.executeService("GetUserService",Modules.ADMIN,userCriteria)
+          PocketService.parameterMustBeFill(criteria,"email");
 
           const idServiceResponse = await PocketService.executeService("GenerateUniqueID","Utility");
 
-          const otp = await PocketService.executeService("GenerateOTP","Notification");
+          // serviceResponse objesi içerisinde `data` objesi içinde response bulunur.
+          let searchUserRequest = Pocket.create();
+          searchUserRequest.put("userMail",criteria.email);
+          const userResponse = await PocketService.executeService(`GetUserWithEmail`,`Community`,searchUserRequest);
 
-          if(userResponse.data.email == "" || userResponse.data.email == undefined){
-               throw new Error("Kullanıcı e posta bilgisi eksik.");
-          }
+          const otp = await PocketService.executeService("GenerateOTP","Notification");
 
           let uniqueId = idServiceResponse.data._id;
 
@@ -36,11 +32,11 @@ const SendNotificationCode = execute(async (criteria) => {
                "otpData":{
 
                     "_id"               :    uniqueId,
-                    "mailTo"            :    userResponse.data.email,
+                    "mailTo"            :    userResponse.data.userMail,
                     "expiredSecond"     :    500,
                     "created"           :    PocketUtility.LoggerTimeStamp(),
-                    "nickname"          :    userResponse.data.nickname,
-                    "userId"            :    userResponse.data.user_id,
+                    "nickname"          :    userResponse.data.userId,
+                    "userId"            :    userResponse.data.userId,
                     "otp"               :    otp.data.otp,
                     "retriesNumber"     :    0,
                     "status"            :    "1",

@@ -32,10 +32,6 @@
 				"endPoint": "api-get-user-service",
 				"method":"GET"
 			},
-			"LoginService": {
-				"endPoint": "api-login-service",
-				"method":"GET"
-			},
 			"LogoutService": {
 				"endPoint": "api-logout-service",
 				"method":"GET"
@@ -48,11 +44,7 @@
 			},
 			"SendNotificationCode": {
 				"endPoint": "api-send-notification",
-				"method":"GET"
-			},
-			"CheckOTP": {
-				"endPoint": "api-check-notification",
-				"method":"GET"
+				"method":"POST"
 			},
 			"CheckTOKEN": {
 				"endPoint": "api-check-token",
@@ -80,6 +72,24 @@
 			},
 			"VerifyCaptcha": {
 				"endPoint":"api-verify-captcha",
+				"method":"POST"
+			}
+		},
+		"Community":{
+			"SignUpService":{
+				"endPoint":"api-signup-service",
+				"method":"POST"
+			},
+			"CheckOtpAndAccountActivate": {
+				"endPoint": "api-check-otp",
+				"method":"POST"
+			},
+			"LoginService": {
+				"endPoint": "api-community-login",
+				"method":"POST"
+			},
+			"PasswordResetSendOTP":{
+				"endPoint":"api-community-resetPasswordCode",
 				"method":"POST"
 			}
 		}

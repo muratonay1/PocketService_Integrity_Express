@@ -18,22 +18,25 @@ const {
 const CheckOTP = execute(async (criteria) => {
      try {
 
-          PocketService.parameterMustBeFill(criteria, GeneralKeys.USER_ID);
-          PocketService.parameterMustBeFill(criteria, GeneralKeys.OTP);
+          PocketService.parameterMustBeFill(criteria, "email,otp");
 
           const OTP_DATA = "otpData";
 
           let searchUserObject = Pocket.create();
-          searchUserObject.put(GeneralKeys.USER_ID, criteria.get(GeneralKeys.USER_ID, String));
-          const userResponse = await PocketService.executeService("GetUserService", Modules.ADMIN, criteria);
+          searchUserObject.put("userMail", criteria.get("email", String));
+
+          const userResponse = await PocketService.executeService("GetUserWithEmail", "Community", searchUserObject);
 
           if (PocketUtility.isEmptyObject(userResponse.data)) {
                throw new Error("Kullanici bulunamadi");
           }
 
-          const otpData = await PocketService.executeService("GetOTP", Modules.NOTIFICATION, criteria);
 
-          let otpResponse = otpData.data;
+          let searchOtp = Pocket.create();
+          searchOtp.put("userId",userResponse.data.userId);
+          const otpData = await PocketService.executeService("GetOTP", Modules.NOTIFICATION, searchOtp);
+
+          let otpResponse = otpData.data[0].otpData;
 
           const expiryTime = addSecondsToTimestamp(otpResponse.created, otpResponse.expiredSecond);
 
@@ -82,7 +85,7 @@ const CheckOTP = execute(async (criteria) => {
 
      } catch (error) {
           PocketLog.error("CheckOTP servisinde hata meydana geldi." + error);
-          throw new Error(error);
+          throw new Error(error.stack);
      }
 });
 function isExpired(expiryTime) {

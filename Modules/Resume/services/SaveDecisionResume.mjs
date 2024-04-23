@@ -52,8 +52,8 @@ const SaveDecisionResume = execute(async (criteria) => {
                insertPocket.put("insertDate",PocketUtility.LoggerTimeStamp());
                insertPocket.put("timestamp",PocketUtility.TimeStamp());
                insertPocket.put("lastLogin",PocketUtility.LoggerTimeStamp());
-               updatePocket.put("insertDate",PocketUtility.GetRealDate());
-               updatePocket.put("insertTime",PocketUtility.GetRealTime());
+               insertPocket.put("insertDate",PocketUtility.GetRealDate());
+               insertPocket.put("insertTime",PocketUtility.GetRealTime());
                insertPocket.put("entryCount",1);
                insertPocket.put("id",uniqueId.data["_id"]);
 

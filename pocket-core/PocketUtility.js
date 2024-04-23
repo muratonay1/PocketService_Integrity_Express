@@ -98,7 +98,10 @@ let PocketUtility = (
 		 * @returns
 		 */
 		function isValidEmail(email) {
-			return validator.isEmail(email);
+			if(validator.isEmail(email)){
+				return true;
+			}
+			throw new Error("incorrect email format");
 		}
 
 		/**
