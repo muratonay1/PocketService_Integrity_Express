@@ -33,6 +33,7 @@ const methods = {
             message: "Başarıyla giriş yapıldı."
         });
     },
+    message:function()
 };
 
 const pocketWS = new PocketWebSocket(methods);

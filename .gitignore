@@ -1,7 +1,8 @@
 node_modules
 .VSCodeCounter
+ProjectScripts/admin.js
 test.js
 testCases.js
 tester.js
-ProjectScripts/admin.js
 .env
+test.sh

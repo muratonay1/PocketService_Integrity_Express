@@ -33,12 +33,12 @@ const LoginService = execute(async (criteria) => {
                else{
                     if(responseSearchUser.data.handleWrongPassword + 1 == 3){
                          updatePocket.put("email", criteria.email);
-                         updatePocket.put("params.handleWrongPassword",responseSearchUser.data.handleWrongPassword + 1 );
+                         updatePocket.put("params.handleWrongPassword",responseSearchUser.data.handleWrongPassword);
                          updatePocket.put("params.userActive",false);
                          const updateUserResponse = await PocketService.executeService(`UpdateUserWithEmail`,`Community`,updatePocket);
                          if(updateUserResponse.data){
 
-                              throw new Error("Kullanici hesabı bloklandi. \nLütfen mail adresinize gönderilen doğrulama kodunu kullanarak şifremi unuttum seçeneği ile şifrenizi sıfırlayın.");
+                              throw new Error("Kullanici hesabı bloklandi. \nLütfen şifremi unuttum seçeneği ile şifrenizi sıfırlayın.");
                          }
                          PocketLog.error("Kullanici bloklama işlemi sırasında, kullanici güncelleme hata aldı");
                          throw new Error("Kullanici hesabi bloklandi.");
@@ -63,9 +63,9 @@ const LoginService = execute(async (criteria) => {
           const updateUserResponse = await PocketService.executeService(`UpdateUserWithEmail`,`Community`,updateUserPocket);
 
           if(updateUserResponse.data){
-
-               let mergedUserObject = Object.assign(responseSearchUser.data,updateUserPocket.params);
-               return mergedUserObject;
+               return {
+                    "user_token":responseSearchUser.data.userId
+               };
           }
           throw new Error("Login işlemi sırasında hata");
 

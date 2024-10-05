@@ -92,6 +92,18 @@
 				"endPoint":"api-community-resetPasswordCode",
 				"method":"POST"
 			}
+		},
+		"Shuffle":{
+			"HtmlTemplateTest":{
+				"endPoint":"murat",
+				"method":"GET"
+			}
+		},
+		"MenuHtml":{
+			"Login":{
+				"endPoint":"menuhtml-login-service",
+				"method":"POST"
+			}
 		}
 	}
 }

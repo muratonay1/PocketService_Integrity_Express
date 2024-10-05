@@ -1,5 +1,5 @@
 import { PocketLib } from "../constants.js";
-const { PocketUtility } = PocketLib;
+const { PocketUtility,PocketLog } = PocketLib;
 
 
 let ResumeUtil = (
@@ -50,16 +50,16 @@ let ResumeUtil = (
 			const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
 			if(!ipPattern.test(ip)){
-				throw new Error("Ip format is not suitable")
+				PocketLog.info("Ip format is not suitable");
 			}
 		}
 
 		function validateSenderInfo(senderInfo) {
 			if(PocketUtility.isEmptyObject(senderInfo)){
-				throw new Error("senderInfo must be fill.");
+				PocketLog.info("senderInfo must be fill.");
 			}
 			if(PocketUtility.isObject()){
-				throw new Error("senderInfo type, must be an object-Object");
+				PocketLog.info("senderInfo type, must be an object-Object");
 			}
 		}
 

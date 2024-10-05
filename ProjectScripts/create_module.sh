@@ -34,11 +34,13 @@ import PocketLog from \"../../pocket-core/PocketLog.js\";\n\
 import Pocket from \"../../pocket-core/Pocket.js\";\n\
 import PocketMongo, { dbClient } from \"../../pocket-core/PocketMongo.js\";\n\
 import PocketQueryFilter from \"../../pocket-core/PocketQueryFilter.js\";\n\
+import PocketUtility from \"../../pocket-core/PocketUtility.js\";\n\
 import PocketService, { execute } from \"../../pocket-core/PocketService.js\";\n\n\
 // PocketLib importer\n\
 export const PocketLib = {\n\
 \tPocketConfigManager,\n\
 \tPocketLog,\n\
+\tPocketUtility,\n\
 \tPocketMongo,\n\
 \tPocketQueryFilter,\n\
 \tPocketService,\n\

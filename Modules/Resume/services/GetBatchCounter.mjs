@@ -1,24 +1,20 @@
-import { PocketLib } from "../constants.js";
+import { MongoQueryFrom, Operator, PocketLib } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
 /**
- * Pocket GetUserWithEmail servisi
+ * Pocket GetBatchCounter servisi
  * @param {Pocket} criteria
  * @returns {Promise<Array>}
  */
-const GetUserWithEmail = execute(async (criteria) => {
+const GetBatchCounter = execute(async (criteria) => {
      try {
-          PocketService.parameterMustBeFill(criteria, "userMail");
-
 
           let filter = new PocketQueryFilter();
-          filter.add("userMail", criteria.get("userMail", String)).operator("==");
-          if(criteria.exist("userActive")) filter.add("userActive", criteria.get("userActive","")).operator("==");
-
+          filter.add("unique", "batch_counter").operator(Operator.EQ);
 
           const searchResult = await new Promise((resolve, reject) => {
                dbClient.executeGet({
-                    from: "community.users",
+                    from: MongoQueryFrom.COUNT,
                     where: filter,
                     done: resolve,
                     fail: reject
@@ -28,11 +24,11 @@ const GetUserWithEmail = execute(async (criteria) => {
           if (searchResult.length === 0) {
                PocketLog.error("No search result");
           }
-          return searchResult[0];
+          return searchResult[0].counter;
      } catch (error) {
-          PocketLog.error(`GetUserService servisinde hata meydana geldi."` + error);
+          PocketLog.error(`GetBatchCounter servisinde hata meydana geldi."` + error);
           throw new Error(error);
      }
 });
 
-export default GetUserWithEmail;
+export default GetBatchCounter;

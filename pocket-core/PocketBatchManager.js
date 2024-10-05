@@ -48,21 +48,20 @@ class PocketBatchManager {
 
                const timeoutPromise = new Promise((resolve, reject) => {
                     setTimeout(() => {
-                         resolve(new Error(`Service "${serviceName}" timed out after ${PocketConfigManager.getServiceTimeout()}ms.`));
+                         reject(new Error(`Service "${serviceName}" timed out after ${PocketConfigManager.getServiceTimeout()}ms.`));
                     }, PocketConfigManager.getServiceTimeout());
                });
 
+               // Error handling without terminating the app
                const result = await Promise.race([servicePromise, timeoutPromise]);
-
-               if (!(result instanceof Error)) {
-                    return result;
-               } else {
-                    throw result;
+               if (result instanceof Error) {
+                    PocketLog.error(result.message); // Error handling for timeouts
                }
           } catch (error) {
-               throw new Error(error);
+               PocketLog.error(`Batch execution failed: ${error.message}`); // Log the error
           }
      }
+
      /**
       *
       * @param {Object} batch

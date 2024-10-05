@@ -85,7 +85,7 @@ const CheckOTP = execute(async (criteria) => {
 
      } catch (error) {
           PocketLog.error("CheckOTP servisinde hata meydana geldi." + error);
-          throw new Error(error.stack);
+          throw new Error(error.message);
      }
 });
 function isExpired(expiryTime) {
