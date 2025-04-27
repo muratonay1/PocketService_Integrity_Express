@@ -1,22 +1,18 @@
-import { MongoQueryFrom, Operator, PocketLib } from "../constants.js";
+import { MongoQueryFrom, PocketLib } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
 /**
- * Pocket GetResumeData servisi
+ * Pocket GetAllServerInfo servisi
  * @param {Pocket} criteria
  * @returns {Promise<Array>}
  */
-const GetResumeData = execute(async (criteria) => {
+const GetAllServerInfo = execute(async (criteria) => {
      try {
 
-          let filter = new PocketQueryFilter();
-          filter.add("status", "1").operator(Operator.EQ);
-
           const searchResult = await new Promise((resolve, reject) => {
-
                dbClient.executeGet({
-                    from: MongoQueryFrom.CV,
-                    where: filter,
+                    from: MongoQueryFrom.SERVER_INFO,
+                    where: new PocketQueryFilter(),
                     done: resolve,
                     fail: reject
                });
@@ -27,9 +23,9 @@ const GetResumeData = execute(async (criteria) => {
           }
           return searchResult;
      } catch (error) {
-          PocketLog.error(`GetResumeData servisinde hata meydana geldi."` + error);
+          PocketLog.error(`GetAllServerInfo servisinde hata meydana geldi."` + error);
           throw new Error(error);
      }
 });
 
-export default GetResumeData;
+export default GetAllServerInfo;

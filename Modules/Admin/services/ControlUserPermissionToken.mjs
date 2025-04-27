@@ -8,6 +8,7 @@ const {
      PocketUtility,
      PocketLog,
      dbClient,
+     PocketResponse
 } = PocketLib;
 
 /**
@@ -19,7 +20,6 @@ const ControlUserPermissionToken = execute(async (criteria) => {
      try {
           const PERMISSION_TOKEN = "permissionToken";
           PocketService.parameterMustBeFill(criteria, PERMISSION_TOKEN);
-
 
           let getTokenCriteria = Pocket.create();
           getTokenCriteria.put(PERMISSION_TOKEN, criteria.get(PERMISSION_TOKEN, String));
@@ -47,8 +47,8 @@ const ControlUserPermissionToken = execute(async (criteria) => {
           return !!(responseUpdatePermissionToken.data.isUpdate);
 
      } catch (error) {
-          PocketLog.error(`ControlUserPermissionToken servisinde hata meydana geldi.\n` + `Token: ` + criteria.get("permissionToken", String), error);
-          throw new Error(error);
+          //PocketLog.error(`ControlUserPermissionToken servisinde hata meydana geldi.\n` + `Token: ` + criteria.get("permissionToken", String), error);
+          PocketResponse.Failure(error);
      }
 });
 

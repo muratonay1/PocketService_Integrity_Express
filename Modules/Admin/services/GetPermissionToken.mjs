@@ -5,7 +5,8 @@ const {
      PocketService,
      execute,
      PocketLog,
-     dbClient
+     dbClient,
+     PocketResponse
 
 } = PocketLib;
 
@@ -36,8 +37,7 @@ const GetPermissionToken = execute(async (criteria) => {
           }
           return responseTokenInfo[0];
      } catch (error) {
-          PocketLog.error(`GetPermissionToken servisinde hata meydana geldi."` + error);
-          throw new Error(error);
+          PocketResponse.Failure(error);
      }
 });
 

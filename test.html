@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dalgalanan Toplar Animasyonu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a1a1a;
+            overflow: hidden;
+        }
+
+        .wave {
+            display: flex;
+            gap: 20px;
+        }
+
+        .ball {
+            width: 30px;
+            height: 30px;
+            background-color: #ff3d00;
+            border-radius: 50%;
+            animation: waveAnimation 1s ease-in-out infinite;
+        }
+
+        .ball:nth-child(2) {
+            background-color: #ff9100;
+            animation-delay: 0.2s;
+        }
+
+        .ball:nth-child(3) {
+            background-color: #ffea00;
+            animation-delay: 0.4s;
+        }
+
+        .ball:nth-child(4) {
+            background-color: #00e676;
+            animation-delay: 0.6s;
+        }
+
+        .ball:nth-child(5) {
+            background-color: #2979ff;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes waveAnimation {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wave">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+    </div>
+</body>
+</html>

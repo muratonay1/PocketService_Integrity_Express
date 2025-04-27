@@ -5,51 +5,56 @@ import PocketMongo, { dbClient } from "../../pocket-core/PocketMongo.js";
 import PocketQueryFilter from "../../pocket-core/PocketQueryFilter.js";
 import PocketUtility from "../../pocket-core/PocketUtility.js";
 import PocketService, { execute } from "../../pocket-core/PocketService.js";
+import PocketBatchManager, { executeBatch } from "../../pocket-core/PocketBatchManager.js";
 
 // PocketLib importer
 export const PocketLib = {
 	PocketConfigManager,
+	PocketBatchManager,
 	PocketLog,
 	PocketUtility,
 	PocketMongo,
 	PocketQueryFilter,
 	PocketService,
 	execute,
+	executeBatch,
 	dbClient,
 	Pocket
 };
 
+
+
 /**
  * @typedef {Object} Db
  *
- * @property {string} MENUHTML
+ * @property {string} SCRAPPER
  */
 
 /** @type {Db} */
 export const Db = {
-     "MENUHTML": "MenuHtml",
+     "SCRAPPER": "Scrapper",
 }
 
 /**
  * @typedef {Object} Collection
  *
- * @property {string} accounts
+ * @property {string} CURRENCY
  */
 
 /** @type {Collection} */
 export const Collection = {
-     "ACCOUNTS": "accounts"
+     "CURRENCY": "currency",
 }
 
 /**
  * @typedef {Object} MongoQueryFrom
  *
- * @property {string} ACCOUNTS
+ * @property {string} CURRENCY
  */
 
 /** @type {MongoQueryFrom} */
 export const MongoQueryFrom = {
-     "ACCOUNTS": Db.MENUHTML + "." + Collection.ACCOUNTS
+     "CURRENCY": Db.SCRAPPER + "." + Collection.CURRENCY
 }
 
 /**
@@ -78,23 +83,15 @@ export const Operator = {
 /**
  * @typedef {Object} Modules
  *
- * @property {string} MENUHTML - RESUME modülü
+ * @property {string} SCRAPPER - RESUME modülü
+ * @property {string} UTILITY - RESUME modülü
+ * @property {string} NOTIFICATION - RESUME modülü
  */
 
 /** @type {Modules} */
 export const Modules = {
-     "MENUHTML": "MenuHtml"
+     "SCRAPPER": "Scrapper",
+	"UTILITY": "Utility",
+	"NOTIFICATION":"Notification"
 }
 
-/**
- * Durumlar nesnesi, belirli durumların anahtar-değer çiftlerini içerir.
- * @typedef {Object} Status
- * @property {string} ACTIVE - Aktif durum
- * @property {string} PASSIVE - Pasif durum
- */
-
-/** @type {Status} */
-export const Status = {
-     "ACTIVE": "1",
-     "PASSIVE": "0"
-}

@@ -3,9 +3,12 @@ import Pocket from "./pocket-core/Pocket.js";
 import PocketBatchManager from "./pocket-core/PocketBatchManager.js";
 import PocketLog from "./pocket-core/PocketLog.js";
 import PocketService from "./pocket-core/PocketService.js";
+import PocketHealthHandler from './pocket-core/PocketHealthHandler.js'
 
 
-const serviceResponse = await PocketService.executeService(`GetBatchJobs`, Modules.POCKET);
+let batchCriteria = Pocket.create();
+batchCriteria.put("status", "1")
+const serviceResponse = await PocketService.executeService(`GetBatchJobs`, Modules.POCKET, batchCriteria);
 
 if (serviceResponse.data.length == 0) {
      throw new Error(ERROR_MESSAGE.BATCH_RECORD_NOT_FOUND)
@@ -14,15 +17,23 @@ if (serviceResponse.data.length == 0) {
 let batchs = serviceResponse.data;
 
 async function processBatches(batches) {
-     for (const batch of batches) {
-          let info = batch.module+"/"+batch.handler + " included in the job queue";
-          PocketLog.info(info)
-          await PocketBatchManager.run(batch);
+     const batchPromises = batches.map(batch => {
+          let info = batch.module + "/" + batch.handler + " included in the job queue";
+          PocketLog.info(info);
+          return PocketBatchManager.run(batch);
+     });
+
+     try {
+          await Promise.all(batchPromises); // Tüm batch işlemlerini paralel çalıştır
+     } catch (error) {
+          PocketLog.error("Error occurred during batch processing:", error);
      }
 }
 
+
 processBatches(batchs)
-     .then(() => {
+     .then(async () => {
+          await PocketHealthHandler.startMonitoring('batch');
           PocketLog.info("ALL BATCHS PROCESSINGS SUCCESSFULL");
      })
      .catch(error => {

@@ -13,7 +13,6 @@ const AnalysisAndReportBatch = executeBatch(async (criteria) => {
           const responseBatchCounter = await PocketService.executeService(`GetBathCounter`, Modules.RESUME);
 
           if(responseCounter == responseBatchCounter){
-               PocketLog.
           }
 
           return searchResult;

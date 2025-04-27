@@ -3,6 +3,8 @@ import PocketConfigManager from "../pocket-core/PocketConfigManager.js";
 import PocketLog from "../pocket-core/PocketLog.js";
 import PocketUtility from "../pocket-core/PocketUtility.js";
 import PocketService from "../pocket-core/PocketService.js";
+import PocketMailManager from "../pocket-core/PocketMailManager.js";
+import {dbClient} from '../pocket-core/PocketMongo.js';
 // PocketLib importer
 export const PocketLib = {
      Pocket,
@@ -10,6 +12,8 @@ export const PocketLib = {
      PocketService,
      PocketUtility,
      PocketLog,
+     dbClient,
+     PocketMailManager
 }
 
 /**

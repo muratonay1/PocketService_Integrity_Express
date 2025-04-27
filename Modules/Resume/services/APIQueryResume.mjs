@@ -1,5 +1,5 @@
 import { Modules, PocketLib } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const { PocketLog, PocketService, execute, Pocket } = PocketLib;
 
 /**
  * Pocket APIQueryResume servisi
@@ -9,39 +9,24 @@ const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketSe
 const APIQueryResume = execute(async (criteria) => {
      try {
           let criteriaContext = Pocket.create();
-          criteriaContext.put("ip",criteria.ip);
+          criteriaContext.put("ip", criteria.ip);
           const contextControl = await PocketService.executeService("FindIpContext", Modules.RESUME, criteriaContext);
-          if(contextControl.data.entryCount % 10 == 0){
+          if (contextControl.data.entryCount % 10 == 0) {
                return [];
           }
 
-          let keyList = [
-               "about",
-               "experience",
-               "follows",
-               "project",
-               "skills"
-          ];
+          const responseService = await PocketService.executeService("GetResumeData", Modules.RESUME);
 
-          let resultCv = [];
-          for(const element of keyList)
-          {
-               let criteria = Pocket.create();
-               criteria.put("key",element);
-
-               const responseService = await PocketService.executeService("GetResumeData", Modules.RESUME, criteria);
-
-               let cvObject = {
-                    "key":element,
-                    "data":responseService.data
-               };
-
-               resultCv.push(cvObject);
-          }
+          const resultCv = responseService.data
+               .map(item => ({
+                    key: item.unique,
+                    data: item
+               }));
 
           if (resultCv.length === 0) {
                PocketLog.error("No search result");
           }
+
           return resultCv;
 
      } catch (error) {

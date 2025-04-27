@@ -4,6 +4,9 @@ import config from '../pocket-config.json' assert { type: 'json' };
 import fs from 'fs';
 import path, { resolve } from 'path';
 import PocketLog from './PocketLog.js';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 export default class PocketConfigManager {
 
     /**
@@ -68,16 +71,14 @@ export default class PocketConfigManager {
                                 failCount++
                             }
                         }
-                        console.log('\n\n--------------------------------------\n\n');
-                        console.log('');
+                        console.log('\n-------------------------------------------------------------------------------\n');
 
                     } else {
                         console.log(`Module ${module.name} does not have services or constants.js file.`);
                     }
                 }
             }
-            let message = "\n\nSuccess process: "+successCount+"\nFail process: "+failCount + "\nTotal Modules: "+modules.length + "\nTotal Service: "+servicesCount+"\n";
-            console.log("\n")
+            let message = "\nSuccess process: "+successCount+"\nFail process: "+failCount + "\nTotal Modules: "+modules.length + "\nTotal Service: "+servicesCount+"\n";
             PocketLog.info(message);
             if(failCount != 0){
                 throw new Error();
@@ -168,12 +169,14 @@ export default class PocketConfigManager {
             Object.keys(gatewayConfig).forEach(moduleName => {
                 Object.keys(gatewayConfig[moduleName]).forEach(serviceName => {
                     const endPoint = gatewayConfig[moduleName][serviceName].endPoint;
-                    const method = gatewayConfig[moduleName][serviceName].method
+                    const method = gatewayConfig[moduleName][serviceName].method;
+                    const type = gatewayConfig[moduleName]?.[serviceName]?.type || null;
                     const apiObject = {
                         module: moduleName,
                         service: serviceName,
                         endPoint: endPoint,
-                        method:method
+                        method:method,
+                        type:type
                     };
                     apiObjectList.push(apiObject);
                 });
@@ -208,6 +211,12 @@ export default class PocketConfigManager {
             return config.connection.mongo.uri;
         }
         throw new Error("Pocket Config file does not find mongo connection uri parameter.");
+    }
+    static getPocketMail(){
+        return process.env.POCKET_MAIL;
+    }
+    static getPocketMailPass(){
+        return process.env.POCKET_MAIL_PASS;
     }
     /**
      *

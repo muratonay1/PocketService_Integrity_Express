@@ -8,9 +8,10 @@ const { PocketLog,  PocketQueryFilter,  execute, dbClient, Pocket } = PocketLib;
  */
 const GetBatchJobs = execute(async (criteria) => {
      try {
-
           let filter = new PocketQueryFilter();
-          filter.add(GeneralKeys.STATUS, Status.ACTIVE).operator(Operator.EQ);
+          if(criteria != undefined && criteria.status != undefined){
+               filter.add("status", criteria.status).operator(Operator.EQ);
+          }
 
           const searchResult = await new Promise((resolve, reject) => {
                dbClient.executeGet({

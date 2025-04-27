@@ -94,7 +94,7 @@ export default class Pocket {
 		return JSON.parse(JSON.stringify(this));
 	}
 
-	isPocket() {
+	static isPocket() {
 		return this instanceof Pocket;
 	}
 

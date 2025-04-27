@@ -1,21 +1,24 @@
-import { MongoQueryFrom, Operator, PocketLib } from "../constants.js";
+import { PocketLib } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
 /**
- * Pocket GetResumeData servisi
+ * Pocket ApiPocketVerifyLoginOTP servisi
  * @param {Pocket} criteria
  * @returns {Promise<Array>}
  */
-const GetResumeData = execute(async (criteria) => {
+const ApiPocketVerifyLoginOTP = execute(async (criteria) => {
      try {
+          /*
+          PocketService.parameterMustBeFill(criteria, "MANDATORY_KEY");
+
+          const responseService = await PocketService.executeService(`SERVICE_NAME`,`MODULE_NAME`,`PARAMETER_POCKET`);
 
           let filter = new PocketQueryFilter();
-          filter.add("status", "1").operator(Operator.EQ);
+          filter.add("MANDATORY_KEY", criteria.get("MANDATORY_KEY", String)).operator("==");
 
           const searchResult = await new Promise((resolve, reject) => {
-
                dbClient.executeGet({
-                    from: MongoQueryFrom.CV,
+                    from: MONGO_QUERY_FROM_URL,
                     where: filter,
                     done: resolve,
                     fail: reject
@@ -24,12 +27,12 @@ const GetResumeData = execute(async (criteria) => {
 
           if (searchResult.length === 0) {
                PocketLog.error("No search result");
-          }
-          return searchResult;
+          }*/
+          return true;
      } catch (error) {
-          PocketLog.error(`GetResumeData servisinde hata meydana geldi."` + error);
+          PocketLog.error(`ApiPocketVerifyLoginOTP servisinde hata meydana geldi."` + error);
           throw new Error(error);
      }
 });
 
-export default GetResumeData;
+export default ApiPocketVerifyLoginOTP;

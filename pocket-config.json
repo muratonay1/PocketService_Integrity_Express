@@ -8,7 +8,7 @@
 	},
 	"settings": {
 		"servicePath": "services/",
-		"apiPort": 3000,
+		"apiPort": 3001,
 		"socketPort":8000,
 		"serviceTimeout": 30000,
 		"pocketConfigPath": "../pocket-config.json",
@@ -35,6 +35,18 @@
 			"LogoutService": {
 				"endPoint": "api-logout-service",
 				"method":"GET"
+			},
+			"GetServerInfo":{
+				"endPoint":"adm-get-server-info",
+				"method":"GET"
+			},
+			"GetBatchHealth":{
+				"endPoint":"adm-get-batch-health",
+				"method":"GET"
+			},
+			"Test":{
+				"endPoint":"api-test",
+				"method":"GET"
 			}
 		},
 		"Notification": {
@@ -49,11 +61,27 @@
 			"CheckTOKEN": {
 				"endPoint": "api-check-token",
 				"method":"GET"
+			},
+			"OTPMURAT": {
+				"endPoint": "api-otp",
+				"method":"GET"
 			}
 		},
 		"Pocket": {
 			"SaveBatchJobs":{
 				"endPoint":"api-save-batch-job",
+				"method":"GET"
+			},
+			"ApiPocketLogin":{
+				"endPoint":"api-adm-login",
+				"method":"GET"
+			},
+			"ApiPocketLogout":{
+				"endPoint":"api-adm-logout",
+				"method":"GET"
+			},
+			"ApiPocketVerifyLoginOTP":{
+				"endPoint":"api-adm-verify-login-otp",
 				"method":"GET"
 			}
 		},
@@ -73,6 +101,11 @@
 			"VerifyCaptcha": {
 				"endPoint":"api-verify-captcha",
 				"method":"POST"
+			},
+			"ReferenceVerifyPage":{
+				"endPoint":"api-reference-verify",
+				"method":"GET",
+				"type":"html"
 			}
 		},
 		"Community":{
@@ -93,16 +126,30 @@
 				"method":"POST"
 			}
 		},
-		"Shuffle":{
-			"HtmlTemplateTest":{
-				"endPoint":"murat",
-				"method":"GET"
-			}
-		},
 		"MenuHtml":{
 			"Login":{
 				"endPoint":"menuhtml-login-service",
 				"method":"POST"
+			}
+		},
+		"Scrapper":{
+			"CeyrekAltin":{
+				"endPoint":"scrapper-ceyrek-altin",
+				"method":"GET"
+			}
+		},
+		"Admpanel":{
+			"GetBatchInfo":{
+				"endPoint":"adm-batch-info",
+				"method":"GET"
+			},
+			"DashboardApi":{
+				"endPoint":"adm-dashboard-info",
+				"method":"GET"
+			},
+			"GetPocketLog":{
+				"endPoint":"adm-pocket-log",
+				"method":"GET"
 			}
 		}
 	}

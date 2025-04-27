@@ -17,7 +17,6 @@ class PocketService {
      static async executeService(serviceName, moduleName, parameter) {
           const serviceFilePath = `../Modules/${moduleName}/${PocketConfigManager.getServicePath()}${serviceName}.` + PocketConfigManager.getServiceType();
           checkModuleAndService(moduleName, serviceName);
-          PocketLog.info(`Triggered Service: ${serviceName}`);
           try {
                const servicePromise = import(serviceFilePath).then(async serviceModule => {
                     if (!serviceModule) {
@@ -31,6 +30,7 @@ class PocketService {
                     }
 
                     let serviceResponse;
+                    PocketLog.info(`Trigger : ${serviceName}`);
                     if (parameter !== undefined) {
                          serviceResponse = await serviceModule.default(parameter);
                     } else {
@@ -44,7 +44,7 @@ class PocketService {
                          "insertDate": PocketUtility.LoggerTimeStamp()
                     }
                     if (parameter != undefined) saveLog["params"] = parameter;
-                    saveServiceLog(saveLog);
+                    await saveServiceLog(saveLog);
                     let servicePocket = new Pocket();
                     servicePocket.put("data", serviceResponse);
                     servicePocket.put("timestamp", PocketUtility.TimeStamp());
@@ -70,26 +70,65 @@ class PocketService {
      }
 
      /**
-      * Asenkron bir servis çağrısını yürütür ve sonucu bir Promise olarak döndürür.
+     * Blok içinde servis çağrılarını paralel olarak çalıştırır.
+     * @param {Function} blockFunction Blok fonksiyonu
+     * @returns {Object} responseMap (Her servis adı için response döner)
+     */
+     static async executeAsyncBlock(blockFunction) {
+          const tasks = [];
+          const responseMap = {};
+
+          try {
+               const blockContext = {
+                    async execute(serviceName, moduleName, parameters, returnResponse = false) {
+                         const timeout = PocketConfigManager.getServiceTimeout(); // Timeout süresi sınıftan çekiliyor
+                         const task = PocketService.executeAsyncService(serviceName, moduleName, parameters, timeout)
+                              .then((response) => {
+                                   if (returnResponse) {
+                                        responseMap[serviceName] = response;
+                                   }
+                              });
+                         tasks.push(task);
+                    },
+               };
+
+               // Blok içindeki servis çağrılarını çalıştır
+               await blockFunction(blockContext);
+
+               // Tüm servisleri paralel olarak çalıştır
+               await Promise.all(tasks);
+
+               // Eğer response dönen servisler varsa, bunları responseMap ile döndür
+               return responseMap;
+          } catch (error) {
+               throw new Error(`executeAsyncBlock sırasında hata oluştu: ${error.message}`);
+          }
+     }
+
+     /**
+      * Tek bir servis çağrısını çalıştırır ve zaman aşımı kontrolü yapar.
       * @param {String} serviceName Servis adı
-      * @param {String} module Modül adı
-      * @param {Array} parameters Giriş parametreleri
-      * @param {number} timeout Zaman aşımı süresi (milisaniye cinsinden)
-      * @returns {Promise} Servis çağrısının sonucu
+      * @param {String} moduleName Modül adı
+      * @param {Object} parameters Parametreler
+      * @param {Number} timeout Zaman aşımı süresi (milisaniye cinsinden)
+      * @returns {Promise<any>} Servis sonucu
       */
-     static executeAsyncService(serviceName, module, parameters) {
+     static executeAsyncService(serviceName, moduleName, parameters, timeout) {
           return new Promise((resolve, reject) => {
-               const servicePromise = this.executeService(serviceName, module, parameters, response => {
-                    resolve(response.data);
-               }, PocketConfigManager.getServiceTimeout())
+               // Servis çağrısı
+               const servicePromise = this.executeService(serviceName, moduleName, parameters)
+                    .then(resolve)
                     .catch(reject);
 
-               const timeoutPromise = new Promise((resolve, reject) => {
+               // Timeout kontrolü
+               const timeoutPromise = new Promise((_, rejectTimeout) => {
                     setTimeout(() => {
-                         reject(new Error(`Service "${serviceName}" timed out after ${PocketConfigManager.getServiceTimeout()}ms.`));
-                    }, PocketConfigManager.getServiceTimeout());
+                         rejectTimeout(new Error(`Service "${serviceName}" timed out after ${timeout}ms.`));
+                    }, timeout);
                });
-               Promise.race([servicePromise, timeoutPromise]);
+
+               // Yarışan vaatlerden biri tamamlanır
+               Promise.race([servicePromise, timeoutPromise]).then(resolve).catch(reject);
           });
      }
 
@@ -146,8 +185,7 @@ function checkModuleAndService(moduleName, serviceName) {
 }
 
 async function saveServiceLog(log) {
-     try
-     {
+     try {
           let saveServiceLog = Pocket.create();
           if (log.params != undefined) saveServiceLog.put("params", log.params);
           saveServiceLog.put("response", log.response);
@@ -166,8 +204,7 @@ async function saveServiceLog(log) {
           });
           return insertResult;
      }
-     catch (error)
-     {
+     catch (error) {
           PocketLog.error("PocketService Class: saveServiceLog metodu hata aldı.");
           throw new Error(error);
      }
