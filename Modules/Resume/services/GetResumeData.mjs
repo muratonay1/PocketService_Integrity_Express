@@ -25,7 +25,7 @@ const GetResumeData = execute(async (criteria) => {
           if (searchResult.length === 0) {
                PocketLog.error("No search result");
           }
-          return searchResult;
+          return searchResult.filter(i=>i.unique != "reference");
      } catch (error) {
           PocketLog.error(`GetResumeData servisinde hata meydana geldi."` + error);
           throw new Error(error);

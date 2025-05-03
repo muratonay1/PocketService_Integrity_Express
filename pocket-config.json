@@ -8,7 +8,7 @@
 	},
 	"settings": {
 		"servicePath": "services/",
-		"apiPort": 3001,
+		"apiPort": 3000,
 		"socketPort":8000,
 		"serviceTimeout": 30000,
 		"pocketConfigPath": "../pocket-config.json",
@@ -64,7 +64,7 @@
 			},
 			"OTPMURAT": {
 				"endPoint": "api-otp",
-				"method":"GET"
+				"method":"POST"
 			}
 		},
 		"Pocket": {

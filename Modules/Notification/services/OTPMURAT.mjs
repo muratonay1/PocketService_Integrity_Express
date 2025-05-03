@@ -12,7 +12,6 @@ import dotenv from 'dotenv';
  */
 const SendOTP = execute(async (criteria) => {
      try {
-          dotenv.config();
 
           // E-posta gönderimi için SMTP ulaşımı sağlayan taşıyıcı ayarları
           const transporter = nodemailer.createTransport({
