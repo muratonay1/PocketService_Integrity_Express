@@ -1,3 +1,31 @@
+PocketStudio – Kendi Servislerini Geliştir, Test Et, Yayınla
+PocketStudio, müşteri bazlı dinamik modül ve servis geliştirme olanağı sunan; öğrenciler, test kullanıcıları ve geliştiriciler için tasarlanmış özgür ve güvenli bir geliştirme platformudur.
+
+Her kullanıcıya özel olarak tanımlanan Customer Code (Müşteri Numarası) ile:
+
+Sadece size ait veritabanı ve koleksiyonlar üzerinde çalışabilir,
+
+Kendi API servislerinizi yazabilir, test edebilir ve yönetebilirsiniz,
+
+Gerçek zamanlı kod düzenleme, çalıştırma ve hata ayıklama işlemlerini doğrudan tarayıcınız üzerinden gerçekleştirebilirsiniz.
+
+🚀 Öne Çıkan Özellikler
+🔐 İzolasyonlu Ortam: Her kullanıcı yalnızca kendi tanımlı DB ve collection'ları üzerinde işlem yapabilir.
+
+🧱 Modül ve Servis Tabanlı Yapı: Dinamik olarak yeni modüller ve servisler oluşturabilir, düzenleyebilir veya silebilirsiniz.
+
+💻 Canlı Kod Çalıştırma: Tarayıcı üzerinden kod yazın, test edin ve sonuçları anında görün.
+
+🌐 Free API Desteği: api.muratonay.com.tr domaini üzerinden müşteri kodunuzla kendi servislerinize güvenli ve sınırsız erişim sağlayın.
+
+🎯 Kimin İçin?
+👨‍🎓 Öğrenciler – Uygulamalı backend geliştirme deneyimi kazanmak isteyenler
+
+🧪 Test Mühendisleri – Gerçek API'ler üzerinden senaryo ve davranış testi yapmak isteyenler
+
+👩‍💻 Geliştiriciler – Mikroservis mimarileriyle çalışan, izole geliştirme alanına ihtiyaç duyanlar
+![image](https://github.com/user-attachments/assets/f78f1649-db94-4625-a60d-27964def0f42)
+
 # Pocket Sınıfı: Veri Saklama ve Yönetim Aracı Giriş
 - Pocket sınıfı, JavaScript uygulamalarında veri saklama ve yönetimi için kullanılan kullanışlı bir araçtır. Bu makalede, Pocket sınıfının kullanımını ve sağladığı avantajları örneklerle açıklayacağız.
 
