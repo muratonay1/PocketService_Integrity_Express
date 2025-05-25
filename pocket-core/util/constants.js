@@ -1,13 +1,13 @@
-import Pocket from "../../pocket-core/core/Pocket.js";
-import PocketConfigManager from "../../pocket-core/core/PocketConfigManager.js";
-import PocketList from "../../pocket-core/core/PocketList.js";
-import PocketLog from "../../pocket-core/core/PocketLog.js";
-import PocketMongo, { dbClient } from "../../pocket-core/core/PocketMongo.js";
-import PocketQueryFilter from "../../pocket-core/core/PocketQueryFilter.js";
-import PocketUtility from "../../pocket-core/core/PocketUtility.js";
-import PocketResponse from "../../pocket-core/core/PocketResponse.js";
-import PocketService, { execute } from "../../pocket-core/core/PocketService.js";
-import PocketBatchManager, { executeBatch } from "../../pocket-core/core/PocketBatchManager.js";
+import Pocket from                                     "../core/Pocket.js";
+import PocketConfigManager from                        "../core/PocketConfigManager.js";
+import PocketList from                                 "../core/PocketList.js";
+import PocketLog from                                  "../core/PocketLog.js";
+import PocketMongo, { dbClient } from                  "../core/PocketMongo.js";
+import PocketQueryFilter from                          "../core/PocketQueryFilter.js";
+import PocketUtility from                              "../core/PocketUtility.js";
+import PocketResponse from                             "../core/PocketResponse.js";
+import PocketService, { execute } from                 "../core/PocketService.js";
+import PocketBatchManager, { executeBatch } from       "../core/PocketBatchManager.js";
 
 // PocketLib importer
 export const PocketLib = {
@@ -41,7 +41,7 @@ export const Modules = {
      "NETFLIX": "Netflix",
      "ADMIN": "Admin",
      "NOTIFICATION": "Notification",
-     "RESUME":"Resume"
+     "RESUME": "Resume"
 
 }
 
@@ -74,9 +74,9 @@ export const Collection = {
      "USERS": "Users",
      "API_LOG": "ApiLogs",
      "SERVER_INFO": "ServerInfo",
-     "PERMISSION_TOKEN":"PermissionToken",
-     "COMPLIANCE_REQUEST":"ComplianceRequest",
-     "SERVICE":"service"
+     "PERMISSION_TOKEN": "PermissionToken",
+     "COMPLIANCE_REQUEST": "ComplianceRequest",
+     "SERVICE": "service"
 }
 
 /**
@@ -100,8 +100,8 @@ export const MongoQueryFrom = {
      "API_LOG": Db.ADMIN + "." + Collection.API_LOG,
      "SERVER_INFO": Db.ADMIN + "." + Collection.SERVER_INFO,
      "PERMISSION_TOKEN": Db.ADMIN + "." + Collection.PERMISSION_TOKEN,
-     "COMPLIANCE_REQUEST":Db.ADMIN + "." + Collection.COMPLIANCE_REQUEST,
-     "SERVICE":Db.POCKET + "." + Collection.SERVICE,
+     "COMPLIANCE_REQUEST": Db.ADMIN + "." + Collection.COMPLIANCE_REQUEST,
+     "SERVICE": Db.POCKET + "." + Collection.SERVICE,
 }
 
 /**
@@ -116,7 +116,7 @@ export const MongoQueryFrom = {
 export const GeneralKeys = {
      "STATUS": "status",
      "USER_ID": "user_id",
-     "X_USER_TOKEN":"x-user-token"
+     "X_USER_TOKEN": "x-user-token"
 }
 
 /**
@@ -167,11 +167,11 @@ export const Operator = {
 
 /** @type {ERROR_MESSAGE} */
 export const ERROR_MESSAGE = {
-     "TOKEN_EXPIRED_ERROR_MESSAGE" : "Token validity period has expired",
-     "MAX_TOKEN_REQUESTS_ERROR_MESSAGE" : "You have reached the maximum number of token requests allowed. Please try again later or contact support for assistance.",
-     "ACTIVE_TOKEN_NOT_FOUND_ERROR_MESSAGE" : "Token not found",
-     "NO_SERVER_INFO_ERROR_MESSAGE" : "No server info",
-     "USER_NOT_FOUND_ERROR_MESSAGE" : "Kullanıcı bulunamadı."
+     "TOKEN_EXPIRED_ERROR_MESSAGE": "Token validity period has expired",
+     "MAX_TOKEN_REQUESTS_ERROR_MESSAGE": "You have reached the maximum number of token requests allowed. Please try again later or contact support for assistance.",
+     "ACTIVE_TOKEN_NOT_FOUND_ERROR_MESSAGE": "Token not found",
+     "NO_SERVER_INFO_ERROR_MESSAGE": "No server info",
+     "USER_NOT_FOUND_ERROR_MESSAGE": "Kullanıcı bulunamadı."
 }
 
 
@@ -182,5 +182,5 @@ export const ERROR_MESSAGE = {
 
 /** @type {GenerateOidType} */
 export const GenerateOidType = {
-     "RESUME_REFERENCE_TOKEN" : "resumeGenerateToken",
+     "RESUME_REFERENCE_TOKEN": "resumeGenerateToken",
 }

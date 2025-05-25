@@ -1,6 +1,5 @@
-import PocketUtility from "../../../pocket-core/PocketUtility.js";
 import { PocketLib } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket, PocketUtility } = PocketLib;
 
 /**
  * Pocket ApiPocketLogin servisi

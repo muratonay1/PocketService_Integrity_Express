@@ -1,9 +1,9 @@
 import { ERROR_MESSAGE, Modules } from "./Util/MainConstants.js";
-import Pocket from "./pocket-core/Pocket.js";
-import PocketBatchManager from "./pocket-core/PocketBatchManager.js";
-import PocketLog from "./pocket-core/PocketLog.js";
-import PocketService from "./pocket-core/PocketService.js";
-import PocketHealthHandler from './pocket-core/PocketHealthHandler.js'
+import Pocket from "./pocket-core/core/Pocket.js";
+import PocketBatchManager from "./pocket-core/core/PocketBatchManager.js";
+import PocketLog from "./pocket-core/core/PocketLog.js";
+import PocketService from "./pocket-core/core/PocketService.js";
+import PocketHealthHandler from './pocket-core/core/PocketHealthHandler.js'
 
 
 let batchCriteria = Pocket.create();
@@ -29,7 +29,6 @@ async function processBatches(batches) {
           PocketLog.error("Error occurred during batch processing:", error);
      }
 }
-
 
 processBatches(batchs)
      .then(async () => {

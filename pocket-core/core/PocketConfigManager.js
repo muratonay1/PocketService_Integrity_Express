@@ -1,6 +1,6 @@
 import PocketUtility from './PocketUtility.js';
 import Pocket from './Pocket.js';
-import config from '../pocket-config.json' assert { type: 'json' };
+import config from '../../pocket-config.json' assert { type: 'json' };
 import fs from 'fs';
 import path, { resolve } from 'path';
 import PocketLog from './PocketLog.js';

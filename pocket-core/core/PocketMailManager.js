@@ -101,7 +101,7 @@ export default class PocketMailManager {
           PASSWORD_RESET: "PASSWORD_RESET"
      };
 
-     static async send({html, to, mailType = PocketMailManager.MailType.NOTIFICATION_INFO, templateData = {} }) {
+     static async send({ html, to, mailType = PocketMailManager.MailType.NOTIFICATION_INFO, templateData = {}, attachments = [] }) {
           if (!to || (Array.isArray(to) && to.length === 0)) {
                throw new Error("Receiver list cannot be empty.");
           }
@@ -138,7 +138,8 @@ export default class PocketMailManager {
                from: PocketConfigManager.getPocketMail(),
                to: toField,
                subject: subject,
-               html: finalHtml
+               html: finalHtml,
+               attachments: attachments
           };
 
           let attempts = 0;
@@ -146,6 +147,7 @@ export default class PocketMailManager {
           let mailLogId = null;
 
           try {
+
                mailLogId = await PocketMailManager.insertMailLog({
                     subject,
                     to: toField,
@@ -153,8 +155,29 @@ export default class PocketMailManager {
                     mailType,
                     status: "Pending",
                     retryCount: 0,
-                    expireAt: expireTime
+                    expireAt: expireTime,
+                    attachments: attachments?.map(a => {
+                         let fileSize = null;
+
+                         // path varsa dosya boyutunu al
+                         if (a.path) {
+                              try {
+                                   const stat = fs.statSync(a.path);
+                                   fileSize = stat.size;
+                              } catch (err) {
+                                   console.warn("Dosya boyutu alınamadı:", a.path, err.message);
+                              }
+                         }
+
+                         return {
+                              filename: a.filename,
+                              contentType: a.contentType,
+                              size: fileSize,
+                              path: a.path || null
+                         };
+                    })
                });
+
           } catch (e) {
                console.error("Mail log insert failed:", e.message);
           }
@@ -244,7 +267,7 @@ export default class PocketMailManager {
           }
      }
 
-     static getSubjectTemplate(mailType){
+     static getSubjectTemplate(mailType) {
           switch (mailType) {
                case PocketMailManager.MailType.OTP_VERIFICATION:
                     return "OTP Doğrulama Kodunuz"
@@ -312,7 +335,8 @@ export default class PocketMailManager {
                smtpInfo: logData.smtpInfo || null,
                errorMessage: logData.errorMessage || null,
                retryCount: logData.retryCount || 0,
-               expireAt: logData.expireAt || null
+               expireAt: logData.expireAt || null,
+               attachments: logData.attachments || null
           };
 
           const saveResult = await new Promise((resolve, reject) => {

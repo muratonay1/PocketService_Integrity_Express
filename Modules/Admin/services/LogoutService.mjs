@@ -3,6 +3,7 @@ const {
      Pocket,
      PocketQueryFilter,
      PocketService,
+     PocketMongo
      PocketUtility,
      execute,
      PocketLog,

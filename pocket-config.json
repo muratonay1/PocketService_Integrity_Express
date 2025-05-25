@@ -11,7 +11,7 @@
 		"apiPort": 3000,
 		"socketPort":8000,
 		"serviceTimeout": 30000,
-		"pocketConfigPath": "../pocket-config.json",
+		"pocketConfigPath": "../../pocket-config.json",
 		"mailExpiredSecond": 500,
 		"tokenExpiredSecond": 120,
 		"encryptKey": "7851c44fab306c1e8ed1d85086f4ecade611878626a933638dc1ac64790a7d34",

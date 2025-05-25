@@ -1,7 +1,6 @@
-import PocketUtility from "../../../pocket-core/PocketUtility.js";
 import { MongoQueryFrom, PocketLib, Modules } from "../constants.js";
 import ResumeUtil from "../util/ResumeUtil.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket, PocketUtility } = PocketLib;
 
 /**
  * Pocket SaveMail servisi

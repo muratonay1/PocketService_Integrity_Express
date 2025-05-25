@@ -15,43 +15,36 @@ class PocketService {
       * @param {Pocket} parameter Giriş parametreleri
       */
      static async executeService(serviceName, moduleName, parameter) {
-          const serviceFilePath = `../Modules/${moduleName}/${PocketConfigManager.getServicePath()}${serviceName}.` + PocketConfigManager.getServiceType();
+          // moduleName "pocket-core" ise özel path
+          const basePath = moduleName === "pocket-core"
+               ? `../services/`
+               : `../../Modules/${moduleName}/${PocketConfigManager.getServicePath()}`;
+
+          const serviceFilePath = basePath + serviceName + "." + PocketConfigManager.getServiceType();
+
           checkModuleAndService(moduleName, serviceName);
+
           try {
                const servicePromise = import(serviceFilePath).then(async serviceModule => {
-                    if (!serviceModule) {
-                         console.warn(`Service "${serviceName}" does not exist in module "${moduleName}".`);
+                    if (!serviceModule || typeof serviceModule.default !== 'function') {
+                         console.warn(`Service "${serviceName}" is not properly defined in module "${moduleName}".`);
                          return;
                     }
 
-                    if (!serviceModule.default || typeof serviceModule.default !== 'function') {
-                         console.warn(`Service "${serviceName}" does not have a valid default function in module "${moduleName}".`);
-                         return;
-                    }
-
-                    let serviceResponse;
                     PocketLog.info(`Trigger : ${serviceName}`);
-                    if (parameter !== undefined) {
-                         serviceResponse = await serviceModule.default(parameter);
-                    } else {
-                         serviceResponse = await serviceModule.default();
-                    }
-                    let saveLog = {
-                         "response": serviceResponse,
-                         "service": serviceName,
-                         "module": moduleName,
-                         "source": "service",
-                         "insertDate": PocketUtility.LoggerTimeStamp()
-                    }
-                    if (parameter != undefined) saveLog["params"] = parameter;
-                    await saveServiceLog(saveLog);
-                    let servicePocket = new Pocket();
+                    const serviceResponse = parameter !== undefined
+                         ? await serviceModule.default(parameter)
+                         : await serviceModule.default();
+
+                    const servicePocket = new Pocket();
                     servicePocket.put("data", serviceResponse);
                     servicePocket.put("timestamp", PocketUtility.TimeStamp());
                     return servicePocket;
+
+
                });
 
-               const timeoutPromise = new Promise((resolve, reject) => {
+               const timeoutPromise = new Promise(resolve => {
                     setTimeout(() => {
                          resolve(new Error(`Service "${serviceName}" timed out after ${PocketConfigManager.getServiceTimeout()}ms.`));
                     }, PocketConfigManager.getServiceTimeout());
@@ -59,15 +52,14 @@ class PocketService {
 
                const result = await Promise.race([servicePromise, timeoutPromise]);
 
-               if (!(result instanceof Error)) {
-                    return result;
-               } else {
-                    throw result;
-               }
+               if (result instanceof Error) throw result;
+               return result;
+
           } catch (error) {
                throw error;
           }
      }
+
 
      /**
      * Blok içinde servis çağrılarını paralel olarak çalıştırır.
@@ -172,8 +164,16 @@ function checkModuleAndService(moduleName, serviceName) {
      const __filename = fileURLToPath(import.meta.url);
      const __dirname = path.dirname(__filename);
 
-     const modulePath = path.resolve(__dirname, `../Modules/${moduleName}`);
-     const serviceFilePath = path.resolve(modulePath, `${PocketConfigManager.getServicePath()}/${serviceName}.` + PocketConfigManager.getServiceType());
+     let modulePath;
+     let serviceFilePath;
+
+     if (moduleName === "pocket-core") {
+          modulePath = path.resolve(__dirname, `../services`);
+          serviceFilePath = path.resolve(modulePath, `${serviceName}.${PocketConfigManager.getServiceType()}`);
+     } else {
+          modulePath = path.resolve(__dirname, `../../Modules/${moduleName}`);
+          serviceFilePath = path.resolve(modulePath, `${PocketConfigManager.getServicePath()}/${serviceName}.${PocketConfigManager.getServiceType()}`);
+     }
 
      if (!fs.existsSync(modulePath) || !fs.lstatSync(modulePath).isDirectory()) {
           throw new Error(`Module "${moduleName}" does not exist.`);
@@ -184,31 +184,7 @@ function checkModuleAndService(moduleName, serviceName) {
      }
 }
 
-async function saveServiceLog(log) {
-     try {
-          let saveServiceLog = Pocket.create();
-          if (log.params != undefined) saveServiceLog.put("params", log.params);
-          saveServiceLog.put("response", log.response);
-          saveServiceLog.put("service", log.service);
-          saveServiceLog.put("module", log.module);
-          saveServiceLog.put("source", log.source)
-          saveServiceLog.put("insertDate", log.insertDate);
 
-          const insertResult = await new Promise((resolve, reject) => {
-               dbClient.executeInsert({
-                    from: "pocket.service",
-                    params: saveServiceLog,
-                    done: resolve,
-                    fail: reject
-               });
-          });
-          return insertResult;
-     }
-     catch (error) {
-          PocketLog.error("PocketService Class: saveServiceLog metodu hata aldı.");
-          throw new Error(error);
-     }
-}
 
 /**
  * Fonksiyonu yürüten bir yürütücü döndürür.

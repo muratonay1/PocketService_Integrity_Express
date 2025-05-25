@@ -1,10 +1,10 @@
-import Pocket from "../pocket-core/Pocket.js";
-import PocketConfigManager from "../pocket-core/PocketConfigManager.js";
-import PocketLog from "../pocket-core/PocketLog.js";
-import PocketUtility from "../pocket-core/PocketUtility.js";
-import PocketService from "../pocket-core/PocketService.js";
-import PocketMailManager from "../pocket-core/PocketMailManager.js";
-import {dbClient} from '../pocket-core/PocketMongo.js';
+import Pocket from "../pocket-core/core/Pocket.js";
+import PocketConfigManager from "../pocket-core/core/PocketConfigManager.js";
+import PocketLog from "../pocket-core/core/PocketLog.js";
+import PocketUtility from "../pocket-core/core/PocketUtility.js";
+import PocketService from "../pocket-core/core/PocketService.js";
+import PocketMailManager from "../pocket-core/core/PocketMailManager.js";
+import {dbClient} from '../pocket-core/core/PocketMongo.js';
 // PocketLib importer
 export const PocketLib = {
      Pocket,

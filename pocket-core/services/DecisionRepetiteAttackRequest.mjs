@@ -1,7 +1,6 @@
-import PocketUtility from "../../../pocket-core/PocketUtility.js";
-import { GeneralKeys, PocketLib, Status, Modules } from "../constants.js";
-const { PocketLog, PocketService, execute, Pocket } = PocketLib;
-
+import PocketService, {execute} from "../core/PocketService.js";
+import PocketUtility from '../core/PocketUtility.js';
+import Pocket from '../core/Pocket.js';
 /**
  * Pocket DecisionRepetiteAttackRequest servisi
  * @param {Pocket} criteria
@@ -16,13 +15,13 @@ const DecisionRepetiteAttackRequest = execute(async (criteria) => {
           let activePocket = Pocket.create();
           activePocket.put("ip", criteria.get("ip", String));
 
-          const activeRepetiteAttack = await PocketService.executeService(`GetActiveRepetiteAttackRequest`, Modules.ADMIN, activePocket);
+          const activeRepetiteAttack = await PocketService.executeService(`GetActiveRepetiteAttackRequest`, "pocket-core", activePocket);
 
           if (PocketUtility.isEmptyObject(activeRepetiteAttack.data)) {
                PocketLog.info("Aktif tehdit kaydı bulunamadı. Mevcut atak kaydı, aktif kayıt olarak kaydedilecek.");
                criteria.put("retrieve", 1);
-               criteria.put("status",Status.ACTIVE);
-               const saveRepetiteAttackResponse = await PocketService.executeService(`SaveRepetiteAttackRequest`, Modules.ADMIN, criteria);
+               criteria.put("status","1");
+               const saveRepetiteAttackResponse = await PocketService.executeService(`SaveRepetiteAttackRequest`, "pocket-core", criteria);
                if (saveRepetiteAttackResponse) {
                     returnData["isRisked"] = false;
                     return returnData;
@@ -35,9 +34,9 @@ const DecisionRepetiteAttackRequest = execute(async (criteria) => {
                }
                let updatedData = Pocket.create();
                updatedData.put("ip", activeRepetiteAttack.data.ip);
-               updatedData.put(GeneralKeys.STATUS, Status.PASSIVE);
+               updatedData.put("status", "0");
 
-               const updateRepetite = await PocketService.executeService(`UpdateRepetiteAttackRequest`, Modules.ADMIN, updatedData);
+               const updateRepetite = await PocketService.executeService(`UpdateRepetiteAttackRequest`, "pocket-core", updatedData);
 
                if(updateRepetite.data){
                     let saveData = PocketUtility.ConvertToPocket(activeRepetiteAttack.data);
@@ -45,8 +44,8 @@ const DecisionRepetiteAttackRequest = execute(async (criteria) => {
                     saveData.put("insertTime", PocketUtility.GetRealTime());
                     saveData.put("fullDate", PocketUtility.LoggerTimeStamp());
                     saveData.put("retrieve",activeRepetiteAttack.data.retrieve + 1)
-                    saveData.put(GeneralKeys.STATUS,Status.ACTIVE);
-                    const saveRepetite = await PocketService.executeService(`SaveRepetiteAttackRequest`, Modules.ADMIN, saveData);
+                    saveData.put("status","1");
+                    const saveRepetite = await PocketService.executeService(`SaveRepetiteAttackRequest`, "pocket-core", saveData);
 
                     if(saveRepetite.data){
                          returnData["isRisked"] = false;
