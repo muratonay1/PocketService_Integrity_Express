@@ -1,29 +1,62 @@
-PocketStudio – Kendi Servislerini Geliştir, Test Et, Yayınla
-PocketStudio, müşteri bazlı dinamik modül ve servis geliştirme olanağı sunan; öğrenciler, test kullanıcıları ve geliştiriciler için tasarlanmış özgür ve güvenli bir geliştirme platformudur.
+# 🚀 PocketStudio – Kendi Servislerini Geliştir, Test Et, Yayınla
 
-Her kullanıcıya özel olarak tanımlanan Customer Code (Müşteri Numarası) ile:
+**PocketStudio**, müşteri bazlı dinamik modül ve servis geliştirme olanağı sunan;  
+🎓 öğrenciler, 🧪 test kullanıcıları ve 👩‍💻 geliştiriciler için tasarlanmış **özgür ve güvenli** bir geliştirme platformudur.
 
-Sadece size ait veritabanı ve koleksiyonlar üzerinde çalışabilir,
+---
 
-Kendi API servislerinizi yazabilir, test edebilir ve yönetebilirsiniz,
+## 🎯 Nedir?
 
-Gerçek zamanlı kod düzenleme, çalıştırma ve hata ayıklama işlemlerini doğrudan tarayıcınız üzerinden gerçekleştirebilirsiniz.
+Her kullanıcıya özel olarak tanımlanan **Customer Code (Müşteri Numarası)** ile:
 
-🚀 Öne Çıkan Özellikler
-🔐 İzolasyonlu Ortam: Her kullanıcı yalnızca kendi tanımlı DB ve collection'ları üzerinde işlem yapabilir.
+- ✅ **Sadece size ait veritabanı ve koleksiyonlar** üzerinde çalışabilirsiniz  
+- 🛠️ **Kendi API servislerinizi yazabilir, test edebilir ve yönetebilirsiniz**  
+- 🌐 **Gerçek zamanlı kod düzenleme**, çalıştırma ve hata ayıklama işlemlerini doğrudan **tarayıcınız üzerinden** gerçekleştirebilirsiniz
 
-🧱 Modül ve Servis Tabanlı Yapı: Dinamik olarak yeni modüller ve servisler oluşturabilir, düzenleyebilir veya silebilirsiniz.
+---
 
-💻 Canlı Kod Çalıştırma: Tarayıcı üzerinden kod yazın, test edin ve sonuçları anında görün.
+## 🚀 Öne Çıkan Özellikler
 
-🌐 Free API Desteği: api.muratonay.com.tr domaini üzerinden müşteri kodunuzla kendi servislerinize güvenli ve sınırsız erişim sağlayın.
+- 🔐 **İzolasyonlu Ortam**  
+  Her kullanıcı yalnızca kendi tanımlı **DB** ve **collection**'ları üzerinde işlem yapabilir
 
-🎯 Kimin İçin?
-👨‍🎓 Öğrenciler – Uygulamalı backend geliştirme deneyimi kazanmak isteyenler
+- 🧱 **Modül ve Servis Tabanlı Yapı**  
+  Dinamik olarak **yeni modüller ve servisler oluşturabilir**, düzenleyebilir veya silebilirsiniz
 
-🧪 Test Mühendisleri – Gerçek API'ler üzerinden senaryo ve davranış testi yapmak isteyenler
+- 💻 **Canlı Kod Çalıştırma**  
+  Tarayıcı üzerinden kod yazın, test edin ve sonuçları anında görün
 
-👩‍💻 Geliştiriciler – Mikroservis mimarileriyle çalışan, izole geliştirme alanına ihtiyaç duyanlar
+- 🌐 **Free API Desteği**  
+  `https://api.muratonay.com.tr` üzerinden **müşteri kodunuzla** kendi servislerinize güvenli ve sınırsız erişim sağlayın
+
+---
+
+## 👥 Kimler Kullanmalı?
+
+- 👨‍🎓 **Öğrenciler**  
+  Uygulamalı backend geliştirme deneyimi kazanmak isteyenler
+
+- 🧪 **Test Mühendisleri**  
+  Gerçek API'ler üzerinde senaryo ve davranış testi yapmak isteyenler
+
+- 👩‍💻 **Geliştiriciler**  
+  Mikroservis mimarileriyle çalışan, izole geliştirme alanına ihtiyaç duyanlar
+
+---
+
+## 🧪 Nasıl Başlanır?
+
+1. API hesabı oluşturun veya bir müşteri kodu alın
+2. Tarayıcıda PocketStudio editörüne giriş yapın
+3. Modül ve servislerinizi yazın
+4. Kendi izole veritabanınızda çalıştırın ve test edin
+
+---
+
+## 🧾 Lisans
+
+MIT License © [Murat Onay](https://github.com/muratonay1)
+
 ![image](https://github.com/user-attachments/assets/f78f1649-db94-4625-a60d-27964def0f42)
 
 # Pocket Sınıfı: Veri Saklama ve Yönetim Aracı Giriş
