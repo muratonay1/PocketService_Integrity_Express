@@ -1,5 +1,5 @@
-import PocketLog from "../../../pocket-core/PocketLog.js";
-import { execute } from "../../../pocket-core/PocketService.js";
+import PocketLog from "../../../pocket-core/core/PocketLog.js";
+import { execute } from "../../../pocket-core/core/PocketService.js";
 /**
  * Pocket servisi
  * @param {Pocket} criteria
