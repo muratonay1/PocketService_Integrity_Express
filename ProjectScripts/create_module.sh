@@ -29,13 +29,13 @@ done
 mkdir -p "../Modules/$moduleName"
 
 echo -e "\
-import PocketConfigManager from \"../../pocket-core/PocketConfigManager.js\";\n\
-import PocketLog from \"../../pocket-core/PocketLog.js\";\n\
-import Pocket from \"../../pocket-core/Pocket.js\";\n\
-import PocketMongo, { dbClient } from \"../../pocket-core/PocketMongo.js\";\n\
-import PocketQueryFilter from \"../../pocket-core/PocketQueryFilter.js\";\n\
-import PocketUtility from \"../../pocket-core/PocketUtility.js\";\n\
-import PocketService, { execute } from \"../../pocket-core/PocketService.js\";\n\n\
+import PocketConfigManager from \"../../pocket-core/core/PocketConfigManager.js\";\n\
+import PocketLog from \"../../pocket-core/core/PocketLog.js\";\n\
+import Pocket from \"../../pocket-core/core/Pocket.js\";\n\
+import PocketMongo, { dbClient } from \"../../pocket-core/core/PocketMongo.js\";\n\
+import PocketQueryFilter from \"../../pocket-core/core/PocketQueryFilter.js\";\n\
+import PocketUtility from \"../../pocket-core/core/PocketUtility.js\";\n\
+import PocketService, { execute } from \"../../pocket-core/core/PocketService.js\";\n\n\
 // PocketLib importer\n\
 export const PocketLib = {\n\
 \tPocketConfigManager,\n\

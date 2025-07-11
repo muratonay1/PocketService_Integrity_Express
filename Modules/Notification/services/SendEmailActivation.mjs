@@ -1,8 +1,8 @@
-import PocketConfigManager from "../../../pocket-core/PocketConfigManager.js";
-import PocketLog from "../../../pocket-core/PocketLog.js";
-import PocketUtility from "../../../pocket-core/PocketUtility.js";
-import Pocket from "../../../pocket-core/Pocket.js";
-import PocketService, { execute } from "../../../pocket-core/PocketService.js";
+import PocketConfigManager from "../../../pocket-core/core/PocketConfigManager.js";
+import PocketLog from "../../../pocket-core/core/PocketLog.js";
+import PocketUtility from "../../../pocket-core/core/PocketUtility.js";
+import Pocket from "../../../pocket-core/core/Pocket.js";
+import PocketService, { execute } from "../../../pocket-core/core/PocketService.js";
 import { MongoQueryFrom, Modules, Errors, GeneralKeys, Status } from "../constants.js";
 
 /**

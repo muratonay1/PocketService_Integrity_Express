@@ -1,4 +1,4 @@
-import { Modules } from "../../Pocket/constants.js";
+import { Modules } from "../../Pocket/core/constants.js";
 import { PocketLib } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 

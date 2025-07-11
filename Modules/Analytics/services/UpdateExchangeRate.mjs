@@ -1,4 +1,4 @@
-import PocketRemoteRequest from "../../../pocket-core/PocketRemoteRequest.js";
+import PocketRemoteRequest from "../../../pocket-core/core/PocketRemoteRequest.js";
 import { MongoQueryFrom, PocketLib } from "../constants.js";
 const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
