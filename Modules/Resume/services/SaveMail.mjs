@@ -38,7 +38,7 @@ const SaveMail = execute(async (criteria) => {
           insertMail.put("insertTime",PocketUtility.GetRealTime());
           insertMail.put("loggerTimeStamp",PocketUtility.LoggerTimeStamp());
           insertMail.put("ip", criteria.ip);
-          insertMail.put("senderInfo", PocketUtility.isString(criteria.senderInfo) ? {}: JSON.parse(criteria.senderInfo));
+          insertMail.put("senderInfo", JSON.parse(criteria.senderInfo));
           const insertResult = await new Promise((resolve, reject) => {
                dbClient.executeInsert({
                     from: MongoQueryFrom.MAIL,

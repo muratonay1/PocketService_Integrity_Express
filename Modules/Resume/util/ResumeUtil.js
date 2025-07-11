@@ -1,5 +1,5 @@
 import { PocketLib } from "../constants.js";
-const { PocketUtility,PocketLog } = PocketLib;
+const { PocketUtility, PocketLog } = PocketLib;
 
 
 let ResumeUtil = (
@@ -7,20 +7,24 @@ let ResumeUtil = (
 		function validateName(name) {
 			const minLength = 2;
 			const maxLength = 30;
-			const namePattern = /^[a-zA-ZğüşöçİĞÜŞÖÇ\s]+$/;
+			// Türkçe karakterleri de kapsayan pattern
+			const namePattern = /^[a-zA-ZığüşöçİĞÜŞÖÇ\s]+$/;
 
 			if (typeof name !== 'string') {
 				throw new Error('Name must be a string.');
 			}
 
-			if (name.length < minLength || name.length > maxLength) {
+			const trimmedName = name.trim();
+
+			if (trimmedName.length < minLength || trimmedName.length > maxLength) {
 				throw new Error('Name length must be between ' + minLength + ' and ' + maxLength + ' characters.');
 			}
 
-			if (!namePattern.test(name)) {
+			if (!namePattern.test(trimmedName)) {
 				throw new Error('Name must contain only letters and spaces.');
 			}
 		}
+
 		function validateSubject(subject) {
 			const minLength = 5;
 			const maxLength = 100;
@@ -49,16 +53,16 @@ let ResumeUtil = (
 		function validateIp(ip) {
 			const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-			if(!ipPattern.test(ip)){
+			if (!ipPattern.test(ip)) {
 				PocketLog.info("Ip format is not suitable");
 			}
 		}
 
 		function validateSenderInfo(senderInfo) {
-			if(PocketUtility.isEmptyObject(senderInfo)){
+			if (PocketUtility.isEmptyObject(senderInfo)) {
 				PocketLog.info("senderInfo must be fill.");
 			}
-			if(PocketUtility.isObject()){
+			if (PocketUtility.isObject()) {
 				PocketLog.info("senderInfo type, must be an object-Object");
 			}
 		}
