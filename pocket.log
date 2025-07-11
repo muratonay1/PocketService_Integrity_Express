@@ -1,0 +1,109 @@
+[REQUEST] [2025-07-02 01:04:56:224] [api.js]: 
+                                   [MODULE]       : Resume
+                                   [SERVICE]      : APIQueryResume
+                                   [ENDPOINT]     : api-get-cv
+                                   [METHOD]       : GET
+                                   [X-USER-TOKEN] : 65d78580994151d94460ea1f
+                                   [IP]           : ::1
+                               
+[INFO] [2025-07-02 01:04:56:229] [PocketService.js]: Trigger : ControlUserPermissionToken
+[INFO] [2025-07-02 01:04:56:233] [PocketService.js]: Trigger : GetPermissionToken
+[INFO] [2025-07-02 01:04:56:245] [PocketService.js]: Trigger : UpdatePermissionToken
+[INFO] [2025-07-02 01:04:56:262] [PocketService.js]: Trigger : APIQueryResume
+[INFO] [2025-07-02 01:05:01:669] [PocketService.js]: Trigger : FindIpContext
+[ERROR] [2025-07-02 01:05:12:462] [FindIpContext.mjs]: No search result
+undefined
+[ERROR] [2025-07-02 01:05:25:989] [APIQueryResume.mjs]: APIQueryResume servisinde hata meydana geldi."TypeError: Cannot read properties of undefined (reading 'entryCount')
+undefined
+[INFO] [2025-07-02 01:05:25:993] [PocketService.js]: Trigger : SaveApiLog
+[INFO] [2025-07-02 01:12:45:805] [api.js]: - CheckAbuseipAttacker.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:807] [api.js]: - CheckTokenEndpointAuth.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:809] [api.js]: - ControlUserPermissionToken.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:810] [api.js]: - GenerateOidService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:811] [api.js]: - GetAllServerInfo.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:812] [api.js]: - GetBatchHealth.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:813] [api.js]: - GetEndpoints.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:815] [api.js]: - GetPermissionToken.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:816] [api.js]: - GetServerInfo.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:817] [api.js]: - GetUserService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:818] [api.js]: - GetUserWithEmail.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:819] [api.js]: - GetUserWithUserId.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:821] [api.js]: - LoginService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:822] [api.js]: - LogoutService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:823] [api.js]: - SaveServerInfo.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:824] [api.js]: - Test.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:826] [api.js]: - UpdatePermissionToken.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:827] [api.js]: - UpdateUserService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:829] [api.js]: - DashboardApi.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:830] [api.js]: - GetBatchInfo.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:831] [api.js]: - GetPocketLog.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:834] [api.js]: - LogProcess.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:836] [api.js]: - UpdateExchangeRate.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:839] [api.js]: - CheckOtpAndAccountActivate.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:840] [api.js]: - GetUserWithEmail.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:842] [api.js]: - LoginService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:843] [api.js]: - PasswordResetSendOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:844] [api.js]: - SaveUserService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:845] [api.js]: - SignUpService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:846] [api.js]: - UpdateUserWithEmail.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:848] [api.js]: - CheckOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:849] [api.js]: - CheckTOKEN.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:851] [api.js]: - GenerateOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:852] [api.js]: - GetOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:853] [api.js]: - GetTOKEN.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:854] [api.js]: - ITReportSender.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:855] [api.js]: - OTPMURAT.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:856] [api.js]: - SaveOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:858] [api.js]: - SendEmailActivation.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:859] [api.js]: - SendNotificationCode.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:860] [api.js]: - SendOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:860] [api.js]: - SendResumeMail.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:861] [api.js]: - SendResumeMailForSuspicious.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:862] [api.js]: - UpdateOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:863] [api.js]: - ValidateVerifyEmailToken.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:866] [api.js]: - ApiPocketLogin.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:867] [api.js]: - ApiPocketVerifyLoginOTP.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:868] [api.js]: - GetBatchJobs.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:869] [api.js]: - GetBatchJobWithParameter.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:870] [api.js]: - GetSecret.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:871] [api.js]: - SaveBatchJobs.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:872] [api.js]: - SaveServiceInfo.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:873] [api.js]: - UpdateBatchJob.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:874] [api.js]: - UserSearch.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:876] [api.js]: - AnalysisAndReportBatch.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:877] [api.js]: - APIQueryResume.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:878] [api.js]: - DecisionResumeEntry.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:879] [api.js]: - FindIpContext.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:880] [api.js]: - GetBatchCounter.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:881] [api.js]: - GetCounter.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:882] [api.js]: - GetResumeData.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:883] [api.js]: - QueryDecisionResume.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:884] [api.js]: - ReferenceVerifyPage.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:885] [api.js]: - SaveDecisionResume.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:886] [api.js]: - SaveMail.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:887] [api.js]: - SearchMail.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:889] [api.js]: - SendReferenceVerify.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:890] [api.js]: - UpdateBatchCounter.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:891] [api.js]: - UpdateCounter.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:892] [api.js]: - UpdateDecisionResume.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:895] [api.js]: - VerifyCaptcha.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:897] [api.js]: - CeyrekAltinBatch.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:898] [api.js]: - DovizKurlariBatch.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:899] [api.js]: - GetCurrencyWithName.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:900] [api.js]: - UpdateCurrency.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:902] [api.js]: - HtmlTemplateTest.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:906] [api.js]: - GenerateToken.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:908] [api.js]: - GenerateUniqueID.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:909] [api.js]: - IpService.mjs loading successfully
+[INFO] [2025-07-02 01:12:45:910] [api.js]: 
+Success process: 79
+Fail process: 0
+Total Modules: 11
+Total Service: 79
+
+[INFO] [2025-07-02 01:12:45:912] [api.js]: 
+Module and service static check has been completed successfully.
+
+[INFO] [2025-07-02 01:12:46:013] [PocketService.js]: Trigger : SaveServerInfo
+[INFO] [2025-07-02 01:12:46:024] [PocketService.js]: Trigger : GetServerInfo
+[INFO] [2025-07-02 01:12:46:197] [unknown]: Server is started on port 3000
