@@ -26,7 +26,7 @@ const SaveMail = execute(async (criteria) => {
           const mailCounter = await PocketService.executeService("SearchMail", Modules.RESUME, mailCounterCriteria);
           if(mailCounter.data.length >= 5)
           {
-               return "Günlük maximum mail gönderimine ulaşıldı.";
+               throw new Error("Günlük maximum mail gönderimine ulaşıldı.");
           }
           let insertMail = Pocket.create();
           insertMail.put("name", criteria.name);
@@ -58,7 +58,7 @@ const SaveMail = execute(async (criteria) => {
           return false;
      } catch (error) {
           PocketLog.error(`SaveMail servisinde hata meydana geldi."` + error);
-          throw new Error(error);
+          throw new Error(error.message);
      }
 });
 
