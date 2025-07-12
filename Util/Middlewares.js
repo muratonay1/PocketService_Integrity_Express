@@ -1,5 +1,5 @@
 import { PocketLib } from "./MainConstants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket, PocketUtility } = PocketLib;
 import { saveApiLog } from './ApiLog.js';
 import rateLimit from 'express-rate-limit';
 
