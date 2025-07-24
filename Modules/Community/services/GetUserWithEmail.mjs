@@ -1,5 +1,5 @@
 import { PocketLib } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const { PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
 
 /**
  * Pocket GetUserWithEmail servisi

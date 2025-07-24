@@ -1,5 +1,5 @@
 import { PocketLib } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const {  PocketLog, PocketService, execute, Pocket } = PocketLib;
 
 /**
  * Pocket CheckOtpAndAccountActivate servisi
@@ -25,10 +25,7 @@ const CheckOtpAndAccountActivate = execute(async (criteria) => {
           updateUserRequest.put("params.userActive",true);
           const responseUpdateUser = await PocketService.executeService(`UpdateUserWithEmail`,`Community`,updateUserRequest);
 
-          if(responseUpdateUser.data){
-               return true;
-          }
-          return false;
+          return responseUpdateUser.data;
      } catch (error) {
           PocketLog.error(`CheckOtpAndAccountActivate servisinde hata meydana geldi."` + error);
           throw new Error(error);

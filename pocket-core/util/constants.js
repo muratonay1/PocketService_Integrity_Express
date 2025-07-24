@@ -1,13 +1,13 @@
-import Pocket from                                     "../core/Pocket.js";
-import PocketConfigManager from                        "../core/PocketConfigManager.js";
-import PocketList from                                 "../core/PocketList.js";
-import PocketLog from                                  "../core/PocketLog.js";
-import PocketMongo, { dbClient } from                  "../core/PocketMongo.js";
-import PocketQueryFilter from                          "../core/PocketQueryFilter.js";
-import PocketUtility from                              "../core/PocketUtility.js";
-import PocketResponse from                             "../core/PocketResponse.js";
-import PocketService, { execute } from                 "../core/PocketService.js";
-import PocketBatchManager, { executeBatch } from       "../core/PocketBatchManager.js";
+import Pocket from "../core/Pocket.js";
+import PocketConfigManager from "../core/PocketConfigManager.js";
+import PocketList from "../core/PocketList.js";
+import PocketLog from "../core/PocketLog.js";
+import PocketMongo, { dbClient } from "../core/PocketMongo.js";
+import PocketQueryFilter from "../core/PocketQueryFilter.js";
+import PocketUtility from "../core/PocketUtility.js";
+import PocketResponse from "../core/PocketResponse.js";
+import PocketService, { execute } from "../core/PocketService.js";
+import PocketBatchManager, { executeBatch } from "../core/PocketBatchManager.js";
 
 // PocketLib importer
 export const PocketLib = {
@@ -41,7 +41,8 @@ export const Modules = {
      "NETFLIX": "Netflix",
      "ADMIN": "Admin",
      "NOTIFICATION": "Notification",
-     "RESUME": "Resume"
+     "RESUME": "Resume",
+     "POCKET_CORE":"pocket-core"
 
 }
 
@@ -132,7 +133,6 @@ export const Status = {
      "PASSIVE": "0"
 }
 
-
 /**
  * Operatörler nesnesi, belirli operatörlerin karşılık gelen sembollerini içerir.
  * @typedef {Object} Operator
@@ -172,15 +172,4 @@ export const ERROR_MESSAGE = {
      "ACTIVE_TOKEN_NOT_FOUND_ERROR_MESSAGE": "Token not found",
      "NO_SERVER_INFO_ERROR_MESSAGE": "No server info",
      "USER_NOT_FOUND_ERROR_MESSAGE": "Kullanıcı bulunamadı."
-}
-
-
-/**
- * @typedef {Object} GenerateOidType
- * @property {string} RESUME_REFERENCE_TOKEN - Resume modülünde kullanılan referanslar için üretilen unique tokenı iade eder.
- */
-
-/** @type {GenerateOidType} */
-export const GenerateOidType = {
-     "RESUME_REFERENCE_TOKEN": "resumeGenerateToken",
 }

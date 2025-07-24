@@ -1,3 +1,4 @@
+// PocketBatchManager.js
 import PocketUtility from './PocketUtility.js';
 import { schedule } from 'node-cron';
 import { fileURLToPath } from 'url';
@@ -7,28 +8,22 @@ import Pocket from './Pocket.js';
 import PocketLog from './PocketLog.js';
 import PocketConfigManager from './PocketConfigManager.js';
 import { dbClient } from "./PocketMongo.js";
+
 class PocketBatchManager {
-     /**
-      * Servis dosyasını yürütür ve belirli bir süre içinde sonuç alınmazsa zaman aşımı hatası fırlatır.
-      * @param {Object} inBatch Servis adı
-      */
+     static jobs = new Map(); // {module/handler: cronJob}
+
      static async executeBatch(inBatch) {
-          let infoStart = "[" + inBatch.module + "/" + inBatch.handler + "]" + " is running";
+          let infoStart = `[${inBatch.module}/${inBatch.handler}] is running`;
           PocketLog.info(infoStart);
           try {
-               let serviceName = inBatch.handler
-               let moduleName = inBatch.module
+               let serviceName = inBatch.handler;
+               let moduleName = inBatch.module;
                checkModuleAndService(moduleName, serviceName);
-               const serviceFilePath = `../Modules/${moduleName}/${PocketConfigManager.getServicePath()}${serviceName}.` + PocketConfigManager.getServiceType();
+               const serviceFilePath = `../../Modules/${moduleName}/${PocketConfigManager.getServicePath()}${serviceName}.` + PocketConfigManager.getServiceType();
 
                const servicePromise = import(serviceFilePath).then(async serviceModule => {
-                    if (!serviceModule) {
-                         console.warn(`Service "${serviceName}" does not exist in module "${moduleName}".`);
-                         return;
-                    }
-
-                    if (!serviceModule.default || typeof serviceModule.default !== 'function') {
-                         console.warn(`Service "${serviceName}" does not have a valid default function in module "${moduleName}".`);
+                    if (!serviceModule || !serviceModule.default || typeof serviceModule.default !== 'function') {
+                         console.warn(`Service "${serviceName}" is invalid in module "${moduleName}".`);
                          return;
                     }
 
@@ -39,60 +34,60 @@ class PocketBatchManager {
                          "module": moduleName,
                          "source": "batch",
                          "insertDate": PocketUtility.LoggerTimeStamp()
-                    }
+                    };
                     saveServiceLog(saveLog);
 
-                    let infoEnd = "[" + inBatch.module + "/" + inBatch.handler + "]" + " is terminate successfully";
-                    PocketLog.info(infoEnd);
+                    PocketLog.info(`[${moduleName}/${serviceName}] is terminate successfully`);
                });
 
-               const timeoutPromise = new Promise((resolve, reject) => {
+               const timeoutPromise = new Promise((_, reject) => {
                     setTimeout(() => {
                          reject(new Error(`Service "${serviceName}" timed out after ${PocketConfigManager.getServiceTimeout()}ms.`));
                     }, PocketConfigManager.getServiceTimeout());
                });
 
-               // Error handling without terminating the app
-               const result = await Promise.race([servicePromise, timeoutPromise]);
-               if (result instanceof Error) {
-                    PocketLog.error(result.message); // Error handling for timeouts
-               }
+               await Promise.race([servicePromise, timeoutPromise]);
           } catch (error) {
-               PocketLog.error(`Batch execution failed: ${error.message}`); // Log the error
+               PocketLog.error(`Batch execution failed: ${error.message}`);
           }
      }
 
-     /**
-      *
-      * @param {Object} batch
-      */
      static run(batch) {
-          schedule(batch.cron, async () => {
+          const key = `${batch.module}/${batch.handler}`;
+          if (this.jobs.has(key)) {
+               PocketLog.warn(`[SKIP] ${key} is already scheduled.`);
+               return;
+          }
+          const job = schedule(batch.cron, async () => {
                try {
                     await this.executeBatch(batch);
                } catch (error) {
                     console.error("Hata oluştu:", error);
                }
           });
+          this.jobs.set(key, job);
+          PocketLog.info(`[RUN] ${key} scheduled with cron: ${batch.cron}`);
      }
-};
 
-/**
- * Modül ve servis dosyasının mevcut olup olmadığını kontrol eder.
- * @param {String} moduleName Modül adı
- * @param {String} serviceName Servis adı
- */
+     static remove(key) {
+          const job = this.jobs.get(key);
+          if (job) {
+               job.stop();
+               this.jobs.delete(key);
+               PocketLog.warn(`[STOP] ${key} unscheduled and removed.`);
+          }
+     }
+}
+
 function checkModuleAndService(moduleName, serviceName) {
      const __filename = fileURLToPath(import.meta.url);
      const __dirname = path.dirname(__filename);
-
-     const modulePath = path.resolve(__dirname, `../Modules/${moduleName}`);
+     const modulePath = path.resolve(__dirname, `../../Modules/${moduleName}`);
      const serviceFilePath = path.resolve(modulePath, `${PocketConfigManager.getServicePath()}/${serviceName}.` + PocketConfigManager.getServiceType());
 
      if (!fs.existsSync(modulePath) || !fs.lstatSync(modulePath).isDirectory()) {
           throw new Error(`Module "${moduleName}" does not exist.`);
      }
-
      if (!fs.existsSync(serviceFilePath) || !fs.lstatSync(serviceFilePath).isFile()) {
           throw new Error(`Service "${serviceName}" does not exist in module "${moduleName}".`);
      }
@@ -103,7 +98,7 @@ async function saveServiceLog(log) {
           let saveServiceLog = Pocket.create();
           saveServiceLog.put("service", log.service);
           saveServiceLog.put("module", log.module);
-          saveServiceLog.put("source", log.source)
+          saveServiceLog.put("source", log.source);
           saveServiceLog.put("insertDate", log.insertDate);
 
           const insertResult = await new Promise((resolve, reject) => {
@@ -115,13 +110,12 @@ async function saveServiceLog(log) {
                });
           });
           return insertResult;
-     }
-     catch (error) {
+     } catch (error) {
           PocketLog.error("PocketBatchManager Class: saveServiceLog metodu hata aldı.");
           throw new Error(error);
      }
-
 }
+
 /**
  * Fonksiyonu yürüten bir yürütücü döndürür.
  * @param {function} fn Yürütülecek fonksiyon

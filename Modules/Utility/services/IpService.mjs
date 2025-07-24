@@ -1,8 +1,5 @@
-import PocketLog from "../../../pocket-core/core/PocketLog.js";
-import PocketMongo from "../../../pocket-core/core/PocketMongo.js";
-import PocketQueryFilter from "../../../pocket-core/core/PocketQueryFilter.js";
-import PocketService, { execute } from "../../../pocket-core/core/PocketService.js";
-import PocketRemoteRequest from "../../../pocket-core/core/PocketRemoteRequest.js";
+import { PocketLib } from "../constants.js";
+const {PocketLog,execute,PocketRemoteRequest} = PocketLib;
 
 /**
  * Pocket servisi
@@ -12,6 +9,7 @@ import PocketRemoteRequest from "../../../pocket-core/core/PocketRemoteRequest.j
 const IpService = execute(async (criteria) => {
      try {
           try {
+               console.log(criteria.ip +", ip sorgulama işlemi yapıyor.");
                const responseIp = await PocketRemoteRequest.execute("https://freeipapi.com/api/json","GET");
                return responseIp;
           } catch (error) {

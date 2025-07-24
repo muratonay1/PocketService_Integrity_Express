@@ -1,5 +1,5 @@
 import { PocketLib } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket,PocketUtility } = PocketLib;
+const { PocketLog, PocketQueryFilter, PocketService, execute, dbClient, Pocket,PocketUtility } = PocketLib;
 
 /**
  * Pocket SendReferenceVerify servisi
@@ -35,7 +35,7 @@ const SendReferenceVerify = execute(async (criteria) => {
 
           const searchResult = await new Promise((resolve, reject) => {
                dbClient.executeGet({
-                    from: MONGO_QUERY_FROM_URL,
+                    from: "MONGO_QUERY_FROM_URL",
                     where: filter,
                     done: resolve,
                     fail: reject

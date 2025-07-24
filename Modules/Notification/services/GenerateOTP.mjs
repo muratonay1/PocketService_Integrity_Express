@@ -1,8 +1,5 @@
 import { PocketLib } from "../constants.js";
-const {
-     execute,
-     PocketLog,
-} = PocketLib;
+const {execute,PocketLog} = PocketLib;
 
 /**
  * Pocket servisi

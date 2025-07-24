@@ -1,4 +1,4 @@
-import PocketWebSocket from "./pocket-core/PocketWebSocket.js";
+import PocketWebSocket from "./pocket-core/core/PocketWebSocket.js";
 /**
  * basic socket alt yapısı, core temeli tamamlanınca methods yapısı düzenlenecek.
  */

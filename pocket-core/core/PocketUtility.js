@@ -112,21 +112,21 @@ let PocketUtility = (
 
 		function ConvertToPocket(obj) {
 			if (obj instanceof Pocket) {
-				return obj; // Zaten bir Pocket nesnesi ise dönüştürmeye gerek yok
+				return obj;
 			} else if (Array.isArray(obj)) {
 				const pocketList = new PocketList();
 				obj.forEach((item, index) => {
-					pocketList.add(this.ConvertToPocket(item)); // Dizideki her öğeyi dönüştürüp PocketList'e ekle
+					pocketList.add(this.ConvertToPocket(item));
 				});
 				return pocketList;
 			} else if (typeof obj === 'object' && obj !== null) {
 				const pocket = new Pocket();
 				for (const key in obj) {
-					pocket.put(key, this.ConvertToPocket(obj[key])); // Her özelliği dönüştürüp Pocket'e ekle
+					pocket.put(key, this.ConvertToPocket(obj[key]));
 				}
 				return pocket;
 			} else {
-				return obj; // Diğer türlerde ise dönüştürmeye gerek yok
+				return obj;
 			}
 		}
 		function TimeStamp() {
@@ -234,40 +234,33 @@ let PocketUtility = (
 		}
 
 		function isExpiredDate(date, expiredSecond) {
-			// Şu anki zamanı al
 			let now = new Date();
-
-			// Gelen 'date' değişkenini Date objesine dönüştür
 			let inputDate = new Date(date);
-
-			// Geçerli zamanı artır
 			inputDate.setSeconds(inputDate.getSeconds() + expiredSecond);
-
-			// Eğer gelen tarih, şu anki zamandan büyükse true döndür
 			return inputDate < now;
 		}
 
 		return {
-			GetRealTime: GetRealTime,
-			GetRealDate: GetRealDate,
-			GenerateOID: GenerateOID,
-			ReverseString: ReverseString,
-			isEmptyObject: isEmptyObject,
-			table: table,
-			TimeStamp: TimeStamp,
-			ConvertToPocket: ConvertToPocket,
-			encrypt: encrypt,
-			decrypt: decrypt,
-			isObject: isObject,
-			isArray: isArray,
-			isString: isString,
-			isNumber: isNumber,
+			GetRealTime: 		GetRealTime,
+			GetRealDate: 		GetRealDate,
+			GenerateOID: 		GenerateOID,
+			ReverseString: 	ReverseString,
+			isEmptyObject: 	isEmptyObject,
+			table: 			table,
+			TimeStamp: 		TimeStamp,
+			ConvertToPocket: 	ConvertToPocket,
+			encrypt: 			encrypt,
+			decrypt: 			decrypt,
+			isObject: 		isObject,
+			isArray: 			isArray,
+			isString: 		isString,
+			isNumber: 		isNumber,
 			createExceptionLog: createExceptionLog,
-			LoggerTimeStamp: LoggerTimeStamp,
-			timeGap: timeGap,
-			isValidDate: isValidDate,
-			isExpiredDate: isExpiredDate,
-			isValidEmail: isValidEmail
+			LoggerTimeStamp: 	LoggerTimeStamp,
+			timeGap: 			timeGap,
+			isValidDate: 		isValidDate,
+			isExpiredDate: 	isExpiredDate,
+			isValidEmail: 		isValidEmail
 		}
 	}
 )();

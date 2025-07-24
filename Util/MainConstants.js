@@ -4,6 +4,7 @@ import PocketLog from "../pocket-core/core/PocketLog.js";
 import PocketUtility from "../pocket-core/core/PocketUtility.js";
 import PocketService from "../pocket-core/core/PocketService.js";
 import PocketMailManager from "../pocket-core/core/PocketMailManager.js";
+import PocketToken from "../pocket-core/core/PocketToken.js";
 import {dbClient} from '../pocket-core/core/PocketMongo.js';
 // PocketLib importer
 export const PocketLib = {
@@ -13,7 +14,8 @@ export const PocketLib = {
      PocketUtility,
      PocketLog,
      dbClient,
-     PocketMailManager
+     PocketMailManager,
+     PocketToken
 }
 
 /**

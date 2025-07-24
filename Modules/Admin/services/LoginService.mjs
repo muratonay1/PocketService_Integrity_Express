@@ -1,7 +1,5 @@
 import { MongoQueryFrom, PocketLib } from "../constants.js";
 const {
-     Pocket,
-     PocketResponse,
      PocketQueryFilter,
      PocketService,
      PocketUtility,
@@ -19,8 +17,6 @@ const {
 const LoginService = execute(async (criteria) => {
      try {
           PocketService.parameterMustBeFill(criteria, "name");
-
-          const response = await PocketService.executeService("IpService","Utility")
 
           let filter = new PocketQueryFilter();
           filter.add("name", criteria.get("name", String)).operator("==");

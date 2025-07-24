@@ -3,7 +3,7 @@ import PocketLog from "../../../pocket-core/core/PocketLog.js";
 import PocketUtility from "../../../pocket-core/core/PocketUtility.js";
 import Pocket from "../../../pocket-core/core/Pocket.js";
 import PocketService, { execute } from "../../../pocket-core/core/PocketService.js";
-import { MongoQueryFrom, Modules, Errors, GeneralKeys, Status } from "../constants.js";
+import { Modules, Status } from "../constants.js";
 
 /**
  * Pocket servisi
@@ -35,67 +35,7 @@ const SendEmailActivation = execute(async (criteria) => {
           const otpResponse = await PocketService.executeService(`GetOTP`, Modules.NOTIFICATION, otpCriteria);
 
 
-          if (PocketUtility.isEmptyObject(otpResponse.data)) {
-               const idServiceResponse = await PocketService.executeService("GenerateUniqueID", Modules.UTILITY);
-
-               const token = userResponse.data.user_id + "--" + PocketUtility.GenerateOID();
-
-               let uniqueId = idServiceResponse.data._id;
-
-               let notificationObject = {
-                    "otpData": {
-
-                         "_id": uniqueId,
-                         "mailTo": userResponse.data.email,
-                         "expiredSecond": PocketConfigManager.getTokenExpiredSecond(),
-                         "created": PocketUtility.LoggerTimeStamp(),
-                         "nickname": userResponse.data.nickname,
-                         "userId": userResponse.data.user_id,
-                         "retriesNumber": 0,
-                         "token": PocketUtility.encrypt(token),
-                         "type": type,
-                         "subject": subject,
-                         "status": "1"
-                    }
-
-               }
-               if (type != "email") {
-                    otpData["otp"] = otp.data.otp;
-               }
-
-               const sendOTP = await PocketService.executeService("SendOTP", Modules.NOTIFICATION, notificationObject);
-
-               if (sendOTP.data.sendStatus) {
-
-                    notificationObject.otpData.token = PocketUtility.decrypt(notificationObject.otpData.token);
-                    const saveOTP = await PocketService.executeService("SaveOTP", Modules.NOTIFICATION, notificationObject);
-                    return true;
-
-               }
-          }
-          else{
-               if(PocketUtility.isExpiredDate(otpResponse.data[0].otpData.created,otpResponse.data[0].otpData.expiredSecond)){
-                    PocketLog.info("OTP Expired date takıldı. OTP kaynağı update edilecek.");
-
-                    let localOtpData = otpResponse.data[0].otpData;
-
-                    localOtpData["status"] = Status.PASSIVE;
-
-                    let updateOtpPocket = Pocket.create();
-                    updateOtpPocket.put("otpData",localOtpData);
-
-                    const serviceResponse = await PocketService.executeService("UpdateOTP",Modules.NOTIFICATION,updateOtpPocket);
-
-                    PocketLog.info("Activasyon Link işlemi tekrarlanacak.");
-                    let retrieveCriteria = Pocket.create();
-                    const retrieveEmailActivation = await PocketService.executeService("SendEmailActivation",Modules.NOTIFICATION,criteria);
-
-                    return true;
-               }
-               else{
-                    throw new Error("Zaten gönderilmiş bir doğrulama e epostası mevcut.");
-               }
-          }
+          return otpResponse;
 
      } catch (error) {
           PocketLog.error("SendEmailActivation servisinde hata meydana geldi." + error);

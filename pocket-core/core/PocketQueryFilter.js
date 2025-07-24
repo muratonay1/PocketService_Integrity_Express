@@ -1,23 +1,25 @@
 class PocketQueryFilter {
-     constructor () {
-          this.filters = [];
-     }
+    constructor() {
+        this.filters = [];
+    }
 
-     add(field, value) {
-          this.filters.push({ field, value });
-          return this;
-     }
+    add(field, value) {
+        this.filters.push({ field, value });
+        return this;
+    }
 
-     operator(operator) {
-          this.filters.forEach(filter => {
-               filter.operator = operator;
-          });
-          return this;
-     }
+    operator(operator) {
+        // Eğer dizide eleman varsa...
+        if (this.filters.length > 0) {
+            // Sadece son elemanı al ve onun operatörünü ata.
+            this.filters[this.filters.length - 1].operator = operator;
+        }
+        return this;
+    }
 
-     getFilters() {
-          return this.filters;
-     }
+    getFilters() {
+        return this.filters;
+    }
 }
 
 export default PocketQueryFilter;

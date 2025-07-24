@@ -13,7 +13,7 @@ const UpdateCurrency = execute(async (criteria) => {
           let filter = new PocketQueryFilter();
           filter.add("currency_name", criteria.get("currency_name", String)).operator(Operator.EQ);
 
-          var updatePocket = Pocket.create();
+          let updatePocket = Pocket.create();
           updatePocket.put("amount",criteria.get("amount",String));
           updatePocket.put("insertTime",PocketUtility.GetRealTime());
           updatePocket.put("insertDate",PocketUtility.GetRealDate());

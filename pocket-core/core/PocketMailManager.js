@@ -117,6 +117,7 @@ export default class PocketMailManager {
           const toField = Array.isArray(to) ? to.join(", ") : to;
           const maxRetries = PocketMailManager.getRetryLimit(mailType);
           const subject = PocketMailManager.getSubjectTemplate(mailType);
+          const project = templateData.PROJECT;
 
           const expireTime = templateData.EXPIRE_SECONDS
                ? new Date(Date.now() + templateData.EXPIRE_SECONDS * 1000)
@@ -155,11 +156,10 @@ export default class PocketMailManager {
                     mailType,
                     status: "Pending",
                     retryCount: 0,
+                    project:project,
                     expireAt: expireTime,
                     attachments: attachments?.map(a => {
                          let fileSize = null;
-
-                         // path varsa dosya boyutunu al
                          if (a.path) {
                               try {
                                    const stat = fs.statSync(a.path);
@@ -329,6 +329,7 @@ export default class PocketMailManager {
                createdAt: new Date(),
                subject: logData.subject,
                to: logData.to,
+               project:logData.project,
                html: logData.html,
                mailType: logData.mailType,
                status: logData.status,

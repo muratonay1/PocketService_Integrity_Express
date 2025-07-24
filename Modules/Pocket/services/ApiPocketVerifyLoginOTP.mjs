@@ -1,5 +1,5 @@
 import { PocketLib } from "../constants.js";
-const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketService, execute, dbClient, Pocket } = PocketLib;
+const { execute } = PocketLib;
 
 /**
  * Pocket ApiPocketVerifyLoginOTP servisi
@@ -7,7 +7,7 @@ const { PocketConfigManager, PocketLog, PocketMongo, PocketQueryFilter, PocketSe
  * @returns {Promise<Array>}
  */
 const ApiPocketVerifyLoginOTP = execute(async (criteria) => {
-     try {
+
           /*
           PocketService.parameterMustBeFill(criteria, "MANDATORY_KEY");
 
@@ -28,11 +28,8 @@ const ApiPocketVerifyLoginOTP = execute(async (criteria) => {
           if (searchResult.length === 0) {
                PocketLog.error("No search result");
           }*/
-          return true;
-     } catch (error) {
-          PocketLog.error(`ApiPocketVerifyLoginOTP servisinde hata meydana geldi."` + error);
-          throw new Error(error);
-     }
+
+     return true;
 });
 
 export default ApiPocketVerifyLoginOTP;

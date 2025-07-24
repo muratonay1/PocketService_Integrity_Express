@@ -4,10 +4,13 @@ import PocketList from "../../pocket-core/core/PocketList.js";
 import PocketLog from "../../pocket-core/core/PocketLog.js";
 import PocketMongo, { dbClient } from "../../pocket-core/core/PocketMongo.js";
 import PocketQueryFilter from "../../pocket-core/core/PocketQueryFilter.js";
+import PocketToken from "../../pocket-core/core/PocketToken.js";
 import PocketUtility from "../../pocket-core/core/PocketUtility.js";
 import PocketResponse from "../../pocket-core/core/PocketResponse.js";
+import PocketMailManager from "../../pocket-core/core/PocketMailManager.js";
 import PocketService, { execute } from "../../pocket-core/core/PocketService.js";
 import PocketBatchManager, { executeBatch } from "../../pocket-core/core/PocketBatchManager.js";
+import dotenv from 'dotenv';
 
 // PocketLib importer
 export const PocketLib = {
@@ -18,12 +21,15 @@ export const PocketLib = {
      PocketMongo,
      PocketQueryFilter,
      PocketBatchManager,
+     PocketMailManager,
+     PocketToken,
      PocketService,
      execute,
      executeBatch,
      PocketUtility,
      PocketLog,
      dbClient,
+     dotenv
 }
 
 /**

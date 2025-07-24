@@ -83,6 +83,15 @@
 			"ApiPocketVerifyLoginOTP":{
 				"endPoint":"api-adm-verify-login-otp",
 				"method":"GET"
+			},
+			"PocketMailVerifyPage":{
+				"endPoint":"pocket-ui-verified-mail",
+				"method":"GET",
+				"type":"html"
+			},
+			"PocketVerifyMailToken":{
+				"endPoint":"verify-email-token",
+				"method":"GET"
 			}
 		},
 		"Resume":{
@@ -130,12 +139,6 @@
 			"Login":{
 				"endPoint":"menuhtml-login-service",
 				"method":"POST"
-			}
-		},
-		"Scrapper":{
-			"CeyrekAltin":{
-				"endPoint":"scrapper-ceyrek-altin",
-				"method":"GET"
 			}
 		},
 		"Admpanel":{

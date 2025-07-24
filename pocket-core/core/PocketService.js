@@ -22,10 +22,12 @@ class PocketService {
 
           const serviceFilePath = basePath + serviceName + "." + PocketConfigManager.getServiceType();
 
+          const cacheBustedPath = `${serviceFilePath}?update=${Date.now()}`; // cache kırıcı
+
           checkModuleAndService(moduleName, serviceName);
 
           try {
-               const servicePromise = import(serviceFilePath).then(async serviceModule => {
+               const servicePromise = import(cacheBustedPath).then(async serviceModule => {
                     if (!serviceModule || typeof serviceModule.default !== 'function') {
                          console.warn(`Service "${serviceName}" is not properly defined in module "${moduleName}".`);
                          return;
@@ -56,6 +58,7 @@ class PocketService {
                return result;
 
           } catch (error) {
+               PocketLog.error("Hata alan servis: "+serviceFilePath);
                throw error;
           }
      }
