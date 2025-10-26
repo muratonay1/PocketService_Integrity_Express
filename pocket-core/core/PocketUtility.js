@@ -180,6 +180,9 @@ let PocketUtility = (
 		function isNumber(value) {
 			return Object.prototype.toString.call(value) == "[object Number]"
 		}
+		function isBoolean(value) {
+			return Object.prototype.toString.call(value) == "[object Boolean]"
+		}
 		async function createExceptionLog(client, error, functionName) {
 			let out = new Pocket();
 			out.put("source", functionName)
@@ -255,6 +258,7 @@ let PocketUtility = (
 			isArray: 			isArray,
 			isString: 		isString,
 			isNumber: 		isNumber,
+			isBoolean:		isBoolean,
 			createExceptionLog: createExceptionLog,
 			LoggerTimeStamp: 	LoggerTimeStamp,
 			timeGap: 			timeGap,

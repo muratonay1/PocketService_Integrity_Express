@@ -30,7 +30,9 @@ const GetUserWithEmail = execute(async (criteria) => {
           });
 
           if (searchResult.length === 0) {
-               PocketLog.error("No search result");
+               let messageString = criteria.email + " email adresine kayıtlı bir kullanıcı bulunamadı.";
+               PocketLog.info(messageString);
+               return {};
           }
           return searchResult[0];
      } catch (error) {

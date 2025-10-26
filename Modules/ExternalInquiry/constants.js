@@ -48,7 +48,7 @@ export const Collection = {
  */
 /** @type {MongoQueryFrom} */
 export const MongoQueryFrom = {
-     "CURRENCY": Db.EXTERNAL_INQUIRY + "." + Collection.CURRENCY
+     "CURRENCY": Db.EXTERNAL_INQUIRY + "." + Collection.CURRENCY,
 	"FOREIGN_EXCHANGE": Db.EXTERNAL_INQUIRY + "." + Collection.FOREIGN_EXCHANGE
 }
 /**

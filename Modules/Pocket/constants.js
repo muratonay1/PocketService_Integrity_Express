@@ -5,6 +5,7 @@ import PocketLog from "../../pocket-core/core/PocketLog.js";
 import PocketMongo, { dbClient } from "../../pocket-core/core/PocketMongo.js";
 import PocketQueryFilter from "../../pocket-core/core/PocketQueryFilter.js";
 import PocketToken from "../../pocket-core/core/PocketToken.js";
+import PocketOtpManager from "../../pocket-core/core/PocketOtpManager.js";
 import PocketUtility from "../../pocket-core/core/PocketUtility.js";
 import PocketResponse from "../../pocket-core/core/PocketResponse.js";
 import PocketMailManager from "../../pocket-core/core/PocketMailManager.js";
@@ -23,6 +24,7 @@ export const PocketLib = {
      PocketBatchManager,
      PocketMailManager,
      PocketToken,
+     PocketOtpManager,
      PocketService,
      execute,
      executeBatch,

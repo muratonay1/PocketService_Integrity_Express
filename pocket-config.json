@@ -65,6 +65,14 @@
 			"OTPMURAT": {
 				"endPoint": "api-otp",
 				"method":"POST"
+			},
+			"GenerateOTP":{
+				"endPoint":"api-generate-otp",
+				"method":"GET"
+			},
+			"CheckOTP":{
+				"endPoint":"api-check-otp",
+				"method":"GET"
 			}
 		},
 		"Pocket": {
@@ -73,7 +81,7 @@
 				"method":"GET"
 			},
 			"ApiPocketLogin":{
-				"endPoint":"api-adm-login",
+				"endPoint":"pocket-ui-login",
 				"method":"GET"
 			},
 			"ApiPocketLogout":{
@@ -152,6 +160,12 @@
 			},
 			"GetPocketLog":{
 				"endPoint":"adm-pocket-log",
+				"method":"GET"
+			}
+		},
+		"ExternalInquiry":{
+			"TuruncTodayCurrency":{
+				"endPoint":"currencyToday",
 				"method":"GET"
 			}
 		}

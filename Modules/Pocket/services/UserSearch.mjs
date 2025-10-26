@@ -1,5 +1,5 @@
 import { PocketLib } from "../constants.js";
-const {  PocketLog,   PocketService, execute, dbClient, Pocket, PocketUtility,PocketQueryFilter } = PocketLib;
+const {  PocketLog,   PocketService, execute, dbClient, Pocket,PocketQueryFilter } = PocketLib;
 
 /**
  * Pocket UserSearch servisi
@@ -24,18 +24,11 @@ const UserSearch = execute(async (criteria) => {
           });
 
           if (searchResult.length === 0) {
-               PocketLog.error("Kullanıcı bulunamadı");
-               throw new Error("Kullanıcı bulunamadı.");
+               return Pocket.create();
           }
 
           let user = searchResult[0];
-
-          if(criteria.password != PocketUtility.decrypt(user.password)){
-               PocketLog.error("Şifre hatalı girildi.");
-               throw new Error("Şifre hatalı girildi.");
-          }
-
-          return prepareReturnUserData(user);
+          return user;
 
      } catch (error) {
           PocketLog.error(`UserSearch servisinde hata meydana geldi."` + error);
@@ -43,6 +36,11 @@ const UserSearch = execute(async (criteria) => {
      }
 });
 
+/**
+ *
+ * @param {Pocket} dbUser
+ * @returns
+ */
 function prepareReturnUserData(dbUser){
      let user = Pocket.create();
      user.put("name",         dbUser.name)
@@ -51,6 +49,7 @@ function prepareReturnUserData(dbUser){
      user.put("avatar",       dbUser.avatar)
      user.put("email",        dbUser.email)
      user.put("emailVerified",dbUser.emailVerified)
+     user.put("password",     dbUser.password)
      return user;
 }
 

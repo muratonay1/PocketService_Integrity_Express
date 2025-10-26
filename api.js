@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
-var abuseEnabled = process.env.ABUSE_ENABLED === 'true';
+var abuseEnabled = process.env.ABUSE_ENABLED != "false";
 const {
 
      Pocket,
