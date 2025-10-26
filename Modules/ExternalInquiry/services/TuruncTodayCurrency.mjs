@@ -9,7 +9,7 @@ const { Pocket, PocketService, PocketLog, PocketUtility, PocketQueryFilter, dbCl
  */
 const TuruncTodayCurrency = execute(async (criteria) => {
      try {
-          const remoteResponse = await PocketRemoteRequest.execute("https://finans.truncgil.com/v3/today.json", "GET")
+          const remoteResponse = await PocketRemoteRequest.execute("https://finans.truncgil.com/today.json", "GET")
 
           return remoteResponse;
 
