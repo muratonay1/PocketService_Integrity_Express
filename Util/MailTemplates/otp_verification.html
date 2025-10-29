@@ -3,26 +3,62 @@
 
 <head>
      <meta charset="UTF-8">
-     <title>OTP Doğrulama</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Doğrulama Kodu</title>
+     <style>
+          body {
+               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+          }
+     </style>
 </head>
 
-<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+<body style="margin: 0; padding: 0; background-color: #f6f8fa; width: 100%;">
      <table
-          style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 30px;">
+          style="width: 100%; max-width: 550px; margin: 40px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 40px;">
+
           <tr>
                <td style="text-align: center;">
-                    <h2 style="color: #4CAF50; margin-bottom: 10px;">Hesabınızı Doğrulayın</h2>
-                    <p style="color: #555555;">Lütfen aşağıdaki OTP kodunu kullanarak işleminizi tamamlayın.</p>
-                    <div style="font-size: 32px; font-weight: bold; color: #333333; margin: 20px 0;">
-                         {{OTP_CODE}}
-                    </div>
-                    <p style="font-size: 14px; color: #999999;">Bu kod 5 dakika boyunca geçerlidir.</p>
+                    <img src="https://img.icons8.com/ios-filled/100/3498db/security-checked.png" alt="Güvenlik"
+                         style="width: 60px; height: auto; margin-bottom: 15px;">
+
+                    <h2 style="color: #222222; margin: 0 0 10px 0; font-size: 24px; font-weight: 600;">Doğrulama Kodunuz
+                    </h2>
                </td>
           </tr>
+
           <tr>
-               <td style="padding-top: 30px; text-align: center;">
-                    <p style="font-size: 12px; color: #cccccc;">Pocket Mail System Manager tarafından gönderilmiştir.
-                         Lütfen bu e-postayı yanıtlamayın.</p>
+               <td style="text-align: center; padding-top: 10px;">
+                    <p style="color: #666666; font-size: 16px; line-height: 1.6; margin: 0;">
+                         Merhaba, işleminizi tamamlamak için lütfen aşağıdaki tek kullanımlık şifreyi girin.
+                    </p>
+               </td>
+          </tr>
+
+          <tr>
+               <td style="padding: 25px 0;">
+                    <div style="background-color: #f6f8fa; border-radius: 8px; padding: 20px 30px; text-align: center;">
+                         <div
+                              style="font-size: 44px; font-weight: 700; color: #3498db; letter-spacing: 5px; margin: 0;">
+                              {{OTP_CODE}}
+                         </div>
+                    </div>
+               </td>
+          </tr>
+
+          <tr>
+               <td style="text-align: center;">
+                    <p style="font-size: 14px; color: #999999; margin: 0;">
+                         Bu kod 5 dakika boyunca geçerlidir.
+                    </p>
+               </td>
+          </tr>
+
+          <tr>
+               <td style="padding-top: 40px; border-top: 1px solid #eeeeee; margin-top: 30px; text-align: center;">
+                    <p style="font-size: 12px; color: #999999; margin: 0;">
+                         Pocket Mail System Manager tarafından otomatik olarak gönderilmiştir.<br>
+                         Lütfen bu e-postayı yanıtlamayınız.
+                    </p>
                </td>
           </tr>
      </table>
